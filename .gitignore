@@ -1,0 +1,5 @@
+.Rproj.user
+.Rhistory
+.RData
+devtools_fc.R
+inst/doc

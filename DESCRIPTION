@@ -1,0 +1,25 @@
+Package: pttR
+Title: Retrieve and Preprocess Text Data from Ptt
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Yongfu", "Liao", email = "liao961120@gmail.com", role = c("aut", "cre")),
+    person("First", "Last", role = "aut"),
+    person("LOPE@NTU", role = "cph"))
+Description: Provide functions to process raw data access through PTT Corpus, 
+    including Chinese word segmentation based on Ptt-specific dictionary, 
+    corpus object construction, conversion between such corpus objects required 
+    by different packages (such as tm and quanteda).
+Depends: R (>= 3.4.4)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports: dplyr,
+    magrittr,
+    quanteda,
+    tidytext,
+    jiebaR,
+    jiebaRD
+Suggests: knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
