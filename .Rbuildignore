@@ -1,3 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
+^devtools_fc\.R$
+^\.travis\.yml$
+^docs$
+^README\.Rmd$
+^README-.*\.png$
