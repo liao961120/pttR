@@ -21,6 +21,7 @@ Imports: dplyr,
     jiebaRD
 Suggests: knitr,
     rmarkdown,
-    testthat
+    testthat,
+    pkgdown
 VignetteBuilder: knitr
 RoxygenNote: 6.1.0
