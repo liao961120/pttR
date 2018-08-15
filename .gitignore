@@ -3,3 +3,4 @@
 .RData
 devtools_fc.R
 inst/doc
+docs
