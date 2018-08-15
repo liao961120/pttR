@@ -10,8 +10,8 @@ Links <- c(
   event_name = "http://zh.pttpedia.wikia.com/wiki/%E5%88%86%E9%A1%9E:PTT%E4%BA%8B%E4%BB%B6",
   famous_people = "http://zh.pttpedia.wikia.com/wiki/%E5%88%86%E9%A1%9E:PTT%E5%90%8D%E4%BA%BA",
   culture = "http://zh.pttpedia.wikia.com/wiki/%E5%88%86%E9%A1%9E:PTT%E6%96%87%E5%8C%96",
-  notations = "http://zh.pttpedia.wikia.com/wiki/%E5%88%86%E9%A1%9E:PTT%E6%B5%81%E8%A1%8C%E7%AC%A6%E8%99%9F",
-  basic_terms = "http://zh.pttpedia.wikia.com/wiki/%E5%88%86%E9%A1%9E:PTT%E5%9F%BA%E6%9C%AC%E7%94%A8%E8%AA%9E",
+  notation = "http://zh.pttpedia.wikia.com/wiki/%E5%88%86%E9%A1%9E:PTT%E6%B5%81%E8%A1%8C%E7%AC%A6%E8%99%9F",
+  basic_term = "http://zh.pttpedia.wikia.com/wiki/%E5%88%86%E9%A1%9E:PTT%E5%9F%BA%E6%9C%AC%E7%94%A8%E8%AA%9E",
   post_type = "http://zh.pttpedia.wikia.com/wiki/PTT%E7%9A%84%E5%90%84%E9%A1%9E%E6%96%87%E7%AB%A0"
 )
 
@@ -86,21 +86,21 @@ culture <- extract_link_text(rawhtml[[5]]) %>%
   as_data_frame() %>%
   cbind(source = "culture")
 
-## Data from 'Ptt Notations' -----------------
-notations <- rawhtml[[6]] %>%
+## Data from 'Ptt notation' -----------------
+notation <- rawhtml[[6]] %>%
   html_node("div#mw-pages") %>%
   html_nodes("a") %>%
   html_text %>%
   append("崩╰(〒皿〒)╯潰") %>%
   as_data_frame() %>%
-  cbind(source = "notations")
+  cbind(source = "notation")
 
 
 
 ## Data from 'Ptt Basic Terms' -----------------
-basic_terms <- extract_link_text(rawhtml[[7]]) %>%
+basic_term <- extract_link_text(rawhtml[[7]]) %>%
   as_data_frame() %>%
-  cbind(source = "basic_terms")
+  cbind(source = "basic_term")
 
 ## Data from 'Ptt Post Type' ------------------
 post_type <- rawhtml[[8]] %>%
@@ -113,18 +113,18 @@ post_type <- rawhtml[[8]] %>%
 
 
 ## Combine all source --------------------
-ptt_dict <- bind_rows(basic_terms,
+ptt_dict <- bind_rows(basic_term,
                   board_name,
                   culture,
                   event_name,
                   famous_people,
-                  notations,
+                  notation,
                   post_type,
                   newest_df[ ,-3]) %>%
   rename("term" = value, "source" = source) %>%
   distinct(term, .keep_all = T)
 
-attr(ptt_dict, "newest_page") <- newest_df$date[1]
-# attr(ptt_dict, "newest_page")
+attr(ptt_dict, "date") <- newest_df$date[1]
+# attr(ptt_dict, "date")
 
 devtools::use_data(ptt_dict, overwrite = T)
