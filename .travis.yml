@@ -18,8 +18,8 @@ matrix:
     - os: linux
 
 
-after_success:
-  - Rscript -e 'pkgdown::build_site()'
+script:
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then Rscript -e 'pkgdown::build_site()'; fi
 
 # deplot docs/ to branch 'gh-pages'
 deploy:
@@ -30,3 +30,4 @@ deploy:
   local-dir: docs          # Web output directory
   on:
     branch: master
+    condition: $TRAVIS_OS_NAME = linux
