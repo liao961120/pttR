@@ -17,7 +17,6 @@ matrix:
       env: PANDOC='mac-cran'
     - os: linux
 
-
 script:
   - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then Rscript -e 'pkgdown::build_site()'; fi
 
