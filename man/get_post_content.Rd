@@ -19,7 +19,7 @@ A data frame with 1 row and 1 col. The entry is a long
 \code{get_post_content} returns a data frame with 1 row and 1 col.
 }
 \examples{
-# Need to bypass over18-confirmation first
+
 url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
 post <- read_html2(url)
 
