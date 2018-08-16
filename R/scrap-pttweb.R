@@ -240,7 +240,7 @@ get_post_comment <- function(post_xml) {
 #' post_df <- get_post(post)
 #'
 #' # Access information in the list column: 'comment'
-#' post_df$comment[[1]]
+#' head(post_df$comment[[1]])
 #'
 #' @importFrom rvest html_node html_nodes html_text
 #' @importFrom xml2 read_html
