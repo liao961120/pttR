@@ -23,7 +23,8 @@ Imports: dplyr,
     jiebaRD,
     stringr,
     rvest,
-    stringi
+    stringi,
+    tibble
 Suggests: knitr,
     rmarkdown,
     testthat,
