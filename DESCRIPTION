@@ -26,7 +26,8 @@ Imports: dplyr,
     stringi,
     tibble,
     tidyr,
-    xml2
+    xml2,
+    RCurl
 Suggests: knitr,
     rmarkdown,
     testthat,
