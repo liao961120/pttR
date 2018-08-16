@@ -18,7 +18,10 @@ matrix:
     - os: linux
 
 script:
-  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then Rscript -e 'pkgdown::build_site()'; fi
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then Rscript -e 'pkgdown::build_site()'; fi 
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then Rscript -e 'source("data-raw/corp-construct.R", encoding ="UTF-8")'; fi
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then Rscript -e 'source("data-raw/ptt-dict-construct.R", encoding ="UTF-8")'; fi
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then cp -r data-public/ docs/; fi
 
 # deplot docs/ to branch 'gh-pages'
 deploy:
