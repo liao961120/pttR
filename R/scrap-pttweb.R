@@ -238,6 +238,7 @@ get_post_comment <- function(post_xml) {
 #' post <- read_html2(url)
 #'
 #' post_df <- get_post(post)
+#' head(post_df)
 #'
 #' # Access information in the list column: 'comment'
 #' head(post_df$comment[[1]])
