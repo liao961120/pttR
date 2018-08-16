@@ -52,8 +52,10 @@ read_html2 <- function(url, curl = curl_1) {
 #'
 #' get_post_meta(post)
 #'
-#' @importFrom rvest read_html html_node html_nodes html_text
-#' @importFrom dplyr %>% seperate bind_cols
+#' @importFrom rvest html_node html_nodes html_text
+#' @importFrom xml2 read_html
+#' @importFrom dplyr %>% bind_cols
+#' @importFrom tidyr separate
 #' @importFrom stringr str_match str_remove str_replace_all
 #' @importFrom tibble data_frame as_data_frame
 #' @export
@@ -106,7 +108,8 @@ get_post_meta <- function(post_xml) {
 #'
 #' get_post_content(post)
 #'
-#' @importFrom rvest read_html html_node html_nodes html_text
+#' @importFrom rvest html_node html_nodes html_text
+#' @importFrom xml2 read_html
 #' @importFrom dplyr %>% bind_cols
 #' @importFrom stringr str_remove
 #' @importFrom tibble data_frame as_data_frame
@@ -154,8 +157,10 @@ get_post_content <- function(post_xml) {
 #'
 #' get_post_comment(post)
 #'
-#' @importFrom rvest read_html html_node html_nodes html_text
-#' @importFrom dplyr %>% seperate bind_cols
+#' @importFrom rvest html_node html_nodes html_text
+#' @importFrom xml2 read_html
+#' @importFrom dplyr %>% bind_cols
+#' @importFrom tidyr separate
 #' @importFrom stringr str_match str_remove str_replace_all
 #' @importFrom tibble data_frame as_data_frame
 #' @export
@@ -237,8 +242,10 @@ get_post_comment <- function(post_xml) {
 #' # Access information in the list column: 'comment'
 #' comment_df <- post_df$comment[[1]]
 #'
-#' @importFrom rvest read_html html_node html_nodes html_text
-#' @importFrom dplyr %>% seperate bind_cols
+#' @importFrom rvest html_node html_nodes html_text
+#' @importFrom xml2 read_html
+#' @importFrom dplyr %>% bind_cols
+#' @importFrom tidyr separate
 #' @importFrom stringr str_match str_remove str_replace_all
 #' @importFrom tibble data_frame as_data_frame
 #' @export
