@@ -1,12 +1,12 @@
 Package: pttR
-Title: Retrieve and Preprocess Text Data from Ptt
+Title: Retrieve and Process Text Data from PTT
 Version: 0.0.0.9000
 Authors@R: c(
     person("Yongfu", "Liao", email = "liao961120@gmail.com", role = c("aut", "cre")),
     person("First", "Last", role = "aut"),
-    person("LOPE@NTU", role = "cph"))
+    person("LOPE @ NTU", role = "cph"))
 Description: Provide functions to process raw data access through PTT Corpus, 
-    including Chinese word segmentation based on Ptt-specific dictionary, 
+    including Chinese word segmentation based on a PTT-specific dictionary, 
     corpus object construction, conversion between such corpus objects required 
     by different packages (such as tm and quanteda).
 URL: https://liao961120.github.io/pttR/, https://github.com/liao961120/pttR
@@ -20,10 +20,13 @@ Imports: dplyr,
     quanteda,
     tidytext,
     jiebaR,
-    jiebaRD
+    jiebaRD,
+    stringr,
+    rvest,
+    stringi
 Suggests: knitr,
     rmarkdown,
     testthat,
-    pkgdown
+    pkgdown,
 VignetteBuilder: knitr
 RoxygenNote: 6.1.0
