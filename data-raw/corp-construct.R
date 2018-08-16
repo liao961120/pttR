@@ -1,12 +1,10 @@
 library(tidyr)
 library(dplyr)
 library(RCurl)
+library(rvest)
+library(stringr)
+library(pttR)
 
-### Set cookie for 'over18'
-curl_1 <- getCurlHandle()
-curlSetOpt(cookie = "over18=1",
-           followlocation = TRUE,
-           curl = curl_1)
 
 ### Get newest index for every board to
 ### determine the starting point of scraping
@@ -60,7 +58,7 @@ hotboard_df <- bind_cols(board = board_name_en,
 ## get Latest Page for every board ----------------
 
 hotboard_df$newest_index <- NA
-for (i in seq_along(hotboard_df$board[1:3])) {
+for (i in seq_along(hotboard_df$board)) {
   url <- hotboard_df$link[i]
   newest_index <- paste0("https://www.ptt.cc/bbs/",
                          hotboard_df$board[i], "/index",
