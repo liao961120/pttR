@@ -1,4 +1,5 @@
 #' Extract Post Category from Title
+#'
 #' @importFrom magrittr %>%
 #' @importFrom  stringr str_detect str_match str_replace str_remove
 
