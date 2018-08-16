@@ -28,4 +28,4 @@ This is a basic example which shows you how to solve a common problem:
 ## basic example code
 ```
 
-See [vignettes](https://liao961120.github.io/pttR/articles/) for more details.
+See [vignettes](https://liao961120.github.io/pttR/reference/index.html) for more details.
