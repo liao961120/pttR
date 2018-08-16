@@ -44,6 +44,6 @@ post <- read_html2(url)
 post_df <- get_post(post)
 
 # Access information in the list column: 'comment'
-comment_df <- post_df$comment[[1]]
+post_df$comment[[1]]
 
 }
