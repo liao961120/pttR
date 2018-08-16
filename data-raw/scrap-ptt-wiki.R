@@ -127,4 +127,5 @@ ptt_dict <- bind_rows(basic_term,
 attr(ptt_dict, "date") <- newest_df$date[1]
 # attr(ptt_dict, "date")
 
+readr::write_rds(ptt_dict, "data-public/ptt_dict.rds")
 devtools::use_data(ptt_dict, overwrite = T)
