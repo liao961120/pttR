@@ -4,12 +4,13 @@
 \alias{read_html2}
 \title{Read PTT Pages with "over18-confirmation"}
 \usage{
-read_html2(url, curl = curl_1)
+read_html2(url)
 }
 \arguments{
 \item{url}{The url of the target web page.}
 
-\item{curl}{Set by \code{getCurlHandle()}. See \strong{Examples}.}
+\item{curl}{Set by \code{RCurl::getCurlHandle()}.
+See \strong{Examples}.}
 }
 \value{
 An XML document. See \code{\link[xml2]{read_html}} for
@@ -22,12 +23,7 @@ function isn't self-contained and need additional code
 to work. See \strong{Examples} for the code.
 }
 \examples{
-# Copy paste the code from
-curl_1 <- getCurlHandle()
-curlSetOpt(cookie = "over18=1",
-           followlocation = TRUE,
-           curl = curl_1)
 url <- "https://www.ptt.cc/bbs/Gossiping/index.html"
 
-read_html2(url, curl = curl_1)
+read_html2(url)
 }

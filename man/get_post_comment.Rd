@@ -12,7 +12,7 @@ get_post_comment(post_xml)
 See \code{\link[xml2]{read_html}} for details.}
 }
 \value{
-A data frame with n rows and 4 variables:
+A data frame with n rows and 5 variables:
   \describe{
     \item{tag}{tag of the comment, can be one of the 3 values:
       \code{Push} corresponds to "推",
@@ -20,11 +20,12 @@ A data frame with n rows and 4 variables:
       \code{Neu} corresponds to "→".}
     \item{user}{ID of the user who left the comment.}
     \item{comment}{The content of the comment.}
-    \item{push_time}{The comment date time.}
+    \item{ip}{ip address of the comment.}
+    \item{time}{The comment date time.}
   }
 }
 \description{
-\code{get_post_comment} returns a data frame with n rows and 4
+\code{get_post_comment} returns a data frame with n rows and 5
 cols, where n is the number of comments in the post.
 }
 \examples{
