@@ -24,7 +24,9 @@ Imports: dplyr,
     stringr,
     rvest,
     stringi,
-    tibble
+    tibble,
+    tidyr,
+    xml2
 Suggests: knitr,
     rmarkdown,
     testthat,
