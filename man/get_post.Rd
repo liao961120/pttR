@@ -12,7 +12,7 @@ get_post(post_xml)
 See \code{\link[xml2]{read_html}} for details.}
 }
 \value{
-A data frame with 1 row and 6 variables:
+A data frame with 1 row and 9 variables:
   \describe{
     \item{author}{Author of the post.}
     \item{category}{Category of the post, such as
@@ -24,10 +24,13 @@ A data frame with 1 row and 6 variables:
     \item{comment}{A list column.
       See \code{\link{get_post_comment}} for information about
       entries in this list column.}
+    \item{n_comment}{Number of comments.}
+    \item{n_push}{Number of "Push" comments.}
+    \item{n_boo}{Number of "Boo" comments.}
   }
 }
 \description{
-\code{get_post} returns a data frame with 1 row and 6 cols,
+\code{get_post} returns a data frame with 1 row and 9 cols,
 where the column \code{comment} is a list column.
 }
 \details{

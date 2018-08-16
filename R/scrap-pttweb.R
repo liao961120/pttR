@@ -203,7 +203,7 @@ get_post_comment <- function(post_xml) {
 
 #' Get Information from an Individual PTT Post
 #'
-#' \code{get_post} returns a data frame with 1 row and 6 cols,
+#' \code{get_post} returns a data frame with 1 row and 9 cols,
 #' where the column \code{comment} is a list column.
 #'
 #' This is a function that combines the data gathered from
@@ -215,7 +215,7 @@ get_post_comment <- function(post_xml) {
 #' \code{\link{read_html2}} or \code{\link[xml2]{read_html}}
 #' See \code{\link[xml2]{read_html}} for details.
 #'
-#' @return A data frame with 1 row and 6 variables:
+#' @return A data frame with 1 row and 9 variables:
 #'   \describe{
 #'     \item{author}{Author of the post.}
 #'     \item{category}{Category of the post, such as
@@ -227,6 +227,9 @@ get_post_comment <- function(post_xml) {
 #'     \item{comment}{A list column.
 #'       See \code{\link{get_post_comment}} for information about
 #'       entries in this list column.}
+#'     \item{n_comment}{Number of comments.}
+#'     \item{n_push}{Number of "Push" comments.}
+#'     \item{n_boo}{Number of "Boo" comments.}
 #'   }
 #'
 #' @examples
@@ -251,11 +254,17 @@ get_post <- function(post_xml) {
   post_meta <- get_post_meta(post_xml)  # df with 1 row
   post_content <- get_post_content(post_xml) # df with 1 row
   post_comment <- get_post_comment(post_xml) # df with many rows
+  n_comment <- nrow(post_comment)
+  n_push <- sum(post_comment$tag == "Push")
+  n_boo <- sum(post_comment$tag == "Boo")
+  comment_meta <- cbind(n_comment, n_push, n_boo) %>%
+    as_data_frame()
 
-  post_df <- bind_cols(post_meta, post_content, comment = NULL)
+  post_df <- bind_cols(post_meta, post_content,
+                       comment = NULL, comment_meta)
   post_df$comment[[1]] <- post_comment
 
-  message("Ignore the warning message: \"Unknown or uninitialised column: 'comment'\". It is a bug in tibble.")
+  warning("Ignore \"Unknown or uninitialised column: 'comment'\". It is a bug in tibble.")
 
   return(post_df)
 }
