@@ -45,8 +45,9 @@ url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
 post <- read_html2(url)
 
 post_df <- get_post(post)
+head(post_df)
 
 # Access information in the list column: 'comment'
-post_df$comment[[1]]
+head(post_df$comment[[1]])
 
 }
