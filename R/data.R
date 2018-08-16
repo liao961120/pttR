@@ -1,12 +1,12 @@
-#' A dictionary for Ptt
+#' A dictionary for PTT
 #'
-#' A dataset containing Ptt-specific terms scraped from
+#' A dataset containing PTT-specific terms scraped from
 #' \href{http://zh.pttpedia.wikia.com}{pttpedia}.
 #'
 #' @format A data frame with 2 variables
 #' \describe{
-#'   \item{term}{Ptt-specific terms}
-#'   \item{source}{wiki pages where the terms are scraped
+#'   \item{term}{PTT-specific terms}
+#'   \item{source}{pttpedia pages where the terms are scraped
 #'    \itemize{
 #'      \item{\href{https://bit.ly/2nEfrQF}{board_name}}
 #'      \item{\href{https://bit.ly/2OBli4y}{event_name}}
