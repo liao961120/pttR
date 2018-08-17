@@ -13,7 +13,7 @@ in string.}
 \value{
 If there is square-bracket-match or \code{Re:}-match,
   the function returns a string.
-  Else, the function returns \code{NULL}.
+  Else, the function returns string \code{No}.
 }
 \description{
 \code{extr_post_category} returns the category of a PTT post title.
@@ -22,8 +22,9 @@ If there is square-bracket-match or \code{Re:}-match,
 This function extracts the category from the title based on regular
 expressions. It extracts the content inside the square brackets
 (\code{[, ]}) of the title. If there is no square bracket,
-it searches for \code{Re:} and extracts this pattern. If neither
-is matched, the function returns \code{NULL}.
+it searches for \code{Re:} and extracts this pattern.
+If neither is matched, the function returns
+string \code{No}.
 }
 \examples{
 str1 <- "[新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
