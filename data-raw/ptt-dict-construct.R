@@ -2,6 +2,7 @@ library(rvest)
 library(dplyr)
 library(tidyr)
 library(stringr)
+devtools::load_all()
 
 ## Links & Raw data
 Links <- c(

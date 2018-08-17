@@ -3,8 +3,7 @@ library(dplyr)
 library(RCurl)
 library(rvest)
 library(stringr)
-library(pttR)
-
+devtools::load_all()
 
 ### Get newest index for every board to
 ### determine the starting point of scraping
