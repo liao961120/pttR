@@ -7,4 +7,5 @@
 ^README\.Rmd$
 ^README-.*\.png$
 ^appveyor\.yml$
-^data-public/$
+^data-public$
+^local$
