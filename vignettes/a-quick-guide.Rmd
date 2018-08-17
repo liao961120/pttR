@@ -34,12 +34,11 @@ post_df$comment[[1]]
 ```
 
 
-
 ## Read Multiple Posts
 
 Information of popular boards on PTT is contained in the package. Use the code below to get the data:
 ```{r}
-df <- get_board_popular()
+df <- get_hotboard_info()
 df
 ```
 
