@@ -27,12 +27,12 @@ If neither is matched, the function returns
 string \code{No}.
 }
 \examples{
-str1 <- "[新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
-str2 <- "Re: [新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
-str_err <- " [新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
-
-extr_post_category(str1)
-extr_post_category(str2)
+# str1 <- "[新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
+# str2 <- "Re: [新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
+# str_err <- " [新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
+#
+# extr_post_category(str1)
+# extr_post_category(str2)
 
 \dontrun{
 extr_post_category(str_err)
