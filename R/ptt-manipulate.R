@@ -5,15 +5,16 @@
 #' This function extracts the category from the title based on regular
 #' expressions. It extracts the content inside the square brackets
 #' (\code{[, ]}) of the title. If there is no square bracket,
-#' it searches for \code{Re:} and extracts this pattern. If neither
-#' is matched, the function returns \code{NULL}.
+#' it searches for \code{Re:} and extracts this pattern.
+#' If neither is matched, the function returns
+#' string \code{No}.
 #'
 #' @param post_title A string with UTF-8 encoding. No leading space
 #'   in string.
 #'
 #' @return If there is square-bracket-match or \code{Re:}-match,
 #'   the function returns a string.
-#'   Else, the function returns \code{NULL}.
+#'   Else, the function returns string \code{No}.
 #'
 #' @examples
 #' str1 <- "[新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
@@ -58,7 +59,7 @@ extr_post_category <- function(post_title) {
 
   if (cond1) post_cat <- category
   if (cond2) post_cat <- "Re:"
-  if (cond1 == F && cond2 ==F) post_cat <- NULL
+  if (cond1 == F && cond2 ==F) post_cat <- "No"
 
   return(post_cat)
 }
