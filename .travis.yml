@@ -20,7 +20,7 @@ matrix:
         - sudo timedatectl set-timezone Asia/Taipei
         - sudo apt-get install texlive-fonts-extra
 
-after-success:
+before_deploy:
   - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then Rscript -e 'source("data-raw/corp-construct.R", encoding ="UTF-8")'; fi
   - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then Rscript -e 'source("data-raw/ptt-dict-construct.R", encoding ="UTF-8")'; fi
   - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then Rscript -e 'pkgdown::build_site()'; fi 
