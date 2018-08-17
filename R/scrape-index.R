@@ -1,19 +1,31 @@
 #' Return a data frame with popular boards info
 #'
-#' \code{get_board_popular} returns a data frame of
+#' \code{get_hotboard_info} returns a data frame of
 #' popular boards (熱門看板) on PTT.
 #'
+#' @param get_new Logical. Defaults to \code{FALSE}.
+#'   If \code{TRUE}, scrapes and retreive data from
+#'   \url{https://www.ptt.cc/bbs/hotboards.html}.
+#'   If \code{FALSE}, use pre-scraped data stored in
+#'   the package.
+#'
 #' @examples
-#' df <- get_board_popular()
+#' df <- get_hotboard_info()
 #' head(df)
+#'
+#' # Get data update time
+#' attr(df, "date")
 #'
 #' @source \url{https://www.ptt.cc/bbs/hotboards.html}
 #'
-#' @importFrom rvest read_html html_nodes html_attr html_text
+#' @importFrom rvest html_nodes html_attr html_text
+#' @importFrom xml2 read_html
 #' @importFrom stringr str_replace str_extract str_remove
 #' @importFrom dplyr %>% bind_cols mutate
 #' @export
-get_board_popular <- function() {
+get_hotboard_info <- function(get_new = FALSE) {
+
+  if (!get_new) return(hotboard_df)
 
   link <- "https://www.ptt.cc/bbs/hotboards.html"
 
@@ -40,13 +52,17 @@ get_board_popular <- function() {
     html_nodes("div.board-nuser > span") %>%
     html_text()
 
-  hotboard_df <- bind_cols(board = board_name_en,
+  df <- cbind(board = board_name_en,
                            name_ch = board_name_ch,
                            popularity = board_popularity,
-                           link = board_link) %>%
-    mutate(name_ch = ifelse(is.na(name_ch), board, name_ch))
+                           link = board_link)
+  df$name_ch <- ifelse(is.na(df$name_ch),
+                                df$board,
+                                df$name_ch)
 
-  return(hotboard_df)
+  attr(df, "date") <- Sys.time()
+
+  return(df)
 }
 
 
@@ -59,7 +75,7 @@ get_board_popular <- function() {
 #' @param board A string. Either a url or a board name
 #'   that matches one of the entries in the variable
 #'   \code{board} of the data frame returned by
-#'   \code{\link{get_board_popular}}. See
+#'   \code{\link{get_hotboard_info}}. See
 #'   \strong{Examples} for details.
 #' @param  n Numeric. Number of pages to scrape.
 #'   Defaults to \code{1}, which scrapes only the
@@ -74,7 +90,7 @@ get_board_popular <- function() {
 #' @examples
 #'
 #' # Get Board Name
-#' head(get_board_popular())[, 1]
+#' head(get_hotboard_info())[, 1]
 #'
 #' # Get data from 'Gossiping'
 #' df <- index2df("Gossiping")
@@ -138,7 +154,7 @@ get_index_url <- function(board_url) {
 #' @param board String. Either a url or a board name
 #'   that matches one of the entries in \code{board}
 #'   of the data frame returned by
-#'   \code{\link{get_board_popular}}.
+#'   \code{\link{get_hotboard_info}}.
 #' @param n Number of index page to retreive.
 #'
 #' @return Chracter vector with length equal to the
@@ -155,7 +171,7 @@ get_index_urls <- function(board, n) {
     board_url <- hotboard_df$link[idx]
   } else {
     stop("Only accept 'board url' or 'board name' matching
-         get_board_popular()")
+         get_hotboard_info()")
   }
 
   # newest index_num & url
