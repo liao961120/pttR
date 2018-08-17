@@ -125,6 +125,10 @@ ptt_dict <- bind_rows(basic_term,
   rename("term" = value, "source" = source) %>%
   distinct(term, .keep_all = T)
 
+Encoding(ptt_dict$source) <- "latin1"
+ptt_dict$source<- iconv(ptt_dict$source, "latin1", "UTF-8")
+
+
 attr(ptt_dict, "date") <- newest_df$date[1]
 # attr(ptt_dict, "date")
 
