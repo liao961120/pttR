@@ -10,7 +10,7 @@ get_index_urls(board, n)
 \item{board}{String. Either a url or a board name
 that matches one of the entries in \code{board}
 of the data frame returned by
-\code{\link{get_board_popular}}.}
+\code{\link{get_hotboard_info}}.}
 
 \item{n}{Number of index page to retreive.}
 }

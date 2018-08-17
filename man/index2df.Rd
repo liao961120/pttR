@@ -10,7 +10,7 @@ index2df(board, n = 1)
 \item{board}{A string. Either a url or a board name
 that matches one of the entries in the variable
 \code{board} of the data frame returned by
-\code{\link{get_board_popular}}. See
+\code{\link{get_hotboard_info}}. See
 \strong{Examples} for details.}
 
 \item{n}{Numeric. Number of pages to scrape.
@@ -31,7 +31,7 @@ extracts information into a data frame.
 \examples{
 
 # Get Board Name
-head(get_board_popular())[, 1]
+head(get_hotboard_info())[, 1]
 
 # Get data from 'Gossiping'
 df <- index2df("Gossiping")
