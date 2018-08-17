@@ -186,10 +186,9 @@ get_post_comment <- function(post_xml) {
     as_data_frame() %>%
     separate("value", into = c("ip", "date"), sep = 16)
 
-  push_time <- push_time %>%
-    mutate(ip = str_remove(ip, "^ +")) %>%
-    mutate(ip = str_remove(ip, " +$")) %>%
-    mutate(date = str_remove(date, "\n$"))
+  push_time$ip <- str_remove(push_time$ip, "^ +")
+  push_time$ip <- str_remove(push_time$ip, " +$")
+  push_time$date <- str_remove(push_time$date, "\n$")
 
   push_df <- bind_cols(tag = push_tag,
                        user = push_user,
@@ -198,7 +197,6 @@ get_post_comment <- function(post_xml) {
                        time = push_time$date)
   return(push_df)
 }
-
 
 
 #' Get Information from an Individual PTT Post
