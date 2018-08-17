@@ -17,12 +17,6 @@
 #'   Else, the function returns string \code{No}.
 #'
 #' @examples
-#' str1 <- "[新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
-#' str2 <- "Re: [新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
-#' str_err <- " [新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
-#'
-#' extr_post_category(str1)
-#' extr_post_category(str2)
 #'
 #' \dontrun{
 #' extr_post_category(str_err)
@@ -30,7 +24,6 @@
 #'
 #' @importFrom magrittr %>%
 #' @importFrom  stringr str_detect str_match str_replace str_remove
-#' @export
 extr_post_category <- function(post_title) {
 
   # Input Check
@@ -63,3 +56,10 @@ extr_post_category <- function(post_title) {
 
   return(post_cat)
 }
+# str1 <- "[新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
+# str2 <- "Re: [新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
+# str_err <- " [新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
+#
+# extr_post_category(str1)
+# extr_post_category(str2)
+
