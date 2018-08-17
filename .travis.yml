@@ -16,6 +16,8 @@ matrix:
         - sudo hdiutil detach /Volumes/pandoc
       env: PANDOC='mac-cran'
     - os: linux
+      before_install:
+        - sudo timedatectl set-timezone Asia/Taipei 
 
 after-success:
   - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then Rscript -e 'source("data-raw/corp-construct.R", encoding ="UTF-8")'; fi
