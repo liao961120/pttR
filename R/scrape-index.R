@@ -9,9 +9,43 @@
 #'
 #' @source \url{https://www.ptt.cc/bbs/hotboards.html}
 #'
+#' @importFrom rvest read_html html_nodes html_attr html_text
+#' @importFrom stringr str_replace str_extract str_remove
+#' @importFrom dplyr %>% bind_cols mutate
 #' @export
 get_board_popular <- function() {
-  message("Web Scaped at: ", attr(hotboard_df, "date"))
+
+  link <- "https://www.ptt.cc/bbs/hotboards.html"
+
+  hotboards <- read_html(link) %>%
+    html_nodes("div.b-ent") %>%
+    html_nodes("a.board")
+
+  board_link <- hotboards %>%
+    html_attr("href") %>%
+    str_replace("^/", "https://www.ptt.cc/")
+
+  board_name_en <- hotboards %>%
+    html_nodes("div.board-name") %>%
+    html_text()
+
+  board_name_ch <- hotboards %>%
+    html_nodes("div.board-title") %>%
+    html_text() %>%
+    str_extract("^\u25ce\\[.+\\]") %>% # \u25ce : ◎
+    str_remove("\u25ce\\[") %>%
+    str_remove("\\]$")
+
+  board_popularity <- hotboards %>%
+    html_nodes("div.board-nuser > span") %>%
+    html_text()
+
+  hotboard_df <- bind_cols(board = board_name_en,
+                           name_ch = board_name_ch,
+                           popularity = board_popularity,
+                           link = board_link) %>%
+    mutate(name_ch = ifelse(is.na(name_ch), board, name_ch))
+
   return(hotboard_df)
 }
 
