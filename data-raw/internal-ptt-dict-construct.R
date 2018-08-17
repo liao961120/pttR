@@ -134,5 +134,3 @@ attr(ptt_dict, "date") <- newest_df$date[1]
 
 saveRDS(ptt_dict, "data-raw/ptt_dict.rds")
 
-# devtools::use_data(ptt_dict, overwrite = T,
-#                    internal = T)
