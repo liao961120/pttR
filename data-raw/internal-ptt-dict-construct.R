@@ -132,5 +132,7 @@ ptt_dict$source<- iconv(ptt_dict$source, "latin1", "UTF-8")
 attr(ptt_dict, "date") <- newest_df$date[1]
 # attr(ptt_dict, "date")
 
-readr::write_rds(ptt_dict, "data-public/ptt_dict.rds")
-devtools::use_data(ptt_dict, overwrite = T)
+saveRDS(ptt_dict, "data-raw/ptt_dict.rds")
+
+# devtools::use_data(ptt_dict, overwrite = T,
+#                    internal = T)
