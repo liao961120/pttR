@@ -175,6 +175,6 @@ get_index_info <- function(url) {
     html_nodes("div.date") %>% html_text
 
   df <- cbind(pop, category, title,
-              link, author, dates) %>%
+              link, author, date) %>%
     as.data.frame()
 }
