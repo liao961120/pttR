@@ -27,7 +27,8 @@ Imports: dplyr,
     tidyr,
     xml2,
     RCurl,
-    readr
+    readr,
+    lubridate
 Suggests: knitr,
     rmarkdown,
     testthat,
