@@ -131,6 +131,7 @@ index2df <- function(board, n = 1) {
 #'   the second is a url.
 #'
 #' @import rvest stringr
+#' @keywords internal
 get_index_url <- function(board_url) {
 
   board_newest_index <- read_html2(board_url) %>%
@@ -164,6 +165,7 @@ get_index_url <- function(board_url) {
 #'   argument \code{n}.
 #'
 #' @importFrom stringr str_replace
+#' @keywords internal
 get_index_urls <- function(board, n) {
 
   # Input Check
@@ -209,6 +211,7 @@ get_index_urls <- function(board, n) {
 #'
 #' @param url A board's index page url.
 #' @import rvest
+#' @keywords internal
 get_index_info <- function(url) {
   raw <- read_html2(url) %>% html_nodes("div.r-ent")
 
