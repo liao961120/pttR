@@ -21,7 +21,7 @@ matrix:
         - sudo apt-get install texlive-fonts-extra
 
 before_deploy:
-  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then Rscript -e 'pkgdown::build_site()'; fi 
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then Rscript -e 'source("build_site.R")'; fi 
 
 # deplot docs/ to branch 'gh-pages'
 deploy:
