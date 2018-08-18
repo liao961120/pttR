@@ -4,6 +4,8 @@
 #' to bypass PTT's "over18-confirmation".
 #'
 #' @param url Character. The url of the target web page.
+#' @param ... Additional arguments passed on to
+#'   \code{\link[xml2]{read_html}}.
 #'
 #' @return An XML document. See \code{\link[xml2]{read_html}}
 #'   for more information.
@@ -12,14 +14,104 @@
 #' url <- "https://www.ptt.cc/bbs/Gossiping/index.html"
 #' read_html2(url)
 #' @export
-read_html2 <- function(url) {
+read_html2 <- function(url, ...) {
  curl_1 <- RCurl::getCurlHandle()
  RCurl::curlSetOpt(cookie = "over18=1",
                    followlocation = TRUE,
                    curl = curl_1)
  url2 <- RCurl::getURL(url, curl = curl_1)
- xml2::read_html(url2)
+ xml2::read_html(url2, ...)
 }
+
+
+
+#' Get all information from an individual PTT post
+#'
+#' \code{get_post} returns a data frame with 1 row and 9 cols,
+#' where the column \code{comment} is a list column.
+#'
+#' This is a function that combines the data gathered from
+#' three functions: \code{\link{get_post_meta}},
+#' \code{\link{get_post_content}}, and
+#' \code{\link{get_post_comment}}.
+#'
+#' @param post_url Character. An url of a PTT post.
+#' @param board Logical. Whether to set board name as a
+#'   variable. Defaults to \code{FALSE}. Note you can get the
+#'   board name with \code{attributes{df}$board} or
+#'   \code{attr(df, "board")} regardless of the value of this
+#'   argument.
+#'
+#' @return A data frame with 1 row and 10 (or 11) variables:
+#'   \describe{
+#'     \item{board}{The board the post belongs to. Exist only
+#'     if \code{board = TRUE}.}
+#'     \item{author}{Author of the post.}
+#'     \item{category}{Category of the post, such as
+#'       \emph{\enc{新聞}{xin wen}},
+#'       \emph{\enc{問卦}{wen gua}}, \emph{Re:}.}
+#'     \item{title}{Title of the post.}
+#'     \item{date}{The date of the post.}
+#'     \item{content}{The content of the post.}
+#'     \item{n_char}{The Number of characters in the post content.
+#'       Whitespaces and newline characters are removed before
+#'       counting.}
+#'     \item{comment}{A list column.
+#'       See \code{\link{get_post_comment}} for information
+#'       about entries in this list column.}
+#'     \item{n_comment}{Number of comments.}
+#'     \item{n_push}{Number of "Push" comments.}
+#'     \item{n_boo}{Number of "Boo" comments.}
+#'     \item{link}{url of the post with base url removed,
+#'       which is \url{https://www.ptt.cc/bbs/}. Get the base
+#'       url with \code{attr(df, "base_url")}.}
+#'   }
+#'
+#' @examples
+#' url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
+#'
+#' post_df <- get_post(url)
+#' head(post_df)
+#'
+#' # Access information in the list column: 'comment'
+#' head(post_df$comment[[1]])
+#'
+#' # Get Attributes
+#' attributes(post_df)
+#' attr(post_df, "base_url")
+#' attr(post_df, "board")
+#'
+#' @importFrom dplyr %>% bind_cols
+#' @importFrom tibble data_frame as_data_frame
+#' @export
+get_post <- function(post_url, board = FALSE) {
+
+  post_xml <- read_html2(post_url)
+
+  post_meta <- get_post_meta(post_xml, board = board)
+  post_content <- get_post_content(post_xml) # df with 1 row
+  post_comment <- get_post_comment(post_xml) # df with many rows
+  n_comment <- nrow(post_comment)
+  n_push <- sum(post_comment$tag == "Push")
+  n_boo <- sum(post_comment$tag == "Boo")
+  comment_meta <- cbind(n_comment, n_push, n_boo) %>%
+    as_data_frame()
+
+  post_url <- stringr::str_remove(post_url,
+                                  "^https://www.ptt.cc/bbs/")
+
+  post_df <- bind_cols(post_meta, post_content,
+                       comment = NULL, comment_meta,
+                       link = post_url)
+  post_df <- as.data.frame(post_df)
+  post_df$comment[[1]] <- post_comment
+
+  attr(post_df, "base_url") <- "https://www.ptt.cc/bbs/"
+  attr(post_df, "board") <- attr(post_meta, "board")
+
+  return(post_df)
+}
+
 
 
 #' Retrieve mata data from an individual PTT post
@@ -28,8 +120,13 @@ read_html2 <- function(url) {
 #' and 4 cols.
 #'
 #' @param post_xml \code{xml_document} created by
-#' \code{\link{read_html2}} or \code{\link[xml2]{read_html}}
-#' See \code{\link[xml2]{read_html}} for details.
+#'   \code{\link{read_html2}} or \code{\link[xml2]{read_html}}.
+#'   See \code{\link[xml2]{read_html}} for details.
+#' @param board Logical. Whether to set board name as a
+#'   variable. Defaults to \code{FALSE}. Note you can get the
+#'   board name with \code{attributes{df}$board} or
+#'   \code{attr(df, "board")} regardless of the value of this
+#'   argument.
 #'
 #' @return A data frame with 1 row and 4 variables:
 #'   \describe{
@@ -44,9 +141,11 @@ read_html2 <- function(url) {
 #' @examples
 #'
 #' url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
-#' post <- read_html2(url)
 #'
-#' get_post_meta(post)
+#' post_meta <- get_post_meta(read_html2(url))
+#' post_meta
+#'
+#' attributes(post_meta)$board
 #'
 #' @importFrom rvest html_node html_nodes html_text
 #' @importFrom xml2 read_html
@@ -54,8 +153,9 @@ read_html2 <- function(url) {
 #' @importFrom tidyr separate
 #' @importFrom stringr str_match str_remove str_replace_all
 #' @importFrom tibble data_frame as_data_frame
+#' @keywords internal
 #' @export
-get_post_meta <- function(post_xml) {
+get_post_meta <- function(post_xml, board = FALSE) {
 
   post_meta <- post_xml %>%
     html_nodes("div.article-metaline") %>%
@@ -77,10 +177,22 @@ get_post_meta <- function(post_xml) {
     strptime("%b %e %H:%M:%S %Y", tz = "CST") %>%
     as.character()
 
+  tag <- "div.article-metaline-right > span.article-meta-value"
+  post_board <- post_xml %>%
+    html_nodes(tag) %>% html_text()
+
   post_meta <- bind_cols(author = post_author,
                          category = post_cat,
                          title = post_title,
                          date = post_date)
+
+  if (board == T) {
+    post_meta <- bind_cols(board = post_board,
+                           post_meta)
+  }
+
+  attr(post_meta, "board") <- post_board
+
   return(post_meta)
 }
 
@@ -95,8 +207,7 @@ get_post_meta <- function(post_xml) {
 #' \code{\link{read_html2}} or \code{\link[xml2]{read_html}}
 #' See \code{\link[xml2]{read_html}} for details.
 #'
-#' @return A data frame with 1 row and 1 col. The entry is
-#'   a long string.
+#' @return A data frame with 1 row and 2 col.
 #'
 #' @examples
 #' url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
@@ -105,10 +216,10 @@ get_post_meta <- function(post_xml) {
 #' get_post_content(post)
 #'
 #' @importFrom rvest html_node html_nodes html_text
-#' @importFrom xml2 read_html
 #' @importFrom dplyr %>% bind_cols
 #' @importFrom stringr str_remove
 #' @importFrom tibble data_frame as_data_frame
+#' @keywords internal
 #' @export
 get_post_content <- function(post_xml) {
 
@@ -120,7 +231,12 @@ get_post_content <- function(post_xml) {
     # remove tail portion
     str_remove("(\n)+--\n\u203b(\n|.)*")
 
-  post_content <- data_frame(content = post_content)
+  n_char <- post_content %>%
+    str_remove_all("( )") %>%
+    str_remove_all("(\n)+") %>% nchar()
+
+
+  post_content <- data_frame(content = post_content, n_char = n_char)
   return(post_content)
 }
 
@@ -162,6 +278,7 @@ get_post_content <- function(post_xml) {
 #' @importFrom tidyr separate
 #' @importFrom stringr str_match str_remove str_replace_all
 #' @importFrom tibble data_frame as_data_frame
+#' @keywords internal
 #' @export
 get_post_comment <- function(post_xml) {
   # post_xml is object returned by xml2::read_html()
@@ -200,75 +317,3 @@ get_post_comment <- function(post_xml) {
                        time = push_time$date)
   return(push_df)
 }
-
-
-#' Get all information from an individual PTT post
-#'
-#' \code{get_post} returns a data frame with 1 row and 9 cols,
-#' where the column \code{comment} is a list column.
-#'
-#' This is a function that combines the data gathered from
-#' three functions: \code{\link{get_post_meta}},
-#' \code{\link{get_post_content}}, and
-#' \code{\link{get_post_comment}}.
-#'
-#' @param post_xml \code{xml_document} created by
-#' \code{\link{read_html2}} or \code{\link[xml2]{read_html}}
-#' See \code{\link[xml2]{read_html}} for details.
-#'
-#' @return A data frame with 1 row and 9 variables:
-#'   \describe{
-#'     \item{author}{Author of the post.}
-#'     \item{category}{Category of the post, such as
-#'       \emph{\enc{新聞}{xin wen}},
-#'       \emph{\enc{問卦}{wen gua}}, \emph{Re:}.}
-#'     \item{title}{Title of the post.}
-#'     \item{date}{The date of the post.}
-#'     \item{content}{The content of the post.}
-#'     \item{comment}{A list column.
-#'       See \code{\link{get_post_comment}} for information
-#'       about entries in this list column.}
-#'     \item{n_comment}{Number of comments.}
-#'     \item{n_push}{Number of "Push" comments.}
-#'     \item{n_boo}{Number of "Boo" comments.}
-#'   }
-#'
-#' @examples
-#'
-#' url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
-#' post <- read_html2(url)
-#'
-#' post_df <- get_post(post)
-#' head(post_df)
-#'
-#' # Access information in the list column: 'comment'
-#' head(post_df$comment[[1]])
-#'
-#' @importFrom rvest html_node html_nodes html_text
-#' @importFrom xml2 read_html
-#' @importFrom dplyr %>% bind_cols
-#' @importFrom tidyr separate
-#' @importFrom stringr str_match str_remove str_replace_all
-#' @importFrom tibble data_frame as_data_frame
-#' @export
-get_post <- function(post_xml) {
-
-  post_meta <- get_post_meta(post_xml)  # df with 1 row
-  post_content <- get_post_content(post_xml) # df with 1 row
-  post_comment <- get_post_comment(post_xml) # df with many rows
-  n_comment <- nrow(post_comment)
-  n_push <- sum(post_comment$tag == "Push")
-  n_boo <- sum(post_comment$tag == "Boo")
-  comment_meta <- cbind(n_comment, n_push, n_boo) %>%
-    as_data_frame()
-
-  post_df <- bind_cols(post_meta, post_content,
-                       comment = NULL, comment_meta)
-  post_df$comment[[1]] <- post_comment
-
-  warning("Ignore \"Unknown or uninitialised column: 'comment'\". It is a bug in tibble.")
-
-  return(post_df)
-}
-
-
