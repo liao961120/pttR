@@ -15,9 +15,10 @@ See \code{\link[xml2]{read_html}} for details.}
 A data frame with n rows and 5 variables:
   \describe{
     \item{tag}{tag of the comment, can be one of the 3 values:
-      \code{Push} corresponds to "推",
-      \code{Boo} corresponds to "噓", and
-      \code{Neu} corresponds to "→".}
+      \code{Push} corresponds to \emph{\enc{推}{tui}},
+      \code{Boo} corresponds to \emph{\enc{噓}{xu}}, and
+      \code{Neu} corresponds to \emph{\enc{→}{bu tui bu xu}}
+      }
     \item{user}{ID of the user who left the comment.}
     \item{comment}{The content of the comment.}
     \item{ip}{ip address of the comment.}
@@ -25,8 +26,9 @@ A data frame with n rows and 5 variables:
   }
 }
 \description{
-\code{get_post_comment} returns a data frame with n rows and 5
-cols, where n is the number of comments in the post.
+\code{get_post_comment} returns a data frame with n
+rows and 5 cols, where n is the number of comments
+in the post.
 }
 \examples{
 

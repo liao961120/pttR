@@ -16,14 +16,14 @@ A data frame with 1 row and 9 variables:
   \describe{
     \item{author}{Author of the post.}
     \item{category}{Category of the post, such as
-      \emph{新聞}, \emph{問卦}, \emph{Re:}. See
-      \code{\link{extr_post_category}} for category extration.}
+      \emph{\enc{新聞}{xin wen}},
+      \emph{\enc{問卦}{wen gua}}, \emph{Re:}.}
     \item{title}{Title of the post.}
     \item{date}{The date of the post.}
     \item{content}{The content of the post.}
     \item{comment}{A list column.
-      See \code{\link{get_post_comment}} for information about
-      entries in this list column.}
+      See \code{\link{get_post_comment}} for information
+      about entries in this list column.}
     \item{n_comment}{Number of comments.}
     \item{n_push}{Number of "Push" comments.}
     \item{n_boo}{Number of "Boo" comments.}

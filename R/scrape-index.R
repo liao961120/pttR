@@ -1,7 +1,8 @@
 #' Return a data frame with popular boards info
 #'
 #' \code{get_hotboard_info} returns a data frame of
-#' popular boards (熱門看板) on PTT.
+#' popular boards (\emph{\enc{熱門看板}{re men kan ban}})
+#' on PTT.
 #'
 #' @param get_new Logical. Defaults to \code{FALSE}.
 #'   If \code{TRUE}, scrapes and retreive data from
@@ -53,9 +54,9 @@ get_hotboard_info <- function(get_new = FALSE) {
     html_text()
 
   df <- cbind(board = board_name_en,
-                           name_ch = board_name_ch,
-                           popularity = board_popularity,
-                           link = board_link)
+              name_ch = board_name_ch,
+              popularity = board_popularity,
+              link = board_link)
   df$name_ch <- ifelse(is.na(df$name_ch),
                                 df$board,
                                 df$name_ch)
@@ -69,13 +70,16 @@ get_hotboard_info <- function(get_new = FALSE) {
 
 #' Convert a board's index pages to data frame
 #'
-#' \code{index2df} scrapes a board's (看板) index page
-#' extracts information into a data frame.
+#' \code{index2df} scrapes index pages of a board
+#' (\emph{\enc{看板}{kan ban}}) and extracts
+#' information into a data frame.
 #'
-#' @param board A string. Either a url or a board name
-#'   that matches one of the entries in the variable
-#'   \code{board} of the data frame returned by
-#'   \code{\link{get_hotboard_info}}. See
+#' @param board A string. Either a \strong{url} or a
+#'   \strong{board name} that matches one of the entries
+#'   in the variable \code{board} of the data frame
+#'   returned by \code{\link{get_hotboard_info}}, such
+#'   as \emph{"Gossiping"}, \emph{"Baseball"}, \emph{"LoL}.
+#'   \strong{board name} is case-insensitive. See
 #'   \strong{Examples} for details.
 #' @param  n Numeric. Number of pages to scrape.
 #'   Defaults to \code{1}, which scrapes only the
@@ -117,9 +121,7 @@ index2df <- function(board, n = 1) {
 }
 
 
-
 ##### Internal Helper Functions #####
-
 
 #' Get Latest Page url
 #'
@@ -154,7 +156,8 @@ get_index_url <- function(board_url) {
 #' @param board String. Either a url or a board name
 #'   that matches one of the entries in \code{board}
 #'   of the data frame returned by
-#'   \code{\link{get_hotboard_info}}.
+#'   \code{\link{get_hotboard_info}}. board name is
+#'   case-insensitive.
 #' @param n Number of index page to retreive.
 #'
 #' @return Chracter vector with length equal to the
@@ -166,12 +169,18 @@ get_index_urls <- function(board, n) {
   # Input Check
   if (str_detect(board, "^http")) {
     board_url <- board
-  } else if (sum(hotboard_df$board == board) == 1) {
-    idx <- which(hotboard_df$board == board)
-    board_url <- hotboard_df$link[idx]
   } else {
-    stop("Only accept 'board url' or 'board name' matching
-         get_hotboard_info()")
+    board <- tolower(board)
+    board_names <- tolower(hotboard_df$board)
+
+    cond <- sum(board_names == board) == 1 # Exactly 1 match
+    if (cond) {
+      idx <- which(board_names == board)
+      board_url <- hotboard_df$link[idx]
+    } else {
+      stop("Only accept 'board url' or 'board name' matching
+           get_hotboard_info(get_new = FALSE)")
+    }
   }
 
   # newest index_num & url
@@ -181,7 +190,7 @@ get_index_urls <- function(board, n) {
   if (n > newest) stop("Requested number exceeds
                        total number of pages.")
 
-  idx_n <- newest:(newest - n + 1)
+  idx_n <- as.character(newest:(newest - n + 1))
   url <- rep(raw[2], n)
 
   df <- as.data.frame(cbind(idx_n, url))
@@ -204,8 +213,8 @@ get_index_info <- function(url) {
   raw <- read_html2(url) %>% html_nodes("div.r-ent")
 
   pop <- raw %>% html_nodes("div.nrec") %>%
-    html_text() %>% as.integer()
-  pop[which(is.na(pop))] <- 0
+    html_text()
+  pop[pop == ""] <- "0"
 
   title <- raw %>% html_nodes("div.title") %>%
     html_text() %>%
@@ -224,7 +233,8 @@ get_index_info <- function(url) {
   date <- raw %>% html_nodes("div.meta") %>%
     html_nodes("div.date") %>% html_text
 
-  df <- cbind(pop, category, title,
-              link, author, date) %>%
-    as.data.frame()
+  df <- dplyr::as_data_frame(cbind(pop, category, title,
+              link, author, date))
+
+  return(df)
 }

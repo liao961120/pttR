@@ -24,7 +24,8 @@ read_html2 <- function(url) {
 
 #' Retrieve Mata Data from an Individual PTT Post
 #'
-#' \code{get_post_meta} returns a data frame with 1 row and 4 cols.
+#' \code{get_post_meta} returns a data frame with 1 row
+#' and 4 cols.
 #'
 #' @param post_xml An \code{xml_document} created by
 #' \code{\link{read_html2}} or \code{\link[xml2]{read_html}}
@@ -34,8 +35,8 @@ read_html2 <- function(url) {
 #'   \describe{
 #'     \item{author}{Author of the post.}
 #'     \item{category}{Category of the post, such as
-#'       \emph{新聞}, \emph{問卦}, \emph{Re:}. See
-#'       \code{\link{extr_post_category}} for category extration.}
+#'       \emph{\enc{新聞}{xin wen}},
+#'       \emph{\enc{問卦}{wen gua}}, \emph{Re:}.}
 #'     \item{title}{Title of the post.}
 #'     \item{date}{The date of the post.}
 #'   }
@@ -127,8 +128,9 @@ get_post_content <- function(post_xml) {
 
 #' Retrieve User Comments from an Individual PTT Post
 #'
-#' \code{get_post_comment} returns a data frame with n rows and 5
-#' cols, where n is the number of comments in the post.
+#' \code{get_post_comment} returns a data frame with n
+#' rows and 5 cols, where n is the number of comments
+#' in the post.
 #'
 #' @param post_xml An \code{xml_document} created by
 #' \code{\link{read_html2}} or \code{\link[xml2]{read_html}}
@@ -137,9 +139,10 @@ get_post_content <- function(post_xml) {
 #' @return A data frame with n rows and 5 variables:
 #'   \describe{
 #'     \item{tag}{tag of the comment, can be one of the 3 values:
-#'       \code{Push} corresponds to "推",
-#'       \code{Boo} corresponds to "噓", and
-#'       \code{Neu} corresponds to "→".}
+#'       \code{Push} corresponds to \emph{\enc{推}{tui}},
+#'       \code{Boo} corresponds to \emph{\enc{噓}{xu}}, and
+#'       \code{Neu} corresponds to \emph{\enc{→}{bu tui bu xu}}
+#'       }
 #'     \item{user}{ID of the user who left the comment.}
 #'     \item{comment}{The content of the comment.}
 #'     \item{ip}{ip address of the comment.}
@@ -217,14 +220,14 @@ get_post_comment <- function(post_xml) {
 #'   \describe{
 #'     \item{author}{Author of the post.}
 #'     \item{category}{Category of the post, such as
-#'       \emph{新聞}, \emph{問卦}, \emph{Re:}. See
-#'       \code{\link{extr_post_category}} for category extration.}
+#'       \emph{\enc{新聞}{xin wen}},
+#'       \emph{\enc{問卦}{wen gua}}, \emph{Re:}.}
 #'     \item{title}{Title of the post.}
 #'     \item{date}{The date of the post.}
 #'     \item{content}{The content of the post.}
 #'     \item{comment}{A list column.
-#'       See \code{\link{get_post_comment}} for information about
-#'       entries in this list column.}
+#'       See \code{\link{get_post_comment}} for information
+#'       about entries in this list column.}
 #'     \item{n_comment}{Number of comments.}
 #'     \item{n_push}{Number of "Push" comments.}
 #'     \item{n_boo}{Number of "Boo" comments.}

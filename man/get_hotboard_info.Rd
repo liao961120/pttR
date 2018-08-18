@@ -18,7 +18,8 @@ the package.}
 }
 \description{
 \code{get_hotboard_info} returns a data frame of
-popular boards (熱門看板) on PTT.
+popular boards (\emph{\enc{熱門看板}{re men kan ban}})
+on PTT.
 }
 \examples{
 df <- get_hotboard_info()

@@ -7,10 +7,12 @@
 index2df(board, n = 1)
 }
 \arguments{
-\item{board}{A string. Either a url or a board name
-that matches one of the entries in the variable
-\code{board} of the data frame returned by
-\code{\link{get_hotboard_info}}. See
+\item{board}{A string. Either a \strong{url} or a
+\strong{board name} that matches one of the entries
+in the variable \code{board} of the data frame
+returned by \code{\link{get_hotboard_info}}, such
+as \emph{"Gossiping"}, \emph{"Baseball"}, \emph{"LoL}.
+\strong{board name} is case-insensitive. See
 \strong{Examples} for details.}
 
 \item{n}{Numeric. Number of pages to scrape.
@@ -25,8 +27,9 @@ Returns a data frame with one post info per
   row.
 }
 \description{
-\code{index2df} scrapes a board's (看板) index page
-extracts information into a data frame.
+\code{index2df} scrapes index pages of a board
+(\emph{\enc{看板}{kan ban}}) and extracts
+information into a data frame.
 }
 \examples{
 

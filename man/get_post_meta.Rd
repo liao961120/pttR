@@ -16,14 +16,15 @@ A data frame with 1 row and 4 variables:
   \describe{
     \item{author}{Author of the post.}
     \item{category}{Category of the post, such as
-      \emph{新聞}, \emph{問卦}, \emph{Re:}. See
-      \code{\link{extr_post_category}} for category extration.}
+      \emph{\enc{新聞}{xin wen}},
+      \emph{\enc{問卦}{wen gua}}, \emph{Re:}.}
     \item{title}{Title of the post.}
     \item{date}{The date of the post.}
   }
 }
 \description{
-\code{get_post_meta} returns a data frame with 1 row and 4 cols.
+\code{get_post_meta} returns a data frame with 1 row
+and 4 cols.
 }
 \examples{
 
