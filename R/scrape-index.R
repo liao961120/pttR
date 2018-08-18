@@ -74,14 +74,14 @@ get_hotboard_info <- function(get_new = FALSE) {
 #' (\emph{\enc{看板}{kan ban}}) and extracts
 #' information into a data frame.
 #'
-#' @param board A string. Either a \strong{url} or a
+#' @param board Character. Either a \strong{url} or a
 #'   \strong{board name} that matches one of the entries
 #'   in the variable \code{board} of the data frame
 #'   returned by \code{\link{get_hotboard_info}}, such
 #'   as \emph{"Gossiping"}, \emph{"Baseball"}, \emph{"LoL}.
 #'   \strong{board name} is case-insensitive. See
 #'   \strong{Examples} for details.
-#' @param  n Numeric. Number of pages to scrape.
+#' @param n Numeric. Number of pages to scrape.
 #'   Defaults to \code{1}, which scrapes only the
 #'   newest page. If set to \code{2}, then scrapes
 #'   the newest and the second-newest page, and so
@@ -123,14 +123,32 @@ index2df <- function(board, n = 1) {
 
 ##### Internal Helper Functions #####
 
-#' Get Latest Page url
+#' Helper Functions for Scraping Index Pages
 #'
-#' @param board_url url.
-#' @return Character vector of length 2.
-#'   The first element is a number,
-#'   the second is a url.
+#' These are helper functions for package development, not
+#' written in man page index but available to advanced
+#' users.
+#'
+#' @name scrape-index
+NULL
+
+
+#' Gets the latest index page url of a board
+#'
+#' \code{get_index_url} finds out the newest index page
+#' of a board. It takes a board's url (e.g.
+#' \url{https://www.ptt.cc/bbs/Gossiping/index.html})
+#' as input and returns a character vector of length 2.
+#'
+#' @param board_url Character. A board's index page url.
+#' @return \code{get_index_url} returns a char vector of
+#'   length 2. The first element is a number,
+#'   and the second is a url.
+#' @rdname scrape-index
 #'
 #' @import rvest stringr
+#' @export
+#' @keywords internal
 get_index_url <- function(board_url) {
 
   board_newest_index <- read_html2(board_url) %>%
@@ -151,19 +169,26 @@ get_index_url <- function(board_url) {
 
 
 
-#' Get the newest n urls of index page of a board
+#' Gets the n newest index pages' urls of a board
 #'
-#' @param board String. Either a url or a board name
+#' \code{get_index_urls} expands \code{\link{get_index_url}}
+#' by returning multiple urls.
+#'
+#' @param board Character. Either a url or a board name
 #'   that matches one of the entries in \code{board}
 #'   of the data frame returned by
 #'   \code{\link{get_hotboard_info}}. board name is
 #'   case-insensitive.
-#' @param n Number of index page to retreive.
+#' @param n Numeric. Number of index page to retreive.
 #'
-#' @return Chracter vector with length equal to the
-#'   argument \code{n}.
+#' @return \code{get_index_urls} returns a chr vector of
+#'   urls with length equal to the argument \code{n}.
+#'
+#' @rdname scrape-index
 #'
 #' @importFrom stringr str_replace
+#' @export
+#' @keywords internal
 get_index_urls <- function(board, n) {
 
   # Input Check
@@ -201,16 +226,23 @@ get_index_urls <- function(board, n) {
 
 
 
-#' Convert a board's index page to data frame
+#' Extract message from a board's index page
 #'
 #' \code{get_index_info} takes a board's index url
 #' as input and extract the content of the page into
 #' a data frame with 6 variables.
 #'
-#' @param url A board's index page url.
+#' @return \code{get_index_info} returns a data frame
+#'   with n rows and 6 variables, where n is the number
+#'   of post links on an index page.
+#'
+#' @rdname scrape-index
+#'
 #' @import rvest
-get_index_info <- function(url) {
-  raw <- read_html2(url) %>% html_nodes("div.r-ent")
+#' @export
+#' @keywords internal
+get_index_info <- function(board_url) {
+  raw <- read_html2(board_url) %>% html_nodes("div.r-ent")
 
   pop <- raw %>% html_nodes("div.nrec") %>%
     html_text()

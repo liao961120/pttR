@@ -7,7 +7,7 @@
 index2df(board, n = 1)
 }
 \arguments{
-\item{board}{A string. Either a \strong{url} or a
+\item{board}{Character. Either a \strong{url} or a
 \strong{board name} that matches one of the entries
 in the variable \code{board} of the data frame
 returned by \code{\link{get_hotboard_info}}, such
