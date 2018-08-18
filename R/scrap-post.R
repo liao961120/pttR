@@ -1,4 +1,4 @@
-#' Read PTT Pages with "over18-confirmation"
+#' Read PTT pages with "over18-confirmation"
 #'
 #' A wrapper of \code{xml2::read_html()} with cookie set
 #' to bypass PTT's "over18-confirmation".
@@ -22,7 +22,7 @@ read_html2 <- function(url) {
 }
 
 
-#' Retrieve Mata Data from an Individual PTT Post
+#' Retrieve mata data from an individual PTT post
 #'
 #' \code{get_post_meta} returns a data frame with 1 row
 #' and 4 cols.
@@ -86,9 +86,10 @@ get_post_meta <- function(post_xml) {
 
 
 
-#' Retrieve Post Content from an Individual PTT Post
+#' Retrieve content from an individual PTT post
 #'
-#' \code{get_post_content} returns a data frame with 1 row and 1 col.
+#' \code{get_post_content} returns a data frame with 1 row and
+#' 1 col.
 #'
 #' @param post_xml \code{xml_document} created by
 #' \code{\link{read_html2}} or \code{\link[xml2]{read_html}}
@@ -98,7 +99,6 @@ get_post_meta <- function(post_xml) {
 #'   a long string.
 #'
 #' @examples
-#'
 #' url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
 #' post <- read_html2(url)
 #'
@@ -126,7 +126,7 @@ get_post_content <- function(post_xml) {
 
 
 
-#' Retrieve User Comments from an Individual PTT Post
+#' Retrieve user comments from an individual PTT post
 #'
 #' \code{get_post_comment} returns a data frame with n
 #' rows and 5 cols, where n is the number of comments
@@ -202,7 +202,7 @@ get_post_comment <- function(post_xml) {
 }
 
 
-#' Get Information from an Individual PTT Post
+#' Get all information from an individual PTT post
 #'
 #' \code{get_post} returns a data frame with 1 row and 9 cols,
 #' where the column \code{comment} is a list column.

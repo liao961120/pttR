@@ -1,4 +1,4 @@
-#' Extract Post Category from Title
+#' Extract post category from title
 #'
 #' \code{extr_post_category} returns the category of a PTT
 #' post title.

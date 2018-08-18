@@ -124,7 +124,7 @@ index2df <- function(board, n = 1) {
 
 ##### Internal Helper Functions #####
 
-#' Helper Functions for Scraping Index Pages
+#' Helper functions for scraping index pages
 #'
 #' These are helper functions for package development, not
 #' written in man page index but available to advanced
