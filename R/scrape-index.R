@@ -106,6 +106,7 @@ get_hotboard_info <- function(get_new = FALSE) {
 #' df <- index2df(link, 3)
 #' }
 #'
+#' @seealso \code{\link{get_index_info}}
 #' @export
 index2df <- function(board, n = 1) {
 
@@ -235,6 +236,8 @@ get_index_urls <- function(board, n) {
 #' @return \code{get_index_info} returns a data frame
 #'   with n rows and 6 variables, where n is the number
 #'   of post links on an index page.
+#'
+#' @seealso \code{\link{extr_post_category}}
 #'
 #' @rdname scrape-index
 #'

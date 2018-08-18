@@ -7,13 +7,13 @@
 get_post_content(post_xml)
 }
 \arguments{
-\item{post_xml}{An \code{xml_document} created by
+\item{post_xml}{\code{xml_document} created by
 \code{\link{read_html2}} or \code{\link[xml2]{read_html}}
 See \code{\link[xml2]{read_html}} for details.}
 }
 \value{
-A data frame with 1 row and 1 col. The entry is a long
-  string.
+A data frame with 1 row and 1 col. The entry is
+  a long string.
 }
 \description{
 \code{get_post_content} returns a data frame with 1 row and 1 col.

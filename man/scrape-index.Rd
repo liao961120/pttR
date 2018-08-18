@@ -53,4 +53,7 @@ by returning multiple urls.
 as input and extract the content of the page into
 a data frame with 6 variables.
 }
+\seealso{
+\code{\link{extr_post_category}}
+}
 \keyword{internal}

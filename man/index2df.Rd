@@ -47,3 +47,6 @@ df <- index2df(link, 3)
 }
 
 }
+\seealso{
+\code{\link{get_index_info}}
+}

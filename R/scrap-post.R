@@ -3,7 +3,7 @@
 #' A wrapper of \code{xml2::read_html()} with cookie set
 #' to bypass PTT's "over18-confirmation".
 #'
-#' @param url The url of the target web page.
+#' @param url Character. The url of the target web page.
 #'
 #' @return An XML document. See \code{\link[xml2]{read_html}}
 #'   for more information.
@@ -27,7 +27,7 @@ read_html2 <- function(url) {
 #' \code{get_post_meta} returns a data frame with 1 row
 #' and 4 cols.
 #'
-#' @param post_xml An \code{xml_document} created by
+#' @param post_xml \code{xml_document} created by
 #' \code{\link{read_html2}} or \code{\link[xml2]{read_html}}
 #' See \code{\link[xml2]{read_html}} for details.
 #'
@@ -90,12 +90,12 @@ get_post_meta <- function(post_xml) {
 #'
 #' \code{get_post_content} returns a data frame with 1 row and 1 col.
 #'
-#' @param post_xml An \code{xml_document} created by
+#' @param post_xml \code{xml_document} created by
 #' \code{\link{read_html2}} or \code{\link[xml2]{read_html}}
 #' See \code{\link[xml2]{read_html}} for details.
 #'
-#' @return A data frame with 1 row and 1 col. The entry is a long
-#'   string.
+#' @return A data frame with 1 row and 1 col. The entry is
+#'   a long string.
 #'
 #' @examples
 #'
@@ -132,7 +132,7 @@ get_post_content <- function(post_xml) {
 #' rows and 5 cols, where n is the number of comments
 #' in the post.
 #'
-#' @param post_xml An \code{xml_document} created by
+#' @param post_xml \code{xml_document} created by
 #' \code{\link{read_html2}} or \code{\link[xml2]{read_html}}
 #' See \code{\link[xml2]{read_html}} for details.
 #'
@@ -212,7 +212,7 @@ get_post_comment <- function(post_xml) {
 #' \code{\link{get_post_content}}, and
 #' \code{\link{get_post_comment}}.
 #'
-#' @param post_xml An \code{xml_document} created by
+#' @param post_xml \code{xml_document} created by
 #' \code{\link{read_html2}} or \code{\link[xml2]{read_html}}
 #' See \code{\link[xml2]{read_html}} for details.
 #'

@@ -7,7 +7,7 @@
 get_post_meta(post_xml)
 }
 \arguments{
-\item{post_xml}{An \code{xml_document} created by
+\item{post_xml}{\code{xml_document} created by
 \code{\link{read_html2}} or \code{\link[xml2]{read_html}}
 See \code{\link[xml2]{read_html}} for details.}
 }
