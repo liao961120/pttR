@@ -4,12 +4,18 @@
 \alias{get_post_meta}
 \title{Retrieve mata data from an individual PTT post}
 \usage{
-get_post_meta(post_xml)
+get_post_meta(post_xml, board = FALSE)
 }
 \arguments{
 \item{post_xml}{\code{xml_document} created by
-\code{\link{read_html2}} or \code{\link[xml2]{read_html}}
+\code{\link{read_html2}} or \code{\link[xml2]{read_html}}.
 See \code{\link[xml2]{read_html}} for details.}
+
+\item{board}{Logical. Whether to set board name as a
+variable. Defaults to \code{FALSE}. Note you can get the
+board name with \code{attributes{df}$board} or
+\code{attr(df, "board")} regardless of the value of this
+argument.}
 }
 \value{
 A data frame with 1 row and 4 variables:
@@ -29,8 +35,11 @@ and 4 cols.
 \examples{
 
 url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
-post <- read_html2(url)
 
-get_post_meta(post)
+post_meta <- get_post_meta(read_html2(url))
+post_meta
+
+attributes(post_meta)$board
 
 }
+\keyword{internal}

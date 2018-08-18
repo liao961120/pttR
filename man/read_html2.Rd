@@ -4,10 +4,13 @@
 \alias{read_html2}
 \title{Read PTT pages with "over18-confirmation"}
 \usage{
-read_html2(url)
+read_html2(url, ...)
 }
 \arguments{
 \item{url}{Character. The url of the target web page.}
+
+\item{...}{Additional arguments passed on to
+\code{\link[xml2]{read_html}}.}
 }
 \value{
 An XML document. See \code{\link[xml2]{read_html}}

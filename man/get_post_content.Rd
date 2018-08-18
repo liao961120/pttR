@@ -12,8 +12,7 @@ get_post_content(post_xml)
 See \code{\link[xml2]{read_html}} for details.}
 }
 \value{
-A data frame with 1 row and 1 col. The entry is
-  a long string.
+A data frame with 1 row and 2 col.
 }
 \description{
 \code{get_post_content} returns a data frame with 1 row and
@@ -26,3 +25,4 @@ post <- read_html2(url)
 get_post_content(post)
 
 }
+\keyword{internal}

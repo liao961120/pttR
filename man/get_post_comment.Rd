@@ -38,3 +38,4 @@ post <- read_html2(url)
 get_post_comment(post)
 
 }
+\keyword{internal}

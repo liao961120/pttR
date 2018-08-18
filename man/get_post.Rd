@@ -4,16 +4,22 @@
 \alias{get_post}
 \title{Get all information from an individual PTT post}
 \usage{
-get_post(post_xml)
+get_post(post_url, board = FALSE)
 }
 \arguments{
-\item{post_xml}{\code{xml_document} created by
-\code{\link{read_html2}} or \code{\link[xml2]{read_html}}
-See \code{\link[xml2]{read_html}} for details.}
+\item{post_url}{Character. An url of a PTT post.}
+
+\item{board}{Logical. Whether to set board name as a
+variable. Defaults to \code{FALSE}. Note you can get the
+board name with \code{attributes{df}$board} or
+\code{attr(df, "board")} regardless of the value of this
+argument.}
 }
 \value{
-A data frame with 1 row and 9 variables:
+A data frame with 1 row and 10 (or 11) variables:
   \describe{
+    \item{board}{The board the post belongs to. Exist only
+    if \code{board = TRUE}.}
     \item{author}{Author of the post.}
     \item{category}{Category of the post, such as
       \emph{\enc{新聞}{xin wen}},
@@ -21,12 +27,18 @@ A data frame with 1 row and 9 variables:
     \item{title}{Title of the post.}
     \item{date}{The date of the post.}
     \item{content}{The content of the post.}
+    \item{n_char}{The Number of characters in the post content.
+      Whitespaces and newline characters are removed before
+      counting.}
     \item{comment}{A list column.
       See \code{\link{get_post_comment}} for information
       about entries in this list column.}
     \item{n_comment}{Number of comments.}
     \item{n_push}{Number of "Push" comments.}
     \item{n_boo}{Number of "Boo" comments.}
+    \item{link}{url of the post with base url removed,
+      which is \url{https://www.ptt.cc/bbs/}. Get the base
+      url with \code{attr(df, "base_url")}.}
   }
 }
 \description{
@@ -40,14 +52,17 @@ three functions: \code{\link{get_post_meta}},
 \code{\link{get_post_comment}}.
 }
 \examples{
-
 url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
-post <- read_html2(url)
 
-post_df <- get_post(post)
+post_df <- get_post(url)
 head(post_df)
 
 # Access information in the list column: 'comment'
 head(post_df$comment[[1]])
+
+# Get Attributes
+attributes(post_df)
+attr(post_df, "base_url")
+attr(post_df, "board")
 
 }
