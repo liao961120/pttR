@@ -74,6 +74,11 @@ get_hotboard_info <- function(get_new = FALSE) {
 #' (\emph{\enc{看板}{kan ban}}) and extracts
 #' information into a data frame.
 #'
+#' \code{\link{get_index_info}} extracts data from \emph{one}
+#' index page, while \code{index2df} deals with \emph{several}.
+#' In addition, \code{index2df} returns more information.
+#' Use \code{index2df} instead of \code{\link{get_index_info}}.
+#'
 #' @param board Character. Either a \strong{url} or a
 #'   \strong{board name} that matches one of the entries
 #'   in the variable \code{board} of the data frame
@@ -119,11 +124,13 @@ index2df <- function(board, n = 1,
 
   # Check and get urls
   if (cond1) {
-    urls <- get_index_urls(board, n)
+    index_df <- get_index_urls(board, n)
+    urls <- index_df$url
+    idx_n <- index_df$idx_n
   } else if (!cond1) {
     # Get exact pages' urls set by 'from' and 'to'
       if (is.null(from) || is.null(to)) {
-        stop("Arg. 'from' and 'to' can't be NULL for 'exact = F'")
+        stop("Arg. 'from' and 'to' can't be NULL.")
       } else {
         url <- check_input_board(board)
 
@@ -140,8 +147,12 @@ index2df <- function(board, n = 1,
 
   # Combine individual dfs to one df
   df <- vector("list", length = length(urls))
+  idx_n <- as.integer(idx_n)
+
   for (i in seq_along(urls)) {
-    df[[i]] <- get_index_info(urls[i])
+    temp <- get_index_info(urls[i])
+    temp$idx_n <- idx_n[i]
+    df[[i]] <- temp
   }
   df <- dplyr::bind_rows(df)
 
@@ -209,8 +220,9 @@ get_index_url <- function(board_url) {
 #'   case-insensitive.
 #' @param n Numeric. Number of index page to retreive.
 #'
-#' @return \code{get_index_urls} returns a chr vector of
-#'   urls with length equal to the argument \code{n}.
+#' @return \code{get_index_urls} returns a data frame with
+#'   1 column of urls and 1 column of corresonding index page
+#'   numbers. The number of rows equal the argument \code{n}.
 #'
 #' @rdname scrape-index
 #'
@@ -234,7 +246,7 @@ get_index_urls <- function(board, n) {
   df <- as.data.frame(cbind(idx_n, url))
   df$url <- str_replace(df$url, "index.*$",
                         paste0("index", df$idx_n, ".html"))
-  return(df$url)
+  return(df)
 }
 
 
@@ -271,8 +283,8 @@ get_index_info <- function(board_url) {
   category <- vapply(title, extr_post_category, "str")
 
   link <- raw %>% html_nodes("div.title") %>%
-    html_nodes("a") %>% html_attr("href")
-  link <- paste0("https://www.ptt.cc", link)
+    html_nodes("a") %>% html_attr("href") %>%
+    stringr::str_remove("^/")
 
   author <- raw %>% html_nodes("div.meta") %>%
     html_nodes("div.author") %>% html_text
@@ -283,6 +295,7 @@ get_index_info <- function(board_url) {
   df <- dplyr::as_data_frame(cbind(pop, category, title,
               link, author, date))
 
+  attr(df, "base_url") <- "https://www.ptt.cc/"
   return(df)
 }
 
