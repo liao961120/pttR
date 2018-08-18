@@ -4,10 +4,13 @@
 \alias{get_post}
 \title{Get all information from an individual PTT post}
 \usage{
-get_post(post_url, board = FALSE)
+get_post(post_url, index = NULL, board = FALSE)
 }
 \arguments{
 \item{post_url}{Character. An url of a PTT post.}
+
+\item{index}{Integer. The number of the index page that has
+\code{post_url}.}
 
 \item{board}{Logical. Whether to set board name as a
 variable. Defaults to \code{FALSE}. Note you can get the
@@ -16,10 +19,8 @@ board name with \code{attributes{df}$board} or
 argument.}
 }
 \value{
-A data frame with 1 row and 10 (or 11) variables:
+A data frame with 1 row and 10 variables:
   \describe{
-    \item{board}{The board the post belongs to. Exist only
-    if \code{board = TRUE}.}
     \item{author}{Author of the post.}
     \item{category}{Category of the post, such as
       \emph{\enc{新聞}{xin wen}},
@@ -39,6 +40,14 @@ A data frame with 1 row and 10 (or 11) variables:
     \item{link}{url of the post with base url removed,
       which is \url{https://www.ptt.cc/bbs/}. Get the base
       url with \code{attr(df, "base_url")}.}
+  }
+  Two additional variables are optional:
+  \describe{
+    \item{board}{The board the post belongs to. Exist only
+      if \code{board = TRUE}.}
+    \item{index}{The index page that has the link to the post.
+      Exist only if passed in the argument \code{index}.
+    if \code{board = TRUE}.}
   }
 }
 \description{

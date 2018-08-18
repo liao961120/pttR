@@ -39,6 +39,12 @@ Returns a data frame with one post info per
 (\emph{\enc{看板}{kan ban}}) and extracts
 information into a data frame.
 }
+\details{
+\code{\link{get_index_info}} extracts data from \emph{one}
+index page, while \code{index2df} deals with \emph{several}.
+In addition, \code{index2df} returns more information.
+Use \code{index2df} instead of \code{\link{get_index_info}}.
+}
 \examples{
 # Get Board Name
 head(get_hotboard_info())[, 1]

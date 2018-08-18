@@ -29,8 +29,9 @@ case-insensitive.}
   length 2. The first element is a number,
   and the second is a url.
 
-\code{get_index_urls} returns a chr vector of
-  urls with length equal to the argument \code{n}.
+\code{get_index_urls} returns a data frame with
+  1 column of urls and 1 column of corresonding index page
+  numbers. The number of rows equal the argument \code{n}.
 
 \code{get_index_info} returns a data frame
   with n rows and 6 variables, where n is the number
