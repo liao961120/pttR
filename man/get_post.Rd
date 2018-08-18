@@ -2,7 +2,7 @@
 % Please edit documentation in R/scrap-post.R
 \name{get_post}
 \alias{get_post}
-\title{Get Information from an Individual PTT Post}
+\title{Get all information from an individual PTT post}
 \usage{
 get_post(post_xml)
 }

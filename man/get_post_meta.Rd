@@ -2,7 +2,7 @@
 % Please edit documentation in R/scrap-post.R
 \name{get_post_meta}
 \alias{get_post_meta}
-\title{Retrieve Mata Data from an Individual PTT Post}
+\title{Retrieve mata data from an individual PTT post}
 \usage{
 get_post_meta(post_xml)
 }

@@ -5,7 +5,7 @@
 \alias{get_index_url}
 \alias{get_index_urls}
 \alias{get_index_info}
-\title{Helper Functions for Scraping Index Pages}
+\title{Helper functions for scraping index pages}
 \usage{
 get_index_url(board_url)
 

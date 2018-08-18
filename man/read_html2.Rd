@@ -2,7 +2,7 @@
 % Please edit documentation in R/scrap-post.R
 \name{read_html2}
 \alias{read_html2}
-\title{Read PTT Pages with "over18-confirmation"}
+\title{Read PTT pages with "over18-confirmation"}
 \usage{
 read_html2(url)
 }

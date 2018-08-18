@@ -2,7 +2,7 @@
 % Please edit documentation in R/scrap-post.R
 \name{get_post_comment}
 \alias{get_post_comment}
-\title{Retrieve User Comments from an Individual PTT Post}
+\title{Retrieve user comments from an individual PTT post}
 \usage{
 get_post_comment(post_xml)
 }

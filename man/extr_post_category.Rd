@@ -2,7 +2,7 @@
 % Please edit documentation in R/ptt-manipulate.R
 \name{extr_post_category}
 \alias{extr_post_category}
-\title{Extract Post Category from Title}
+\title{Extract post category from title}
 \usage{
 extr_post_category(post_title)
 }

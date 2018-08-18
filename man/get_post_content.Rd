@@ -2,7 +2,7 @@
 % Please edit documentation in R/scrap-post.R
 \name{get_post_content}
 \alias{get_post_content}
-\title{Retrieve Post Content from an Individual PTT Post}
+\title{Retrieve content from an individual PTT post}
 \usage{
 get_post_content(post_xml)
 }
@@ -16,10 +16,10 @@ A data frame with 1 row and 1 col. The entry is
   a long string.
 }
 \description{
-\code{get_post_content} returns a data frame with 1 row and 1 col.
+\code{get_post_content} returns a data frame with 1 row and
+1 col.
 }
 \examples{
-
 url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
 post <- read_html2(url)
 
