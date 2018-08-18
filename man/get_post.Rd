@@ -4,7 +4,7 @@
 \alias{get_post}
 \title{Get all information from an individual PTT post}
 \usage{
-get_post(post_url, index = NULL, board = FALSE)
+get_post(post_url, index = NULL, board_col = FALSE)
 }
 \arguments{
 \item{post_url}{Character. An url of a PTT post.}
@@ -12,7 +12,7 @@ get_post(post_url, index = NULL, board = FALSE)
 \item{index}{Integer. The number of the index page that has
 \code{post_url}.}
 
-\item{board}{Logical. Whether to set board name as a
+\item{board_col}{Logical. Whether to set board name as a
 variable. Defaults to \code{FALSE}. Note you can get the
 board name with \code{attributes{df}$board} or
 \code{attr(df, "board")} regardless of the value of this

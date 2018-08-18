@@ -4,14 +4,14 @@
 \alias{get_post_meta}
 \title{Retrieve mata data from an individual PTT post}
 \usage{
-get_post_meta(post_xml, board = FALSE)
+get_post_meta(post_xml, board_col = FALSE)
 }
 \arguments{
 \item{post_xml}{\code{xml_document} created by
 \code{\link{read_html2}} or \code{\link[xml2]{read_html}}.
 See \code{\link[xml2]{read_html}} for details.}
 
-\item{board}{Logical. Whether to set board name as a
+\item{board_col}{Logical. Whether to set board name as a
 variable. Defaults to \code{FALSE}. Note you can get the
 board name with \code{attributes{df}$board} or
 \code{attr(df, "board")} regardless of the value of this
