@@ -24,7 +24,6 @@ read_html2 <- function(url, ...) {
 }
 
 
-
 #' Get all information from an individual PTT post
 #'
 #' \code{get_post} returns a data frame with 1 row and 9 cols,
@@ -36,16 +35,16 @@ read_html2 <- function(url, ...) {
 #' \code{\link{get_post_comment}}.
 #'
 #' @param post_url Character. An url of a PTT post.
-#' @param board Logical. Whether to set board name as a
+#' @param index Integer. The number of the index page that has
+#'   \code{post_url}.
+#' @param board_col Logical. Whether to set board name as a
 #'   variable. Defaults to \code{FALSE}. Note you can get the
 #'   board name with \code{attributes{df}$board} or
 #'   \code{attr(df, "board")} regardless of the value of this
 #'   argument.
 #'
-#' @return A data frame with 1 row and 10 (or 11) variables:
+#' @return A data frame with 1 row and 10 variables:
 #'   \describe{
-#'     \item{board}{The board the post belongs to. Exist only
-#'     if \code{board = TRUE}.}
 #'     \item{author}{Author of the post.}
 #'     \item{category}{Category of the post, such as
 #'       \emph{\enc{新聞}{xin wen}},
@@ -66,6 +65,14 @@ read_html2 <- function(url, ...) {
 #'       which is \url{https://www.ptt.cc/bbs/}. Get the base
 #'       url with \code{attr(df, "base_url")}.}
 #'   }
+#'   Two additional variables are optional:
+#'   \describe{
+#'     \item{board}{The board the post belongs to. Exist only
+#'       if \code{board = TRUE}.}
+#'     \item{index}{The index page that has the link to the post.
+#'       Exist only if passed in the argument \code{index}.
+#'     if \code{board = TRUE}.}
+#'   }
 #'
 #' @examples
 #' url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
@@ -84,11 +91,13 @@ read_html2 <- function(url, ...) {
 #' @importFrom dplyr %>% bind_cols
 #' @importFrom tibble data_frame as_data_frame
 #' @export
-get_post <- function(post_url, board = FALSE) {
+get_post <- function(post_url, index = NULL,
+                     board_col = FALSE) {
 
   post_xml <- read_html2(post_url)
 
-  post_meta <- get_post_meta(post_xml, board = board)
+  post_meta <- get_post_meta(post_xml,
+                             board_col = board_col)
   post_content <- get_post_content(post_xml) # df with 1 row
   post_comment <- get_post_comment(post_xml) # df with many rows
   n_comment <- nrow(post_comment)
@@ -104,6 +113,10 @@ get_post <- function(post_url, board = FALSE) {
                        comment = NULL, comment_meta,
                        link = post_url)
   post_df <- as.data.frame(post_df)
+
+  if (is.numeric(index)) { # Add index num
+    post_df$index <- as.integer(index)
+  }
   post_df$comment[[1]] <- post_comment
 
   attr(post_df, "base_url") <- "https://www.ptt.cc/bbs/"
@@ -122,7 +135,7 @@ get_post <- function(post_url, board = FALSE) {
 #' @param post_xml \code{xml_document} created by
 #'   \code{\link{read_html2}} or \code{\link[xml2]{read_html}}.
 #'   See \code{\link[xml2]{read_html}} for details.
-#' @param board Logical. Whether to set board name as a
+#' @param board_col Logical. Whether to set board name as a
 #'   variable. Defaults to \code{FALSE}. Note you can get the
 #'   board name with \code{attributes{df}$board} or
 #'   \code{attr(df, "board")} regardless of the value of this
@@ -155,7 +168,7 @@ get_post <- function(post_url, board = FALSE) {
 #' @importFrom tibble data_frame as_data_frame
 #' @keywords internal
 #' @export
-get_post_meta <- function(post_xml, board = FALSE) {
+get_post_meta <- function(post_xml, board_col = FALSE) {
 
   post_meta <- post_xml %>%
     html_nodes("div.article-metaline") %>%
@@ -167,15 +180,7 @@ get_post_meta <- function(post_xml, board = FALSE) {
   post_title <- post_meta[2] %>%
     str_remove("^\u6a19\u984c") # "標題"
 
-  ## DateTime
-  mon <- paste0(month.abb, collapse = "|")
-  mon <- paste0("(", mon, ") ",
-                paste0("[ 0-9][0-9] ([0-9]{2}:){2}[0-9]{2} 20[0-9]{2}"))
-  dum <- post_meta[3] %>% str_match(mon)
-
-  post_date <- dum[1, 1] %>%
-    strptime("%b %e %H:%M:%S %Y", tz = "CST") %>%
-    as.character()
+  post_date <- parse_post_date(post_xml)
 
   tag <- "div.article-metaline-right > span.article-meta-value"
   post_board <- post_xml %>%
@@ -186,7 +191,7 @@ get_post_meta <- function(post_xml, board = FALSE) {
                          title = post_title,
                          date = post_date)
 
-  if (board == T) {
+  if (board_col == T) {
     post_meta <- bind_cols(board = post_board,
                            post_meta)
   }
@@ -281,7 +286,7 @@ get_post_content <- function(post_xml) {
 #' @keywords internal
 #' @export
 get_post_comment <- function(post_xml) {
-  # post_xml is object returned by xml2::read_html()
+
   push <- post_xml %>% html_nodes("div.push")
 
   push_tag <- push %>%
@@ -315,5 +320,11 @@ get_post_comment <- function(post_xml) {
                        comment = push_content,
                        ip = push_time$ip,
                        time = push_time$date)
+
+  post_date <- parse_post_date(post_xml) %>%
+    ymd_hms(tz = "Asia/Taipei")
+
+  push_df <- parse_comment_date(push_df, post_date)
+
   return(push_df)
 }
