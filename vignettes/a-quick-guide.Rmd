@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 ## Read One Post
 
 ```{r}
+library(pttR)
 post <- read_html2("https://www.ptt.cc/bbs/Gossiping/M.1534490816.A.A3A.html")
 
 post_df <- get_post(post)
