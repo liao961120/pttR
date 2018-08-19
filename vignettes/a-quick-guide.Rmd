@@ -37,7 +37,7 @@ post_df$comment[[1]]
 
 Information of popular boards on PTT is contained in the package. Use the code below to get the data:
 ```{r}
-df <- get_hotboard_info()
+df <- hotboards()
 df
 ```
 
