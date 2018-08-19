@@ -33,6 +33,7 @@ deploy:
     keep-history: true
     on:
       branch: master
+      condition: $TRAVIS_OS_NAME = linux
   - provider: pages    # Deploy master/docs to branch gh-pages
     skip-cleanup: true
     github-token: $GH_TOKEN  
