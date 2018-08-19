@@ -230,9 +230,7 @@ get_post_content <- function(post_xml) {
   post_content <- post_xml %>%
     html_node("div#main-content") %>%
     html_text() %>%
-    # remove head portion
     str_remove("^(\n|.)*([0-9]{2}:){2}[0-9]{2} 20[0-9]{2}(\n)+") %>%
-    # remove tail portion
     str_remove("(\n)+--\n\u203b(\n|.)*")
 
   n_char <- post_content %>%
