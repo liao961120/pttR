@@ -20,7 +20,7 @@ matrix:
         - sudo timedatectl set-timezone Asia/Taipei
         - sudo apt-get install texlive-fonts-extra
 
-before_deploy:
+after_success:
   - bash deploy.sh
 
 
@@ -30,7 +30,7 @@ deploy:
     target-branch: win-build  
     skip-cleanup: true
     github-token: $GH_TOKEN_win  # Set in travis-ci.org dashboard
-    keep-history: true
+    keep-history: false
     on:
       branch: master
       condition: $TRAVIS_OS_NAME = linux
