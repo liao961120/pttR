@@ -28,18 +28,22 @@
 #'     \item{The second element}{The ending page number of
 #'       the board's index to retreive.}
 #'   }
-#' @param search Character vector. The first element is
-#'   a term (e.g. \emph{魯蛇}) to search on a PTT board.
-#'   The second and third element are positive integers
-#'   specifying the range to search, with \code{1} being
-#'   the newest page. \code{search} works
-#'   together with argument \code{board}, which in this
-#'   case, \strong{can only be a board name} such as
-#'   \emph{"Gossiping"} but not a url. In addition,
+#' @param search Character vector of length 3. \code{search}
+#'   works together with argument \code{board}, which in
+#'   this case, \strong{can only be a board name} such as
+#'   \emph{"Gossiping"} but \strong{not a url}. In addition,
 #'   \code{board} is not limited to board names returned
 #'   by \code{\link{hotboards}}. The only criterion
-#'   is that \code{board} needs to matche a real board name
+#'   is that \code{board} needs to match a real board name
 #'   set as part of a PTT board url.
+#'   \describe{
+#'     \item{The first element}{A term (e.g. \emph{魯蛇}) to
+#'       search on a PTT board.}
+#'     \item{The second and third element}{Positive integers
+#'       specifying the range to search. \code{1} indicates
+#'       the newest page, numbers increases as the pages get
+#'       older.}
+#'    }
 #'
 #' @return Returns a data frame with one post info per
 #'   row.

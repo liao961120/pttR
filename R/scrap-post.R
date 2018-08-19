@@ -37,11 +37,11 @@ read_html2 <- function(url, ...) {
 #'
 #' @param post_url Character. An url of a PTT post.
 #' @param index Integer. The number of the index page that has
-#'   \code{post_url}. If give, creates a new column,
+#'   \code{post_url}. If given, creates a new column,
 #'   \code{index}.
 #' @param board_col Logical. Whether to set board name as a
 #'   variable. Defaults to \code{FALSE}. Note you can get the
-#'   board name with \code{attributes{df}$board} or
+#'   board name with \code{attributes(df)$board} or
 #'   \code{attr(df, "board")} regardless of the value of this
 #'   argument.
 #'
@@ -72,8 +72,7 @@ read_html2 <- function(url, ...) {
 #'     \item{board}{The board the post belongs to. Exist only
 #'       if \code{board = TRUE}.}
 #'     \item{index}{The index page that has the link to the post.
-#'       Exist only if passed in the argument \code{index}.
-#'     if \code{board = TRUE}.}
+#'       Exist only if passed in the argument \code{index}.}
 #'   }
 #'
 #' @examples
