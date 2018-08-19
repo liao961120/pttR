@@ -8,3 +8,4 @@ data-raw/*.html
 local/
 /inst/**/*.sh
 /inst/**/*.txt
+/R/R_pars_dir

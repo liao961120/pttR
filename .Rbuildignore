@@ -10,3 +10,5 @@
 ^data-public$
 ^local$
 ^build_site\.R$
+^deploy\.sh$
+^R/R_pars_dir/$
