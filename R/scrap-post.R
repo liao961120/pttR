@@ -167,7 +167,6 @@ get_post <- function(post_url, index = NULL,
 #' @importFrom stringr str_match str_remove str_replace_all
 #' @importFrom tibble data_frame as_data_frame
 #' @keywords internal
-#' @export
 get_post_meta <- function(post_xml, board_col = FALSE) {
 
   post_meta <- post_xml %>%
@@ -225,7 +224,6 @@ get_post_meta <- function(post_xml, board_col = FALSE) {
 #' @importFrom stringr str_remove
 #' @importFrom tibble data_frame as_data_frame
 #' @keywords internal
-#' @export
 get_post_content <- function(post_xml) {
 
   post_content <- post_xml %>%
@@ -239,7 +237,6 @@ get_post_content <- function(post_xml) {
   n_char <- post_content %>%
     str_remove_all("( )") %>%
     str_remove_all("(\n)+") %>% nchar()
-
 
   post_content <- data_frame(content = post_content, n_char = n_char)
   return(post_content)
@@ -284,7 +281,6 @@ get_post_content <- function(post_xml) {
 #' @importFrom stringr str_match str_remove str_replace_all
 #' @importFrom tibble data_frame as_data_frame
 #' @keywords internal
-#' @export
 get_post_comment <- function(post_xml) {
 
   push <- post_xml %>% html_nodes("div.push")
@@ -309,7 +305,7 @@ get_post_comment <- function(post_xml) {
     html_nodes("span.push-ipdatetime") %>%
     html_text() %>%
     as_data_frame() %>%
-    separate("value", into = c("ip", "date"), sep = 16)
+    separate("value", into = c("ip", "date"), sep = -12)
 
   push_time$ip <- str_remove(push_time$ip, "^ +")
   push_time$ip <- str_remove(push_time$ip, " +$")
