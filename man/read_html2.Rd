@@ -23,4 +23,5 @@ to bypass PTT's "over18-confirmation".
 \examples{
 url <- "https://www.ptt.cc/bbs/Gossiping/index.html"
 read_html2(url)
+
 }

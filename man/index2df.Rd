@@ -26,6 +26,15 @@ the newest and the second-newest page, and so
 forth. \strong{The value should be kept low so
 that it doesn't put too much load on the server}.}
 
+\item{range}{Numeric vector of length 2. When set,
+argument \code{n} has no effect. Defaults to \code{NA}.
+\describe{
+  \item{The first element}{The starting page number of
+    the board's index to retreive.}
+  \item{The second element}{The ending page number of
+    the board's index to retreive.}
+}}
+
 \item{search}{Character vector. The first element is
 a term (e.g. \emph{魯蛇}) to search on a PTT board.
 The second and third element are positive integers
@@ -38,14 +47,6 @@ case, \strong{can only be a board name} such as
 by \code{\link{hotboards}}. The only criterion
 is that \code{board} needs to matche a real board name
 set as part of a PTT board url.}
-
-\item{from}{Numeric. The starting page of custom range
-of index pages to retreive. Must be set together with
-\code{to}. When set, argument \code{n} has no effect.
-Defaults to \code{NULL}.}
-
-\item{to}{Numeric. The ending page of custom range of
-index pages to retreive. See \code{from}.}
 }
 \value{
 Returns a data frame with one post info per
@@ -62,8 +63,6 @@ head(hotboards())[, 1]
 
 # Get data from 'Gossiping'
 df <- index2df("Gossiping")
-
-#
 
 \dontrun{
 # Or use url directly

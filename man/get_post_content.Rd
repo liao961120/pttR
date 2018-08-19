@@ -19,10 +19,10 @@ A data frame with 1 row and 2 col.
 1 col.
 }
 \examples{
-url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
-post <- read_html2(url)
+#url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
+#post <- read_html2(url)
 
-get_post_content(post)
+#get_post_content(post)
 
 }
 \keyword{internal}

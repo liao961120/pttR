@@ -34,12 +34,12 @@ and 4 cols.
 }
 \examples{
 
-url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
+#url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
 
-post_meta <- get_post_meta(read_html2(url))
-post_meta
+#post_meta <- get_post_meta(read_html2(url))
+#post_meta
 
-attributes(post_meta)$board
+#attributes(post_meta)$board
 
 }
 \keyword{internal}

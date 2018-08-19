@@ -32,10 +32,10 @@ in the post.
 }
 \examples{
 
-url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
-post <- read_html2(url)
+#url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
+#post <- read_html2(url)
 
-get_post_comment(post)
+#get_post_comment(post)
 
 }
 \keyword{internal}
