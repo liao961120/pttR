@@ -2,7 +2,7 @@
 % Please edit documentation in R/scrape-index.R
 \name{index2df}
 \alias{index2df}
-\title{Convert a board's index pages to data frame}
+\title{Extract data from multiple index pages of a PTT board.}
 \usage{
 index2df(board, n = 1, range = c(NA, NA), search = c(term = NA, from
   = 1, to = 2))
@@ -11,10 +11,13 @@ index2df(board, n = 1, range = c(NA, NA), search = c(term = NA, from
 \item{board}{Character. Either a \strong{url} or a
 \strong{board name} that matches one of the entries
 in the variable \code{board} of the data frame
-returned by \code{\link{get_hotboard_info}}, such
-as \emph{"Gossiping"}, \emph{"Baseball"}, \emph{"LoL}.
+returned by \code{\link{hotboards}}, such
+as \emph{"Gossiping"}, \emph{"Baseball"},
+\emph{"LoL"}.
 \strong{board name} is case-insensitive. See
-\strong{Examples} for details.}
+\strong{Examples} for details.
+\code{board} has a different requirements when used
+with argument \code{search} (See below).}
 
 \item{n}{Numeric. Number of pages to scrape.
 Defaults to \code{1}, which scrapes only the
@@ -23,8 +26,21 @@ the newest and the second-newest page, and so
 forth. \strong{The value should be kept low so
 that it doesn't put too much load on the server}.}
 
-\item{from}{Numeric. The starting page of custom range of
-index pages to retreive. Must be set together with
+\item{search}{Character vector. The first element is
+a term (e.g. \emph{魯蛇}) to search on a PTT board.
+The second and third element are positive integers
+specifying the range to search, with \code{1} being
+the newest page. \code{search} works
+together with argument \code{board}, which in this
+case, \strong{can only be a board name} such as
+\emph{"Gossiping"} but not a url. In addition,
+\code{board} is not limited to board names returned
+by \code{\link{hotboards}}. The only criterion
+is that \code{board} needs to matche a real board name
+set as part of a PTT board url.}
+
+\item{from}{Numeric. The starting page of custom range
+of index pages to retreive. Must be set together with
 \code{to}. When set, argument \code{n} has no effect.
 Defaults to \code{NULL}.}
 
@@ -36,22 +52,18 @@ Returns a data frame with one post info per
   row.
 }
 \description{
-\code{index2df} scrapes index pages of a board
-(\emph{\enc{看板}{kan ban}}) and extracts
+\code{index2df} scrapes the index pages of a board
+(\emph{\enc{看板}{kan ban}}) and extracts the
 information into a data frame.
-}
-\details{
-\code{\link{get_index_info}} extracts data from \emph{one}
-index page, while \code{index2df} deals with \emph{several}.
-In addition, \code{index2df} returns more information.
-Use \code{index2df} instead of \code{\link{get_index_info}}.
 }
 \examples{
 # Get Board Name
-head(get_hotboard_info())[, 1]
+head(hotboards())[, 1]
 
 # Get data from 'Gossiping'
 df <- index2df("Gossiping")
+
+#
 
 \dontrun{
 # Or use url directly
@@ -63,4 +75,8 @@ df <- index2df(link, 3)
 }
 \seealso{
 \code{\link{get_index_info}}
+  \code{\link{get_index_info}} extracts data from
+  \emph{one} index page, while \code{index2df} deals with
+  \emph{several}. In addition, \code{index2df} has more
+  functionality to deal with multiple pages extraction
 }

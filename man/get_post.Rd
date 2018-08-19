@@ -10,7 +10,8 @@ get_post(post_url, index = NULL, board_col = FALSE)
 \item{post_url}{Character. An url of a PTT post.}
 
 \item{index}{Integer. The number of the index page that has
-\code{post_url}.}
+\code{post_url}. If give, creates a new column,
+\code{index}.}
 
 \item{board_col}{Logical. Whether to set board name as a
 variable. Defaults to \code{FALSE}. Note you can get the

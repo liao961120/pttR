@@ -19,7 +19,7 @@ get_index_info(board_url)
 \item{board}{Character. Either a url or a board name
 that matches one of the entries in \code{board}
 of the data frame returned by
-\code{\link{get_hotboard_info}}. board name is
+\code{\link{hotboards}}. board name is
 case-insensitive.}
 
 \item{n}{Numeric. Number of index page to retreive.}
