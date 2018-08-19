@@ -36,7 +36,8 @@ read_html2 <- function(url, ...) {
 #'
 #' @param post_url Character. An url of a PTT post.
 #' @param index Integer. The number of the index page that has
-#'   \code{post_url}.
+#'   \code{post_url}. If give, creates a new column,
+#'   \code{index}.
 #' @param board_col Logical. Whether to set board name as a
 #'   variable. Defaults to \code{FALSE}. Note you can get the
 #'   board name with \code{attributes{df}$board} or
@@ -104,7 +105,7 @@ get_post <- function(post_url, index = NULL,
   n_push <- sum(post_comment$tag == "Push")
   n_boo <- sum(post_comment$tag == "Boo")
   comment_meta <- cbind(n_comment, n_push, n_boo) %>%
-    as_data_frame()
+    as.data.frame()
 
   post_url <- stringr::str_remove(post_url,
                                   "^https://www.ptt.cc/bbs/")
@@ -115,7 +116,7 @@ get_post <- function(post_url, index = NULL,
   post_df <- as.data.frame(post_df)
 
   if (is.numeric(index)) { # Add index num
-    post_df$index <- as.integer(index)
+    post_df$index <- index
   }
   post_df$comment[[1]] <- post_comment
 
