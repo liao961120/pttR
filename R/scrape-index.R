@@ -208,28 +208,29 @@ get_index_urls <- function(board, n) {
 #' @import rvest
 #' @export
 #' @keywords internal
+#' @export
 get_index_info <- function(board_url) {
-  raw <- read_html2(board_url) %>% html_nodes("div.r-ent")
+  raw2 <- read_html2(board_url) %>% html_nodes("div.r-ent")
 
-  pop <- raw %>% html_nodes("div.nrec") %>%
+  pop <- raw2 %>% html_nodes("div.nrec") %>%
     html_text()
   pop[pop == ""] <- "0"
 
-  title <- raw %>% html_nodes("div.title") %>%
+  title <- raw2 %>% html_nodes("div.title") %>%
     html_text() %>%
     stringr::str_remove("^(\\n|\\t)+") %>%
     stringr::str_remove("(\\n|\\t)+$")
 
   category <- vapply(title, extr_post_category, "str")
 
-  link <- raw %>% html_nodes("div.title") %>%
+  link <- raw2 %>% html_nodes("div.title") %>%
     html_nodes("a") %>% html_attr("href") %>%
     stringr::str_remove("^/bbs/")
 
-  author <- raw %>% html_nodes("div.meta") %>%
+  author <- raw2 %>% html_nodes("div.meta") %>%
     html_nodes("div.author") %>% html_text
 
-  date <- raw %>% html_nodes("div.meta") %>%
+  date <- raw2 %>% html_nodes("div.meta") %>%
     html_nodes("div.date") %>% html_text
 
   df <- dplyr::as_data_frame(cbind(pop, category, title,
