@@ -18,7 +18,7 @@ check_input_board <- function(board) {
       board_url <- hotboard_df$link[idx]
     } else {
       stop("Only accept 'board url' or 'board name' matching
-           get_hotboard_info(get_new = FALSE)")
+           hotboards(get_new = FALSE)")
     }
   }
   return(board_url)
