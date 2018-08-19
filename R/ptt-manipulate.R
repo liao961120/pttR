@@ -3,32 +3,20 @@
 #' \code{extr_post_category} returns the category of a PTT
 #' post title.
 #'
-#' This function extracts the category from the title based on
-#' regular expressions. It extracts the content inside the
-#' square brackets (\code{[, ]}) of the title.
-#' If there is no square bracket, it searches for \code{Re:}
-#' and extracts this pattern.
+#' This function extracts the category from the title based
+#' on regular expressions. It extracts the content inside
+#' the square brackets (\code{[, ]}) of the title.
+#' If there is no square bracket, it searches for
+#' \code{Re:} and extracts this pattern.
 #' If neither is matched, the function returns
 #' string \code{No}.
 #'
 #' @param post_title Character. UTF-8 encoding and no leading
 #'   space in string.
 #'
-#' @return If there is square-bracket-match or \code{Re:}-match,
-#'   the function returns a string.
+#' @return If there is square-bracket-match or
+#'   \code{Re:}-match, the function returns a string.
 #'   Else, the function returns string \code{No}.
-#'
-#' @examples
-#' str1 <- "[新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
-#' str2 <- "Re: [新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
-#' str_err <- " [新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
-#'
-#' extr_post_category(str1)
-#' extr_post_category(str2)
-#'
-#' \dontrun{
-#' extr_post_category(str_err)
-#' }
 #'
 #' @importFrom magrittr %>%
 #' @importFrom  stringr str_detect str_match str_replace str_remove

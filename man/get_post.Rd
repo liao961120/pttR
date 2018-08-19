@@ -10,12 +10,12 @@ get_post(post_url, index = NULL, board_col = FALSE)
 \item{post_url}{Character. An url of a PTT post.}
 
 \item{index}{Integer. The number of the index page that has
-\code{post_url}. If give, creates a new column,
+\code{post_url}. If given, creates a new column,
 \code{index}.}
 
 \item{board_col}{Logical. Whether to set board name as a
 variable. Defaults to \code{FALSE}. Note you can get the
-board name with \code{attributes{df}$board} or
+board name with \code{attributes(df)$board} or
 \code{attr(df, "board")} regardless of the value of this
 argument.}
 }
@@ -47,8 +47,7 @@ A data frame with 1 row and 10 variables:
     \item{board}{The board the post belongs to. Exist only
       if \code{board = TRUE}.}
     \item{index}{The index page that has the link to the post.
-      Exist only if passed in the argument \code{index}.
-    if \code{board = TRUE}.}
+      Exist only if passed in the argument \code{index}.}
   }
 }
 \description{
