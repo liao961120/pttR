@@ -47,4 +47,12 @@ df
 url <- "https://www.ptt.cc/bbs/Gossiping/M.1514735137.A.8BD.html"
 ```
 
+```{r}
+str1 <- "[新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
+str2 <- "Re: [新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
+str_err <- " [新聞] 金正男謀殺案今宣判 2女嫌律師:8成機率"
+
+extr_post_category(str1)
+extr_post_category(str2)
+```
 
