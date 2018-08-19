@@ -29,7 +29,7 @@ deploy:
   - provider: pages    # Deploy master to branch win-build
     target-branch: win-build  
     skip-cleanup: true
-    github-token: $GH_TOKEN  # Set in travis-ci.org dashboard
+    github-token: $GH_TOKEN_win  # Set in travis-ci.org dashboard
     keep-history: true
     on:
       branch: master
