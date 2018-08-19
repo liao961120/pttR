@@ -28,6 +28,7 @@ check_input_board <- function(board) {
 #' Check input and get urls for index2df(): search case
 #'
 #' @importFrom stringr str_detect
+#' @importFrom utils URLencode head
 #' @family helper-index2df
 #' @keywords internal
 check_index2df_search <- function(board, search) {
