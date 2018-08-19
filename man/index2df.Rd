@@ -4,7 +4,8 @@
 \alias{index2df}
 \title{Convert a board's index pages to data frame}
 \usage{
-index2df(board, n = 1, from = NULL, to = NULL)
+index2df(board, n = 1, range = c(NA, NA), search = c(term = NA, from
+  = 1, to = 2))
 }
 \arguments{
 \item{board}{Character. Either a \strong{url} or a
