@@ -20,7 +20,7 @@
 #'
 #' @return A data frame with dimension same as the input.
 #'
-#' @importFrom lubridate year years ymd_hms ymd_hm
+#' @importFrom lubridate year years seconds ymd_hms ymd_hm floor_date
 #' @export
 #' @keywords internal
 parse_comment_date <- function(cmt_df, post_date) {
@@ -31,8 +31,11 @@ parse_comment_date <- function(cmt_df, post_date) {
 
   # Deal with rare case where post_date and comment
   # dates have different years
-  if (df$ymd[1] < post_date) {
-    df$ymd <- mmdd2date(df$time, year + 1)
+  first_cmt_fl <- floor_date(df$ymd[1], "minute") + seconds(1)
+  post_date_fl <- floor_date(post_date, "minute")
+  if (first_cmt_fl < post_date_fl) {
+    year <- year + 1
+    df$ymd <- mmdd2date(df$time, year)
   }
 
   # Make a col to put 'the next comment' side-by-side
@@ -46,6 +49,7 @@ parse_comment_date <- function(cmt_df, post_date) {
 
   # For every cross-year comment, add 1 to all entries
   # below. Loop over all cross-year cases.
+  df <- dplyr::mutate(df, year = year)
   for (i in idx) {
     df$year[i:nrow(df)] <- df$year[i:nrow(df)] + 1
   }
