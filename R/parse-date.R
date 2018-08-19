@@ -16,7 +16,7 @@
 #'   except that the \code{time} column has entries with
 #'   the format of the date in PTT post comments.
 #' @param post_date Date. A value returned by
-#'   \code{\link{lubridate::ymd_hms}}.
+#'   \code{\link[lubridate]{ymd_hms}}.
 #'
 #' @return A data frame with dimension same as the input.
 #'
