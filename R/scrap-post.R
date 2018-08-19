@@ -13,6 +13,7 @@
 #' @examples
 #' url <- "https://www.ptt.cc/bbs/Gossiping/index.html"
 #' read_html2(url)
+#'
 #' @export
 read_html2 <- function(url, ...) {
  curl_1 <- RCurl::getCurlHandle()
@@ -154,12 +155,12 @@ get_post <- function(post_url, index = NULL,
 #'
 #' @examples
 #'
-#' url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
+#' #url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
 #'
-#' post_meta <- get_post_meta(read_html2(url))
-#' post_meta
+#' #post_meta <- get_post_meta(read_html2(url))
+#' #post_meta
 #'
-#' attributes(post_meta)$board
+#' #attributes(post_meta)$board
 #'
 #' @importFrom rvest html_node html_nodes html_text
 #' @importFrom xml2 read_html
@@ -215,10 +216,10 @@ get_post_meta <- function(post_xml, board_col = FALSE) {
 #' @return A data frame with 1 row and 2 col.
 #'
 #' @examples
-#' url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
-#' post <- read_html2(url)
+#' #url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
+#' #post <- read_html2(url)
 #'
-#' get_post_content(post)
+#' #get_post_content(post)
 #'
 #' @importFrom rvest html_node html_nodes html_text
 #' @importFrom dplyr %>% bind_cols
@@ -270,10 +271,10 @@ get_post_content <- function(post_xml) {
 #'
 #' @examples
 #'
-#' url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
-#' post <- read_html2(url)
+#' #url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
+#' #post <- read_html2(url)
 #'
-#' get_post_comment(post)
+#' #get_post_comment(post)
 #'
 #' @importFrom rvest html_node html_nodes html_text
 #' @importFrom xml2 read_html
