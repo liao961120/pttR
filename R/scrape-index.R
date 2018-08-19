@@ -1,113 +1,58 @@
-#' Return a data frame with popular boards info
+#' Extract data from multiple index pages of a PTT board.
 #'
-#' \code{get_hotboard_info} returns a data frame of
-#' popular boards (\emph{\enc{熱門看板}{re men kan ban}})
-#' on PTT.
-#'
-#' @param get_new Logical. Defaults to \code{FALSE}.
-#'   If \code{TRUE}, scrapes and retreive data from
-#'   \url{https://www.ptt.cc/bbs/hotboards.html}.
-#'   If \code{FALSE}, use pre-scraped data stored in
-#'   the package.
-#'
-#' @examples
-#' df <- get_hotboard_info()
-#' head(df)
-#'
-#' # Get data update time
-#' attr(df, "date")
-#'
-#' @source \url{https://www.ptt.cc/bbs/hotboards.html}
-#'
-#' @importFrom rvest html_nodes html_attr html_text
-#' @importFrom xml2 read_html
-#' @importFrom stringr str_replace str_extract str_remove
-#' @importFrom dplyr %>% bind_cols mutate
-#' @export
-get_hotboard_info <- function(get_new = FALSE) {
-
-  if (!get_new) return(hotboard_df)
-
-  link <- "https://www.ptt.cc/bbs/hotboards.html"
-
-  hotboards <- read_html(link) %>%
-    html_nodes("div.b-ent") %>%
-    html_nodes("a.board")
-
-  board_link <- hotboards %>%
-    html_attr("href") %>%
-    str_replace("^/", "https://www.ptt.cc/")
-
-  board_name_en <- hotboards %>%
-    html_nodes("div.board-name") %>%
-    html_text()
-
-  board_name_ch <- hotboards %>%
-    html_nodes("div.board-title") %>%
-    html_text() %>%
-    str_extract("^\u25ce\\[.+\\]") %>% # \u25ce : ◎
-    str_remove("\u25ce\\[") %>%
-    str_remove("\\]$")
-
-  board_popularity <- hotboards %>%
-    html_nodes("div.board-nuser > span") %>%
-    html_text()
-
-  df <- cbind(board = board_name_en,
-              name_ch = board_name_ch,
-              popularity = board_popularity,
-              link = board_link)
-  df$name_ch <- ifelse(is.na(df$name_ch),
-                                df$board,
-                                df$name_ch)
-
-  attr(df, "date") <- Sys.time()
-
-  return(df)
-}
-
-
-
-#' Convert a board's index pages to data frame
-#'
-#' \code{index2df} scrapes index pages of a board
-#' (\emph{\enc{看板}{kan ban}}) and extracts
+#' \code{index2df} scrapes the index pages of a board
+#' (\emph{\enc{看板}{kan ban}}) and extracts the
 #' information into a data frame.
 #'
-#' \code{\link{get_index_info}} extracts data from \emph{one}
-#' index page, while \code{index2df} deals with \emph{several}.
-#' In addition, \code{index2df} returns more information.
-#' Use \code{index2df} instead of \code{\link{get_index_info}}.
+#'
 #'
 #' @param board Character. Either a \strong{url} or a
 #'   \strong{board name} that matches one of the entries
 #'   in the variable \code{board} of the data frame
-#'   returned by \code{\link{get_hotboard_info}}, such
-#'   as \emph{"Gossiping"}, \emph{"Baseball"}, \emph{"LoL}.
+#'   returned by \code{\link{hotboards}}, such
+#'   as \emph{"Gossiping"}, \emph{"Baseball"},
+#'   \emph{"LoL"}.
 #'   \strong{board name} is case-insensitive. See
 #'   \strong{Examples} for details.
+#'   \code{board} has a different requirements when used
+#'   with argument \code{search} (See below).
 #' @param n Numeric. Number of pages to scrape.
 #'   Defaults to \code{1}, which scrapes only the
 #'   newest page. If set to \code{2}, then scrapes
 #'   the newest and the second-newest page, and so
 #'   forth. \strong{The value should be kept low so
 #'   that it doesn't put too much load on the server}.
-#' @param from Numeric. The starting page of custom range of
-#'   index pages to retreive. Must be set together with
+#' @param from Numeric. The starting page of custom range
+#'   of index pages to retreive. Must be set together with
 #'   \code{to}. When set, argument \code{n} has no effect.
 #'   Defaults to \code{NULL}.
 #' @param to Numeric. The ending page of custom range of
 #'   index pages to retreive. See \code{from}.
+#' @param search Character vector. The first element is
+#'   a term (e.g. \emph{魯蛇}) to search on a PTT board.
+#'   The second and third element are positive integers
+#'   specifying the range to search, with \code{1} being
+#'   the newest page. \code{search} works
+#'   together with argument \code{board}, which in this
+#'   case, \strong{can only be a board name} such as
+#'   \emph{"Gossiping"} but not a url. In addition,
+#'   \code{board} is not limited to board names returned
+#'   by \code{\link{hotboards}}. The only criterion
+#'   is that \code{board} needs to matche a real board name
+#'   set as part of a PTT board url.
+#'
 #'
 #' @return Returns a data frame with one post info per
 #'   row.
 #'
 #' @examples
 #' # Get Board Name
-#' head(get_hotboard_info())[, 1]
+#' head(hotboards())[, 1]
 #'
 #' # Get data from 'Gossiping'
 #' df <- index2df("Gossiping")
+#'
+#' #
 #'
 #' \dontrun{
 #' # Or use url directly
@@ -117,6 +62,11 @@ get_hotboard_info <- function(get_new = FALSE) {
 #' }
 #'
 #' @seealso \code{\link{get_index_info}}
+#'   \code{\link{get_index_info}} extracts data from
+#'   \emph{one} index page, while \code{index2df} deals with
+#'   \emph{several}. In addition, \code{index2df} has more
+#'   functionality to deal with multiple pages extraction
+#'
 #' @importFrom stringr str_detect
 #' @export
 index2df <- function(board, n = 1, range = c(NA, NA),
@@ -204,7 +154,7 @@ get_index_url <- function(board_url) {
 #' @param board Character. Either a url or a board name
 #'   that matches one of the entries in \code{board}
 #'   of the data frame returned by
-#'   \code{\link{get_hotboard_info}}. board name is
+#'   \code{\link{hotboards}}. board name is
 #'   case-insensitive.
 #' @param n Numeric. Number of index page to retreive.
 #'
