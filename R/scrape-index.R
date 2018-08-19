@@ -117,37 +117,25 @@ get_hotboard_info <- function(get_new = FALSE) {
 #' }
 #'
 #' @seealso \code{\link{get_index_info}}
+#' @importFrom stringr str_detect
 #' @export
-index2df <- function(board, n = 1,
-                     from = NULL, to = NULL) {
-  cond1 <- is.null(from) && is.null(to)
+index2df <- function(board, n = 1, range = c(NA, NA),
+                     search = c(term = NA, from = 1, to = 2)) {
 
   # Check and get urls
-  if (cond1) {
-    index_df <- get_index_urls(board, n)
-    urls <- index_df$url
-    idx_n <- index_df$idx_n
-  } else if (!cond1) {
-    # Get exact pages' urls set by 'from' and 'to'
-      if (is.null(from) || is.null(to)) {
-        stop("Arg. 'from' and 'to' can't be NULL.")
-      } else {
-        url <- check_input_board(board)
-
-        idx_n <- as.character(from:to)
-        url <- rep(url, length(idx_n))
-
-        df <- as.data.frame(cbind(idx_n, url))
-        df$url <- stringr::str_replace(df$url, "index.*$",
-                                       paste0("index",
-                                              df$idx_n, ".html"))
-        urls <- df$url
-      }
+  if (!is.na(search[1])) {
+    df <- check_index2df_search(board, search)
+  } else {
+    df <- check_index2df_order(board, n, range)
   }
+
+  # IMPORTANT: coerce factor to chr,
+  # or as.integer(factor) changes the value
+  idx_n <- as.integer(as.character(df$idx_n))
+  urls <- df$url
 
   # Combine individual dfs to one df
   df <- vector("list", length = length(urls))
-  idx_n <- as.integer(idx_n)
 
   for (i in seq_along(urls)) {
     temp <- get_index_info(urls[i])
@@ -230,6 +218,7 @@ get_index_url <- function(board_url) {
 #' @export
 #' @keywords internal
 get_index_urls <- function(board, n) {
+  if (n <= 0) stop("Invalid n.")
 
   board_url <- check_input_board(board)
 
@@ -284,7 +273,7 @@ get_index_info <- function(board_url) {
 
   link <- raw %>% html_nodes("div.title") %>%
     html_nodes("a") %>% html_attr("href") %>%
-    stringr::str_remove("^/")
+    stringr::str_remove("^/bbs/")
 
   author <- raw %>% html_nodes("div.meta") %>%
     html_nodes("div.author") %>% html_text
@@ -297,29 +286,4 @@ get_index_info <- function(board_url) {
 
   attr(df, "base_url") <- "https://www.ptt.cc/"
   return(df)
-}
-
-
-#' Input Check for 'board'
-#'
-#' Check and get the index url of a board. If invalid,
-#' stops executing and gives error message.
-#' @keywords internal
-check_input_board <- function(board) {
-  if (str_detect(board, "^http")) {
-    board_url <- board
-  } else {
-    board <- tolower(board)
-    board_names <- tolower(hotboard_df$board)
-
-    cond <- sum(board_names == board) == 1 # Exactly 1 match
-    if (cond) {
-      idx <- which(board_names == board)
-      board_url <- hotboard_df$link[idx]
-    } else {
-      stop("Only accept 'board url' or 'board name' matching
-           get_hotboard_info(get_new = FALSE)")
-    }
-  }
-  return(board_url)
 }
