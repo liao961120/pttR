@@ -1,6 +1,6 @@
 devtools::load_all()
 
-hotboard_df <- get_hotboard_info(get_new = TRUE)
+hotboard_df <- hotboards(get_new = TRUE)
 
 # Export data to RDS for Internal Usage
 
