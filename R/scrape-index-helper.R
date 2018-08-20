@@ -1,56 +1,102 @@
-#' Input Check for 'board'
-#'
-#' Check and get the index url of a board. If invalid,
-#' stops executing and gives error message.
-#'
-#' @family helper-check_index2df_
-#' @keywords internal
-check_input_board <- function(board) {
-  if (str_detect(board, "^http")) {
-    board_url <- board
-  } else {
-    board <- tolower(board)
-    board_names <- tolower(hotboard_df$board)
 
-    cond <- sum(board_names == board) == 1 # Exactly 1 match
-    if (cond) {
-      idx <- which(board_names == board)
-      board_url <- hotboard_df$link[idx]
-    } else {
-      stop("Only accept 'board url' or 'board name' matching
-           hotboards(get_new = FALSE)")
-    }
-  }
-  return(board_url)
+
+
+
+
+
+##### Internal Helper Functions #####
+
+#' Helper functions for scraping index pages
+#'
+#' These are helper functions for package development, not
+#' written in man page index but available to advanced
+#' users.
+#'
+#' @name scrape-index
+NULL
+
+
+#' Gets the latest index page url of a board
+#'
+#' \code{get_index_url} finds out the newest index page
+#' of a board. It takes a board's url (e.g.
+#' \url{https://www.ptt.cc/bbs/Gossiping/index.html})
+#' as input and returns a character vector of length 2.
+#'
+#' @param board_url Character. A board's index page url.
+#' @return \code{get_index_url} returns a char vector of
+#'   length 2. The first element is a number,
+#'   and the second is a url.
+#' @rdname scrape-index
+#'
+#' @import rvest stringr
+#' @export
+#' @keywords internal
+get_index_url <- function(board_url) {
+
+  board_newest_index <- read_html2(board_url) %>%
+    html_nodes("div.btn-group") %>%
+    html_nodes("a.btn.wide") %>%
+    html_attr("href")
+
+  index_num <- board_newest_index[2] %>%
+    str_match("index[0-9]*.html") %>%
+    str_extract("[0-9]+") %>%
+    as.integer() + 1
+
+  index_url <- paste0("https://www.ptt.cc",
+                      board_newest_index[2])
+
+  return(c(index_num, index_url))
 }
 
 
-#' Check input and get urls for index2df(): search case
+#' Extract message from a board's index page
 #'
-#' @importFrom stringr str_detect
-#' @importFrom utils URLencode head
-#' @family helper-index2df
+#' \code{get_index_info} takes a board's index url
+#' as input and extract the content of the page into
+#' a data frame with 6 variables.
+#'
+#' @return \code{get_index_info} returns a data frame
+#'   with n rows and 6 variables, where n is the number
+#'   of post links on an index page.
+#'
+#' @seealso \code{\link{extr_post_category}}
+#'
+#' @rdname scrape-index
+#'
+#' @import rvest
+#' @export
 #' @keywords internal
-check_index2df_search <- function(board, search) {
-  if (str_detect(board, "^http")) stop("Invalid board name.")
+#' @export
+get_index_info <- function(board_url) {
+  raw2 <- read_html2(board_url) %>% html_nodes("div.r-ent")
 
-  term <- search[1]
-  idx_n <- as.character(search[2:3])
-  idx_n <- as.integer(idx_n[1]):as.integer(idx_n[2])
+  pop <- raw2 %>% html_nodes("div.nrec") %>%
+    html_text()
+  pop[pop == ""] <- "0"
 
-  urls <- paste0("https://www.ptt.cc/bbs/", board,
-                 "/search?page=", idx_n,
-                 "&q=", URLencode(term))
+  title <- raw2 %>% html_nodes("div.title") %>%
+    html_text() %>%
+    stringr::str_remove("^(\\n|\\t)+") %>%
+    stringr::str_remove("(\\n|\\t)+$")
 
-  max_url <- paste0("https://www.ptt.cc/bbs/", board,
-                    "/search?page=", max(idx_n),
-                    "&q=", URLencode(term))
-  check_404(max_url,
-            message = c("Page Not Found\n",
-                        "May due to invalid board name or\n",
-                        "search range exceeding limits\n"))
+  category <- vapply(title, extr_post_category, "str")
 
-  df <- data.frame(idx_n, url = urls)
+  link <- raw2 %>% html_nodes("div.title") %>%
+    html_nodes("a") %>% html_attr("href") %>%
+    stringr::str_remove("^/bbs/")
+
+  author <- raw2 %>% html_nodes("div.meta") %>%
+    html_nodes("div.author") %>% html_text
+
+  date <- raw2 %>% html_nodes("div.meta") %>%
+    html_nodes("div.date") %>% html_text
+
+  df <- dplyr::as_data_frame(cbind(pop, category, title,
+              link, author, date))
+
+  attr(df, "base_url") <- "https://www.ptt.cc/"
   return(df)
 }
 
@@ -68,41 +114,4 @@ check_404 <- function(url, message) {
     stringr::str_detect("^404")
 
   if (not_found) stop(message)
-}
-
-
-
-
-#' Check input and get urls for index2df(): ordered case
-#'
-#' @family helper-index2df
-#' @keywords internal
-check_index2df_order <- function(board, n, range) {
-
-  cond1 <- is.na(range[1]) && is.na(range[2])
-
-  if (cond1) {
-    index_df <- get_index_urls(board, n)
-    urls <- index_df$url
-    idx_n <- as.character(index_df$idx_n)
-  } else if (!cond1) {
-    # Get exact pages' urls set by 'range'
-      if (is.na(range[1]) || is.na(range[2])) {
-        stop("Arg. 'range' needs two integer")
-      } else {
-        url <- check_input_board(board)
-
-        idx_n <- as.character(range[1]:range[2])
-        url <- rep(url, length(idx_n))
-
-        df <- as.data.frame(cbind(idx_n, url))
-        df$url <- stringr::str_replace(df$url, "index.*$",
-                                       paste0("index",
-                                              df$idx_n, ".html"))
-        urls <- df$url
-      }
-  }
-
-  df <- data.frame(idx_n, url = urls)
-  return(df)
 }
