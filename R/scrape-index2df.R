@@ -111,6 +111,7 @@ chk_idx_mode <- function(board, newest, pages,
   return(case)
 }
 ## Parse board input
+#' @importFrom stringr str_detect str_remove
 parse_board <- function(board) {
   if (str_detect(board, "^http")) {
     board <- str_remove(board, "^https://www.ptt.cc/bbs/") %>%
@@ -122,6 +123,8 @@ parse_board <- function(board) {
 }
 
 ## Page Not Found error
+#' @importFrom magrittr %>%
+#' @importFrom rvest html_node html_text
 board_search_error <- function(url) {
   not_found <- read_html2(url) %>%
     html_node("head") %>%
@@ -145,7 +148,7 @@ custom_idx_url <- function(board, pages) {
                       "/index", max(idx_n), ".html")
   board_search_error(url_limit)
 
-  df <- data_frame(idx_n, url = urls)
+  df <- tibble::data_frame(idx_n, url = urls)
   return(df)
 }
 
@@ -163,7 +166,7 @@ term_idx_url <- function(board, search_term, search_page) {
                     "&q=", URLencode(term))
   board_search_error(url_limit)
 
-  df <- data_frame(idx_n, url = urls)
+  df <- tibble::data_frame(idx_n, url = urls)
   return(df)
 }
 
@@ -181,6 +184,6 @@ newest_idx_url <- function(board, newest) {
   urls <- paste0("https://www.ptt.cc/bbs/", board,
                "/index", idx_n, ".html")
 
-  df <- data_frame(idx_n, url = urls)
+  df <- tibble::data_frame(idx_n, url = urls)
   return(df)
 }
