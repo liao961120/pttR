@@ -1,7 +1,7 @@
 ---
 title: "Quick Start"
-author: "[Yongfu Liao](https://liao961120.github.io/)"
-date: "`r format(Sys.Date(), '%b %e %Y')`"
+author: "Yongfu Liao"
+date: "`r format(Sys.Date(), '%B %e, %Y')`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
