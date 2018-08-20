@@ -20,7 +20,7 @@ matrix:
         - sudo timedatectl set-timezone Asia/Taipei
         - sudo apt-get install texlive-fonts-extra
 
-after_success:
+before_deploy:
   - bash deploy.sh
 
 
@@ -37,7 +37,7 @@ deploy:
   - provider: pages    # Deploy master/docs to branch gh-pages
     skip-cleanup: true
     github-token: $GH_TOKEN  
-    keep-history: true
+    keep-history: false
     local-dir: docs    # Web output directory
     on:
       branch: master
