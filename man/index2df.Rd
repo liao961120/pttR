@@ -21,8 +21,7 @@ the most recent page, to scrape.
 Defaults to \code{1}, which scrapes only the
 newest page. If set to \code{2}, then scrapes
 the newest and the second-newest page, and so
-forth. \strong{The value should be kept low so
-that it doesn't put too much load on the server}.}
+forth.}
 
 \item{pages}{Integer vector. A vector of index page number(s).
 This parameter lets you scrape the index pages
@@ -31,7 +30,16 @@ provide numbers exceeding the range of current index pages.
 Defaults to \code{NA}.}
 
 \item{search_term}{Character. A term to search in the index,
-such as "\emph{魯蛇}".}
+such as "\emph{魯蛇}". There are also some advanced
+search methods:
+\describe{
+\item{Post thread}{Prepend "\emph{thread:}" to the
+search term (post title), e.g.
+"\emph{thread:[新聞]抱怨「垃圾不分藍綠」姚文智：害民進黨被}"
+.}
+\item{Posts of an author}{Prepend "\emph{author:}"
+to the author's ID, e.g., "\emph{author:Plumage}".}
+}}
 
 \item{search_page}{Integer vector. A vector of index page
 number(s). With argument \code{search_term}) set,
@@ -40,14 +48,19 @@ to a specific term. Defaults to \code{1}, which scrapes only
 the newest page.}
 }
 \value{
-Returns a data frame with one post info per
-  row.
+A data frame with one post info per row.
 }
 \description{
 \code{index2df} scrapes the index pages of a board
 (\emph{\enc{看板}{kan ban}}) and extracts the
 information into a data frame.
 }
+\section{Warning}{
+
+\strong{Do not request too many pages one time}.
+It places heavy load on the server.
+}
+
 \examples{
 # Get data from 'Gossiping'
 df <- index2df("Gossiping")
@@ -58,7 +71,6 @@ link <- "https://www.ptt.cc/bbs/Gossiping/index"
 
 df <- index2df(link)
 }
-
 }
 \seealso{
 \code{\link{get_index_info}}

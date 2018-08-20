@@ -16,23 +16,30 @@
 #'   Defaults to \code{1}, which scrapes only the
 #'   newest page. If set to \code{2}, then scrapes
 #'   the newest and the second-newest page, and so
-#'   forth. \strong{The value should be kept low so
-#'   that it doesn't put too much load on the server}.
+#'   forth.
 #' @param pages Integer vector. A vector of index page number(s).
 #'   This parameter lets you scrape the index pages
 #'   you want, provided that the page exist. Becareful not to
 #'   provide numbers exceeding the range of current index pages.
 #'   Defaults to \code{NA}.
 #' @param search_term Character. A term to search in the index,
-#'   such as "\emph{魯蛇}".
+#'   such as "\emph{魯蛇}". There are also some advanced
+#'   search methods:
+#'   \describe{
+#'   \item{Post thread}{Prepend "\emph{thread:}" to the
+#'   search term (post title), e.g.
+#'   "\emph{thread:[新聞]抱怨「垃圾不分藍綠」姚文智：害民進黨被}"
+#'   .}
+#'   \item{Posts of an author}{Prepend "\emph{author:}"
+#'   to the author's ID, e.g., "\emph{author:Plumage}".}
+#'   }
 #' @param search_page Integer vector. A vector of index page
 #'   number(s). With argument \code{search_term}) set,
 #'   \code{search_page} lets you to scrape index pages related
 #'   to a specific term. Defaults to \code{1}, which scrapes only
 #'   the newest page.
 #'
-#' @return Returns a data frame with one post info per
-#'   row.
+#' @return A data frame with one post info per row.
 #'
 #' @examples
 #' # Get data from 'Gossiping'
@@ -44,6 +51,9 @@
 #'
 #' df <- index2df(link)
 #' }
+#' @section Warning:
+#' \strong{Do not request too many pages one time}.
+#' It places heavy load on the server.
 #'
 #' @seealso \code{\link{get_index_info}}
 #'   \code{\link{get_index_info}} extracts data from
