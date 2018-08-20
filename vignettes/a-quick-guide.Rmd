@@ -1,6 +1,6 @@
 ---
 title: "Quick Start"
-author: "Yongfu Liao"
+author: "[Yongfu Liao](https://liao961120.github.io/)"
 date: "`r format(Sys.Date(), '%b %e %Y')`"
 output: rmarkdown::html_vignette
 vignette: >
