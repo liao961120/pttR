@@ -6,7 +6,7 @@ fi
 
 
 for i in *.R; do
-  cat "${i}" | sed -r 's/#.+//g' > R_pars_dir/"${i}"
+  cat "${i}" | sed -r 's/^#.+//g' | sed -r 's/ +#.+//g' > R_pars_dir/"${i}"
 done
 
 
