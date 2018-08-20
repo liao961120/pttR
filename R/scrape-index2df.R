@@ -184,6 +184,3 @@ newest_idx_url <- function(board, newest) {
   df <- data_frame(idx_n, url = urls)
   return(df)
 }
-
-
-
