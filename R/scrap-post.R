@@ -3,7 +3,7 @@
 #' A wrapper of \code{xml2::read_html()} with cookie set
 #' to bypass PTT's "over18-confirmation".
 #'
-#' @param url Character. The url of the target web page.
+#' @param url Character. The URL of the target web page.
 #' @param ... Additional arguments passed on to
 #'   \code{\link[xml2]{read_html}}.
 #'
@@ -37,7 +37,7 @@ read_html2 <- function(url, ...) {
 #' \code{\link{get_post_content}}, and
 #' \code{\link{get_post_comment}}.
 #'
-#' @param post_url Character. An url of a PTT post.
+#' @param post_url Character. An URL of a PTT post.
 #' @param index Integer. The number of the index page that has
 #'   \code{post_url}. If given, creates a new column,
 #'   \code{index}.
@@ -65,9 +65,9 @@ read_html2 <- function(url, ...) {
 #'     \item{n_comment}{Number of comments.}
 #'     \item{n_push}{Number of "Push" comments.}
 #'     \item{n_boo}{Number of "Boo" comments.}
-#'     \item{link}{url of the post with base url removed,
-#'       which is \url{https://www.ptt.cc/bbs/}. Get the base
-#'       url with \code{attr(df, "base_url")}.}
+#'     \item{link}{URL of the post with
+#'       \url{https://www.ptt.cc/bbs/}. Get this URL
+#'       with \code{attr(df, "base_url")}.}
 #'   }
 #'   Two additional variables are optional:
 #'   \describe{

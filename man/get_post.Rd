@@ -7,7 +7,7 @@
 get_post(post_url, index = NULL, board_col = FALSE)
 }
 \arguments{
-\item{post_url}{Character. An url of a PTT post.}
+\item{post_url}{Character. An URL of a PTT post.}
 
 \item{index}{Integer. The number of the index page that has
 \code{post_url}. If given, creates a new column,
@@ -38,9 +38,9 @@ A data frame with 1 row and 10 variables:
     \item{n_comment}{Number of comments.}
     \item{n_push}{Number of "Push" comments.}
     \item{n_boo}{Number of "Boo" comments.}
-    \item{link}{url of the post with base url removed,
-      which is \url{https://www.ptt.cc/bbs/}. Get the base
-      url with \code{attr(df, "base_url")}.}
+    \item{link}{URL of the post with
+      \url{https://www.ptt.cc/bbs/}. Get this URL
+      with \code{attr(df, "base_url")}.}
   }
   Two additional variables are optional:
   \describe{

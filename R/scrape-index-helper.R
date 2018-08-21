@@ -16,17 +16,17 @@
 NULL
 
 
-#' Gets the latest index page url of a board
+#' Gets the latest index page URL of a board
 #'
 #' \code{get_index_url} finds out the newest index page
-#' of a board. It takes a board's url (e.g.
+#' of a board. It takes a board's URL (e.g.
 #' \url{https://www.ptt.cc/bbs/Gossiping/index.html})
 #' as input and returns a character vector of length 2.
 #'
-#' @param board_url Character. A board's index page url.
+#' @param board_url Character. A board's index page URL.
 #' @return \code{get_index_url} returns a char vector of
 #'   length 2. The first element is a number,
-#'   and the second is a url.
+#'   and the second is a URL.
 #' @rdname scrape-index
 #'
 #' @import rvest
@@ -57,7 +57,7 @@ get_index_url <- function(board_url) {
 
 #' Extract message from a board's index page
 #'
-#' \code{get_index_info} takes a board's index url
+#' \code{get_index_info} takes a board's index URL
 #' as input and extract the content of the page into
 #' a data frame with 6 variables.
 #'

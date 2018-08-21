@@ -4,7 +4,7 @@
 #' (\emph{\enc{看板}{kan ban}}) and extracts the
 #' information into a data frame.
 #'
-#' @param board Character. Either a \strong{url} or a
+#' @param board Character. Either a \strong{URL} or a
 #'   \strong{board name}, such as \emph{"Gossiping"},
 #'   \emph{"Baseball"}, \emph{"LoL"}.
 #'   \strong{board name} is case-insensitive. See
@@ -47,7 +47,7 @@
 #' head(index_df)
 #'
 #' \dontrun{
-#' # Or use url directly
+#' # Or use URL directly
 #' link <- "https://www.ptt.cc/bbs/Gossiping/index"
 #'
 #' index_df <- index2df(link)
@@ -74,14 +74,14 @@ index2df <- function(board, newest = 1, pages = NA,
   search_case <- chk_idx_mode(board, newest, pages,
                               search_term, search_page)
 
-  # Return df with idx and urls
+  # Return df with idx and URLs
   if (search_case == "custom_pages") {
     df0 <- custom_idx_url(board, pages)
   } else if (search_case == "term_search") {
     df0 <- term_idx_url(board, search_term, search_page)
   } else if (search_case == "newest_pages") {
     df0 <- newest_idx_url(board, newest)
-  } else stop("No urls found")
+  } else stop("No URLs found")
 
 
   # IMPORTANT: coerce factor to chr,
@@ -135,7 +135,7 @@ parse_board <- function(board) {
     board <- str_remove(board, "^https://www.ptt.cc/bbs/") %>%
       str_remove("/.+$")
   }
-  if (stringr::str_detect(board, ".html")) stop("Not a board url")
+  if (stringr::str_detect(board, ".html")) stop("Not a board URL")
 
   return(board)
 }
@@ -155,7 +155,7 @@ board_search_error <- function(url) {
   if (not_found) stop(error_message)
 }
 
-# Constructing a data frame of urls and index_page_nums -----
+# Constructing a data frame of URLs and index_page_nums -----
 ## Search by custom pages
 custom_idx_url <- function(board, pages) {
   idx_n <- pages

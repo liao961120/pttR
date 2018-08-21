@@ -8,7 +8,7 @@ index2df(board, newest = 1, pages = NA, search_term = NA,
   search_page = 1)
 }
 \arguments{
-\item{board}{Character. Either a \strong{url} or a
+\item{board}{Character. Either a \strong{URL} or a
 \strong{board name}, such as \emph{"Gossiping"},
 \emph{"Baseball"}, \emph{"LoL"}.
 \strong{board name} is case-insensitive. See
@@ -67,7 +67,7 @@ index_df <- index2df("Gossiping")
 head(index_df)
 
 \dontrun{
-# Or use url directly
+# Or use URL directly
 link <- "https://www.ptt.cc/bbs/Gossiping/index"
 
 index_df <- index2df(link)

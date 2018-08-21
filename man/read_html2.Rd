@@ -7,7 +7,7 @@
 read_html2(url, ...)
 }
 \arguments{
-\item{url}{Character. The url of the target web page.}
+\item{url}{Character. The URL of the target web page.}
 
 \item{...}{Additional arguments passed on to
 \code{\link[xml2]{read_html}}.}

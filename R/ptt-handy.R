@@ -26,11 +26,11 @@ ptt <- function() {
 #' Turn PTT board name to URL
 #'
 #' A wrapper of \code{\link[base]{paste0}} to turn board names
-#' or post URLs with base URL removed back to URL.
+#' or partial post URLs removed back to the original URLs.
 #'
 #' @param x Character. A board name or a partial URL (ending in
 #'   \code{.html}) with base URL removed.
-#' @param pre Character. A base URL. Defaults to the base URL of
+#' @param pre Character. A base URL. Defaults to the URL of
 #'   \href{https://www.ptt.cc/bbs/}{PTT Web}.
 #'
 #' @examples

@@ -11,12 +11,12 @@ get_index_url(board_url)
 get_index_info(board_url)
 }
 \arguments{
-\item{board_url}{Character. A board's index page url.}
+\item{board_url}{Character. A board's index page URL.}
 }
 \value{
 \code{get_index_url} returns a char vector of
   length 2. The first element is a number,
-  and the second is a url.
+  and the second is a URL.
 
 \code{get_index_info} returns a data frame
   with n rows and 6 variables, where n is the number
@@ -28,11 +28,11 @@ written in man page index but available to advanced
 users.
 
 \code{get_index_url} finds out the newest index page
-of a board. It takes a board's url (e.g.
+of a board. It takes a board's URL (e.g.
 \url{https://www.ptt.cc/bbs/Gossiping/index.html})
 as input and returns a character vector of length 2.
 
-\code{get_index_info} takes a board's index url
+\code{get_index_info} takes a board's index URL
 as input and extract the content of the page into
 a data frame with 6 variables.
 }

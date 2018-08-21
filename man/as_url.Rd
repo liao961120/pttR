@@ -10,12 +10,12 @@ as_url(x, pre = "https://www.ptt.cc/bbs/")
 \item{x}{Character. A board name or a partial URL (ending in
 \code{.html}) with base URL removed.}
 
-\item{pre}{Character. A base URL. Defaults to the base URL of
+\item{pre}{Character. A base URL. Defaults to the URL of
 \href{https://www.ptt.cc/bbs/}{PTT Web}.}
 }
 \description{
 A wrapper of \code{\link[base]{paste0}} to turn board names
-or post URLs with base URL removed back to URL.
+or partial post URLs removed back to the original URLs.
 }
 \examples{
 as_url("gossiping")
