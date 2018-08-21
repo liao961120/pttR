@@ -224,7 +224,7 @@ get_post_meta <- function(post_xml, board_col = FALSE) {
 #'
 #' @importFrom rvest html_node html_nodes html_text
 #' @importFrom dplyr %>% bind_cols
-#' @importFrom stringr str_remove
+#' @importFrom stringr str_remove str_remove_all
 #' @importFrom tibble data_frame as_data_frame
 #' @keywords internal
 get_post_content <- function(post_xml) {
