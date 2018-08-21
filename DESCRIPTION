@@ -29,10 +29,12 @@ Imports: dplyr,
     RCurl,
     readr,
     lubridate
-Suggests: knitr,
+Suggests: 
+    knitr,
     rmarkdown,
     testthat,
-    pkgdown
+    pkgdown,
+    covr
 VignetteBuilder: knitr
 RoxygenNote: 6.1.0
 Encoding: UTF-8

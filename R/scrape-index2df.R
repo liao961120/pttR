@@ -131,11 +131,11 @@ chk_idx_mode <- function(board, newest, pages,
 #' @importFrom stringr str_detect str_remove
 #' @keywords internal
 parse_board <- function(board) {
-  if (str_detect(board, "^http")) {
+  if (stringr::str_detect(board, "^http")) {
     board <- str_remove(board, "^https://www.ptt.cc/bbs/") %>%
       str_remove("/.+$")
   }
-  if (str_detect(board, ".html")) stop("Not a board url")
+  if (stringr::str_detect(board, ".html")) stop("Not a board url")
 
   return(board)
 }

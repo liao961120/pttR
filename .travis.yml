@@ -20,6 +20,13 @@ matrix:
         - sudo timedatectl set-timezone Asia/Taipei
         - sudo apt-get install texlive-fonts-extra
 
+r_github_packages:
+  - r-lib/covr
+
+after_success:
+  - Rscript -e 'covr::codecov()'
+
+
 before_deploy:
   - bash deploy.sh
 
