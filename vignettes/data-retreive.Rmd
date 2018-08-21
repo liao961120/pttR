@@ -54,7 +54,7 @@ index_df <- index2df(board = "gossiping",
 `index2df()`會將網頁的資料整理成一個 data frame，各變項的資料對照實際網頁去看很容易就可了解，例如：
 
 - **pop**：文章熱門程度，會出現數字或"*爆*"等文字
-- idx_n：該列資料所在的頁面頁碼
+- **idx_n**：該列資料所在的頁面頁碼
 
 ```{r include=FALSE}
 index_df <- readRDS("../data-raw/vig-data-retreive.rds")
@@ -64,15 +64,66 @@ index_df <- readRDS("../data-raw/vig-data-retreive.rds")
 str(index_df, nchar.max = 20)
 ```
 
-
 ```{r}
 knitr::kable(head(index_df))
 ```
 
 
-
 ## 網頁下載 (可略){#download}
-```{r}
 
+```{r message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+library(pttR)
+new <- pttR:::get_index_url(as_url("gossiping"))
+```
+
+由於頁面的頁碼會不斷改變 (*關鍵字搜尋*最新頁面永遠是 第一頁[^newest])，因此縱使分析不一定會用到完整頁面，但為了確保分析可複製 (reproducible)，最好保留完整的頁面[^reproduce]，亦即，直接將文章頁面下載至電腦再擷取頁面資訊。
+
+[^newest]: 這點和一般頁面不同，第一頁是最舊的，頁碼越大頁面越新，但頁碼的上限似乎是 4 萬頁。目前八卦板最新的頁面是
+``r stringr::str_extract(new[2], "Gos.+$")``)，
+最舊的頁面是`Gossiping/index1.html`。
+
+[^reproduce]: 或至少需將`get_post()`擷取出來的 data frame 儲存起來。但此方式仍無法避免頁面被刪除而無法取得原始資料的情況
+
+
+### 設定「年滿 18 歲」
+
+瀏覽 PTT 特定的看板會要求確認年滿 18 歲，因此，若沒有先作設定[^rhtml2]，就會下載到這個確認頁 。
+
+[^rhtml2]: `get_post()`使用`read_html2()`下載網頁，而`read_html2()`內部已設定過，因此可直接下載不須額外設定。
+
+```{r eval=FALSE}
+curl <- RCurl::getCurlHandle()
+RCurl::curlSetOpt(cookie = "over18=1",
+                  followlocation = TRUE,
+                  curl = curl)
+```
+
+### 網頁下載函數
+
+接著，將下載網頁的步驟寫成一個函數`down_html()`：
+```{r}
+down_html <- function(url, board, curl) {
+  raw <- RCurl::getURL(url, curl = curl)
+  file <- paste0(board, "/", basename(url))
+  write(raw, file)
+}
+```
+其中，`board`是儲存檔案的資料夾名稱，需先另外在 current directory 下新增這個資料夾。
+
+
+### 下載`index_df`中的連結
+
+接著就用 for loop 一頁一頁將網頁下載下來：
+```{r eval=FALSE}
+for (i in seq(index_df$link)) {
+  url <- as_url(index_df$link[i])
+  down_html(url, "gossiping", curl)
+}
+```
+`as_url()`是 pttR 裡面一個很簡單的函數，將部份 URL 轉換成完整的 URL，詳細請點`as_url()`。
+
+最後，如果使用 Mac 或是 Linux 作業系統，可以直接用一個`bash`指令壓縮檔案，大概壓縮成原來 1/4 的大小：
+```bash
+gzip -r /gossiping
 ```
 
