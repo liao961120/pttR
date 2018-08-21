@@ -3,7 +3,6 @@ Title: Retrieve and Process Text Data from PTT
 Version: 0.0.0.9000
 Authors@R: c(
     person("Yongfu", "Liao", email = "liao961120@gmail.com", role = c("aut", "cre")),
-    person("First", "Last", role = "aut"),
     person("LOPE @ NTU", role = "cph"))
 Description: Provide functions to process raw data access through PTT Corpus, 
     including Chinese word segmentation based on a PTT-specific dictionary, 
@@ -33,7 +32,7 @@ Suggests:
     knitr,
     rmarkdown,
     testthat,
-    pkgdown,
+    pkgdown (>= 1.1.0),
     covr
 VignetteBuilder: knitr
 RoxygenNote: 6.1.0
