@@ -16,7 +16,8 @@ You can install pttR from github with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("liao961120/pttR")
+# Not Yet. Please DON'T INSTALL
+# devtools::install_github("liao961120/pttR")
 ```
 
 Example
@@ -28,4 +29,4 @@ This is a basic example which shows you how to solve a common problem:
 ## basic example code
 ```
 
-See [vignettes](https://liao961120.github.io/pttR/reference/index.html) for more details.
+See [vignettes](https://liao961120.github.io/pttR/articles/) for more details.
