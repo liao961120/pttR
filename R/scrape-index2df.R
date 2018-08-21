@@ -43,13 +43,14 @@
 #'
 #' @examples
 #' # Get data from 'Gossiping'
-#' df <- index2df("Gossiping")
+#' index_df <- index2df("Gossiping")
+#' head(index_df)
 #'
 #' \dontrun{
 #' # Or use url directly
 #' link <- "https://www.ptt.cc/bbs/Gossiping/index"
 #'
-#' df <- index2df(link)
+#' index_df <- index2df(link)
 #' }
 #' @section Warning:
 #' \strong{Do not request too many pages one time}.
