@@ -1,4 +1,6 @@
 #' Open web page in default browser
+#'
+#' @importFrom utils browseURL
 #' @keywords internal
 browse <- function(URL = "https://liao961120.github.io/pttR/") {
   cat("Visiting ", URL, "...\n")
