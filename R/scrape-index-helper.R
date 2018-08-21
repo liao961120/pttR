@@ -29,8 +29,8 @@ NULL
 #'   and the second is a url.
 #' @rdname scrape-index
 #'
-#' @import rvest stringr
-#' @export
+#' @import rvest
+#' @importFrom stringr str_remove str_extract str_match
 #' @keywords internal
 get_index_url <- function(board_url) {
 
@@ -39,13 +39,17 @@ get_index_url <- function(board_url) {
     html_nodes("a.btn.wide") %>%
     html_attr("href")
 
-  index_num <- board_newest_index[2] %>%
-    str_match("index[0-9]*.html") %>%
+  board_name <- board_newest_index[2] %>%
+    str_extract("bbs/.+$") %>%
+    str_remove("^bbs/") %>%
+    str_remove("/index.+$")
+
+  index_num <- basename(board_newest_index[2]) %>%
     str_extract("[0-9]+") %>%
     as.integer() + 1
 
-  index_url <- paste0("https://www.ptt.cc",
-                      board_newest_index[2])
+  index_url <- paste0("https://www.ptt.cc/", board_name,
+                      "/", index_num, ".html")
 
   return(c(index_num, index_url))
 }
