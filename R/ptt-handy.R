@@ -31,7 +31,7 @@ ptt <- function() {
 #' @param x Character. A board name or a partial URL (ending in
 #'   \code{.html}) with base URL removed.
 #' @param pre Character. A base URL. Defaults to the base URL of
-#'   \href{PTT Web}{https://www.ptt.cc/bbs/}.
+#'   \href{https://www.ptt.cc/bbs/}{PTT Web}.
 #'
 #' @examples
 #' as_url("gossiping")

@@ -11,7 +11,7 @@ as_url(x, pre = "https://www.ptt.cc/bbs/")
 \code{.html}) with base URL removed.}
 
 \item{pre}{Character. A base URL. Defaults to the base URL of
-\href{PTT Web}{https://www.ptt.cc/bbs/}.}
+\href{https://www.ptt.cc/bbs/}{PTT Web}.}
 }
 \description{
 A wrapper of \code{\link[base]{paste0}} to turn board names
