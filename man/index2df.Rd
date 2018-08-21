@@ -35,7 +35,7 @@ search methods:
 \describe{
 \item{Post thread}{Prepend "\emph{thread:}" to the
 search term (post title), e.g.
-"\emph{thread:[新聞]抱怨「垃圾不分藍綠」姚文智：害民進黨被}"
+"\emph{thread:抱怨「垃圾不分藍綠」姚文智：害民進黨被}"
 .}
 \item{Posts of an author}{Prepend "\emph{author:}"
 to the author's ID, e.g., "\emph{author:Plumage}".}
