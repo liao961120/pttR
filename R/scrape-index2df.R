@@ -129,6 +129,7 @@ chk_idx_mode <- function(board, newest, pages,
 
 ## Parse board input
 #' @importFrom stringr str_detect str_remove
+#' @keywords internal
 parse_board <- function(board) {
   if (str_detect(board, "^http")) {
     board <- str_remove(board, "^https://www.ptt.cc/bbs/") %>%
