@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Build Status](https://travis-ci.org/liao961120/pttR.svg?branch=master)](https://travis-ci.org/liao961120/pttR) [![Build status](https://ci.appveyor.com/api/projects/status/2254fc0lc46ufv86/branch/master?svg=true)](https://ci.appveyor.com/project/liao961120/pttr/branch/master) [![Coverage status](https://codecov.io/gh/liao961120/pttR/branch/master/graph/badge.svg)](https://codecov.io/github/liao961120/pttR?branch=master) [![Support R Version](https://img.shields.io/badge/R-3.4.x-blue.svg)](https://cran.r-project.org/)
+[![Build Status](https://travis-ci.org/liao961120/pttR.svg?branch=master)](https://travis-ci.org/liao961120/pttR) [![Build status](https://ci.appveyor.com/api/projects/status/2254fc0lc46ufv86/branch/master?svg=true)](https://ci.appveyor.com/project/liao961120/pttr/branch/master) [![Coverage status](https://codecov.io/gh/liao961120/pttR/branch/master/graph/badge.svg)](https://codecov.io/github/liao961120/pttR?branch=master) [![Support R Version](https://img.shields.io/badge/R-≥%203.4.0-blue.svg)](https://cran.r-project.org/)
 
 pttR
 ====
@@ -29,4 +29,4 @@ This is a basic example which shows you how to solve a common problem:
 ## basic example code
 ```
 
-See [vignettes](https://liao961120.github.io/pttR/articles/) for more details.
+See [vignettes](https://liao961120.github.io/pttR/articles/) for more detail.
