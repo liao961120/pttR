@@ -23,6 +23,34 @@ ptt <- function() {
 }
 
 
+#' Turn PTT board name to URL
+#'
+#' A wrapper of \code{\link[base]{paste0}} to turn board names
+#' or post URLs with base URL removed back to URL.
+#'
+#' @param x Character. A board name or a partial URL (ending in
+#'   \code{.html}) with base URL removed.
+#' @param pre Character. A base URL. Defaults to the base URL of
+#'   \href{PTT Web}{https://www.ptt.cc/bbs/}.
+#'
+#' @examples
+#' as_url("gossiping")
+#' as_url("Gossiping/M.1534490816.A.A3A.html")
+#'
+#' @export
+as_url <- function(x, pre = "https://www.ptt.cc/bbs/") {
+  if (stringr::str_detect(x, ".html$")) {
+    x <- paste0(pre, x)
+  } else {
+    x <- paste0(pre, x, "/index.html")
+  }
+
+  return(x)
+}
+
+
+
+
 #' Return a data frame with popular boards info
 #'
 #' \code{hotboards} returns a data frame of
@@ -50,7 +78,6 @@ ptt <- function() {
 #' @importFrom dplyr %>% bind_cols mutate
 #' @export
 hotboards <- function(get_new = FALSE) {
-
   if (!get_new) return(hotboard_df)
 
   link <- "https://www.ptt.cc/bbs/hotboards.html"
@@ -58,26 +85,21 @@ hotboards <- function(get_new = FALSE) {
   hotboards <- read_html(link) %>%
     html_nodes("div.b-ent") %>%
     html_nodes("a.board")
-
   board_link <- hotboards %>%
     html_attr("href") %>%
     str_replace("^/", "https://www.ptt.cc/")
-
   board_name_en <- hotboards %>%
     html_nodes("div.board-name") %>%
     html_text()
-
   board_name_ch <- hotboards %>%
     html_nodes("div.board-title") %>%
     html_text() %>%
     str_extract("^\u25ce\\[.+\\]") %>% # \u25ce : ◎
     str_remove("\u25ce\\[") %>%
     str_remove("\\]$")
-
   board_popularity <- hotboards %>%
     html_nodes("div.board-nuser > span") %>%
     html_text()
-
   df <- cbind(board = board_name_en,
               name_ch = board_name_ch,
               popularity = board_popularity,
@@ -85,7 +107,6 @@ hotboards <- function(get_new = FALSE) {
   df$name_ch <- ifelse(is.na(df$name_ch),
                                 df$board,
                                 df$name_ch)
-
   attr(df, "date") <- Sys.time()
 
   return(df)
