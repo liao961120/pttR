@@ -28,7 +28,7 @@
 #'   \describe{
 #'   \item{Post thread}{Prepend "\emph{thread:}" to the
 #'   search term (post title), e.g.
-#'   "\emph{thread:[新聞]抱怨「垃圾不分藍綠」姚文智：害民進黨被}"
+#'   "\emph{thread:抱怨「垃圾不分藍綠」姚文智：害民進黨被}"
 #'   .}
 #'   \item{Posts of an author}{Prepend "\emph{author:}"
 #'   to the author's ID, e.g., "\emph{author:Plumage}".}
@@ -64,6 +64,10 @@
 #' @export
 index2df <- function(board, newest = 1, pages = NA,
                      search_term = NA, search_page = 1) {
+  stopifnot(is.character(board),
+            length(newest) == 1,
+            is.numeric(search_page))
+
   board <- parse_board(board)
   search_case <- chk_idx_mode(board, newest, pages,
                               search_term, search_page)
@@ -111,7 +115,7 @@ chk_idx_mode <- function(board, newest, pages,
     cat("Searching ", board, " for '",
         search_term, "' ...\n", sep="")
     case <- "term_search"
-  } else if (length(newest) == 1 && is.numeric(newest)) {
+  } else if (is.numeric(newest)) {
     if (newest <= 0) stop("Arg. 'newest' must be a positive int")
     cat("Searching the newest", newest, "page(s) of",
         board ,"...\n")
