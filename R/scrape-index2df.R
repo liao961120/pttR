@@ -61,6 +61,7 @@
 #'   \emph{several}. In addition, \code{index2df} has more
 #'   functionality to deal with multiple pages extraction
 #'
+#' @importFrom stringr str_detect str_remove
 #' @export
 index2df <- function(board, newest = 1, pages = NA,
                      search_term = NA, search_page = 1) {
@@ -124,6 +125,7 @@ chk_idx_mode <- function(board, newest, pages,
 
   return(case)
 }
+
 ## Parse board input
 #' @importFrom stringr str_detect str_remove
 parse_board <- function(board) {
