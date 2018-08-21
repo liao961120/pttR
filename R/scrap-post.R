@@ -14,14 +14,16 @@
 #' url <- "https://www.ptt.cc/bbs/Gossiping/index.html"
 #' read_html2(url)
 #'
+#' @importFrom RCurl getCurlHandle curlSetOpt getURL
+#' @importFrom xml2 read_html
 #' @export
 read_html2 <- function(url, ...) {
- curl_1 <- RCurl::getCurlHandle()
- RCurl::curlSetOpt(cookie = "over18=1",
+ curl_1 <- getCurlHandle()
+ curlSetOpt(cookie = "over18=1",
                    followlocation = TRUE,
                    curl = curl_1)
- url2 <- RCurl::getURL(url, curl = curl_1)
- xml2::read_html(url2, ...)
+ url2 <- getURL(url, curl = curl_1)
+ read_html(url2, ...)
 }
 
 
