@@ -16,13 +16,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-Since `R CMD Rd2pdf` produces error when documentation contains CJK characters, all Chinese characters in pttR manual are translated to [Pingyin](https://en.wikipedia.org/wiki/Pinyin) (漢語拼音). 
+`R CMD Rd2pdf` produces error when documentation contains CJK characters. Hence, all Chinese characters in pttR manual are translated to [Pingyin](https://en.wikipedia.org/wiki/Pinyin) (漢語拼音). 
+Function references on the pttR website are translated back in Chinese, however.
+
 
 The original characters and their corresponding Pingyin translations are listed below:
 
-
 ```{r echo=FALSE}
-trans <- read.csv("translation.csv", header = F)
+trans <- pttR:::pingying2zh
 
 knitr::kable(trans, align = "c",
              col.names = c("繁體<br>(non-ASCII)",
