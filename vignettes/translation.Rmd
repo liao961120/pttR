@@ -20,12 +20,11 @@ Since `R CMD Rd2pdf` produces error when documentation contains CJK characters, 
 
 The original characters and their corresponding Pingyin translations are listed below:
 
-| 繁體<br>(non-ASCII) | 漢語拼音 |
-|:----:|:-----------------------:|
-| 看板 |         kan ban         |
-| 魯蛇 |          lu she         |
-| 新聞 |         xin wen         |
-| 問卦 |         wen gua         |
-|  推  |           tui           |
-|  噓  |            xu           |
-|  →  | bu tui bu xu (不推不噓) |
+
+```{r echo=FALSE}
+trans <- read.csv("translation.csv", header = F)
+
+knitr::kable(trans, align = "c",
+             col.names = c("繁體<br>(non-ASCII)",
+                           "漢語拼音"))
+```
