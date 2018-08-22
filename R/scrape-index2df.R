@@ -62,12 +62,6 @@
 #'   \emph{several}. In addition, \code{index2df} has more
 #'   functionality to deal with multiple pages extraction
 #'
-#' @importFrom stringr str_detect str_remove
-#' @importFrom utils URLencode head
-#' @importFrom magrittr %>%
-#' @importFrom rvest html_node html_nodes html_text
-#' @importFrom dplyr bind_rows
-#' @importFrom tibble data_frame
 #' @export
 index2df <- function(board, newest = 1, pages = NA,
                      search_term = NA, search_page = 1) {
@@ -102,7 +96,7 @@ index2df <- function(board, newest = 1, pages = NA,
     temp$idx_n <- idx_n[i]
     df[[i]] <- temp
   }
-  df <- bind_rows(df)
+  df <- dplyr::bind_rows(df)
 
   return(df)
 }

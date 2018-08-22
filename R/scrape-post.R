@@ -63,7 +63,8 @@
 #' attr(post_df, "base_url")
 #' attr(post_df, "board")
 #'
-#' @importFrom dplyr %>% bind_cols
+#' @import rvest
+#' @importFrom dplyr bind_cols
 #' @importFrom stringr str_match str_remove str_remove_all
 #' @importFrom tibble data_frame as_data_frame
 #' @export
