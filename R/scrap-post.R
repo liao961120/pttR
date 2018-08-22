@@ -93,6 +93,7 @@ read_html2 <- function(url, ...) {
 #' attr(post_df, "board")
 #'
 #' @importFrom dplyr %>% bind_cols
+#' @importFrom stringr str_match str_remove str_remove_all
 #' @importFrom tibble data_frame as_data_frame
 #' @export
 get_post <- function(post_url, index = NULL,
@@ -110,8 +111,8 @@ get_post <- function(post_url, index = NULL,
   comment_meta <- cbind(n_comment, n_push, n_boo) %>%
     as.data.frame()
 
-  post_url <- stringr::str_remove(post_url,
-                                  "^https://www.ptt.cc/bbs/")
+  post_url <- str_remove(post_url,
+                         "^https://www.ptt.cc/bbs/")
 
   post_df <- bind_cols(post_meta, post_content,
                        comment = NULL, comment_meta,

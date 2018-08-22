@@ -28,12 +28,22 @@ Imports: dplyr,
     RCurl,
     readr,
     lubridate
-Suggests: 
+Suggests:
     knitr,
     rmarkdown,
     testthat,
     pkgdown (>= 1.1.0),
-    covr
+    covr,
+    devtools
 VignetteBuilder: knitr
 RoxygenNote: 6.1.0
 Encoding: UTF-8
+Collate: 
+    'interact-fun.R'
+    'parse-date.R'
+    'ptt-handy.R'
+    'ptt-manipulate.R'
+    'ptt-term2dict.R'
+    'scrape-index2df.R'
+    'scrape-index-helper.R'
+    'scrap-post.R'
