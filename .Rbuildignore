@@ -15,5 +15,4 @@
 ^R/R_pars_dir/$
 ^R/old_script/$
 ^vignettes/dev-functions-dep\.Rmd$
-^vignettes/data-retreive\.Rmd$
 ^inst/curl/$
