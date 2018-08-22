@@ -11,12 +11,21 @@ vignette: >
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+	message = FALSE,
+	warning = FALSE,
+	collapse = TRUE,
+	comment = "#>"
 )
 ```
 
-這篇文章簡單介紹如何使用 pttR 從 [PTT 網頁版](https://www.ptt.cc/bbs/index.html) 抓取資料。
+這篇文章介紹如何使用 pttR 從 [PTT 網頁版](https://www.ptt.cc/bbs/index.html) 抓取資料。
+
+文章會用到這些函數：
+
+- `index2df()`：爬取 PTT 某版的文章列表，並將資料轉換成 data frame。
+- `get_post()`：爬取 PTT 某篇文章，並將資料轉換成 data frame。
+
+
 
 
 ## 關鍵字搜尋看板{#search}
@@ -32,7 +41,7 @@ knitr::opts_chunk$set(
 這裡以**關鍵字頁面 + 自訂範圍**為例：
 
 
-使用關鍵字搜尋，實際上相當於在 PTT 網頁版上方的*搜尋文章...*搜尋關鍵字，而最新的頁面的頁數是 1，越老的頁面數字越大。
+使用關鍵字搜尋，實際上相當於在 PTT 網頁版上方的"*搜尋文章...*"搜尋關鍵字，而最新的頁面的頁數是 1，越老的頁面數字越大。
 以下的隨機決定要爬取的頁面範圍：
 ```{r}
 set.seed(2018) # Make Result 'pages' reproducible
@@ -64,12 +73,11 @@ index_df <- readRDS(file)
 ```
 
 ```{r}
+knitr::kable(head(index_df))
 str(index_df, nchar.max = 20)
 ```
 
-```{r}
-knitr::kable(head(index_df))
-```
+
 
 
 ## 網頁下載 (可略){#download}
@@ -79,20 +87,15 @@ library(pttR)
 new <- pttR:::get_index_url(as_url("gossiping"))
 ```
 
-由於頁面的頁碼會不斷改變 (*關鍵字搜尋*最新頁面永遠是 第一頁[^newest])，因此縱使分析不一定會用到完整頁面，但為了確保分析可複製 (reproducible)，最好保留完整的頁面[^reproduce]，亦即，直接將文章頁面下載至電腦再擷取頁面資訊。
+由於頁面的頁碼會不斷改變 (**關鍵字搜尋**最新頁面永遠是 第一頁[^newest])，因此縱使分析不一定會用到完整頁面，但為了確保分析可重製性 ([Reproducibility](https://en.wikipedia.org/wiki/Reproducibility))，最好保留完整的頁面[^reproduce]，亦即，直接將文章頁面下載至電腦再擷取頁面資訊。
 
-[^newest]: 這點和一般頁面不同，第一頁是最舊的，頁碼越大頁面越新，但頁碼的上限似乎是 4 萬頁。目前八卦板最新的頁面是
-``r stringr::str_extract(new[2], "Gos.+$")``)，
-最舊的頁面是`Gossiping/index1.html`。
 
-[^reproduce]: 或至少需將`get_post()`擷取出來的 data frame 儲存起來。但此方式仍無法避免頁面被刪除而無法取得原始資料的情況
 
 
 ### 設定「年滿 18 歲」
 
 瀏覽 PTT 特定的看板會要求確認年滿 18 歲，因此，若沒有先作設定[^rhtml2]，就會下載到這個確認頁 。
 
-[^rhtml2]: `get_post()`使用`read_html2()`下載網頁，而`read_html2()`內部已設定過，因此可直接下載不須額外設定。
 
 ```{r eval=FALSE}
 curl <- RCurl::getCurlHandle()
@@ -123,10 +126,79 @@ for (i in seq(index_df$link)) {
   down_html(url, "gossiping/posts", curl)
 }
 ```
-`as_url()`是 pttR 裡面一個很簡單的函數，將部份 URL 轉換成完整的 URL，詳細請點`as_url()`。
+`as_url()`是一個方便的函數，將部份 URL 轉換成完整的 URL，詳細請點`as_url()`。
 
-最後，如果使用 Mac 或是 Linux 作業系統，可以直接用一個`bash`指令壓縮檔案，大概壓縮成原來 1/4 的大小：
+最後，如果使用 Mac 或是 Linux 作業系統，可以直接用`bash`指令壓縮檔案，大概壓縮成原來 1/3 的大小：
 ```bash
 gzip -r gossiping/posts
 ```
 
+## 爬取文章資料
+
+
+```{r filelist, include=FALSE}
+base <- system.file("gossiping/posts",
+                    package = "pttR")
+file_list <- paste0(base, "/", list.files(base))
+```
+
+在下載完網頁之後，需要將檔案讀進 R，因此需要取得這些
+(`r length(file_list)` 多個) 檔案的在電腦裡的位置：
+```{r eval=FALSE}
+base <- "~/Desktop/gossiping/posts"
+file_list <- paste0(base, "/", list.files(base))
+```
+
+`get_post()`吃的是 URL ("http"開頭) 或是 HTML 檔案位置，
+回傳一個只有 1 列(row) 的 data frame，因此用 for loop 將所有文章 (`r length(file_list)`篇) 變成一個 `r length(file_list)` 列的 data frame：
+```{r}
+df <- vector("list", length = length(file_list))
+
+for (i in seq_along(file_list)) {
+  df[[i]] <- get_post(file_list[i])
+}
+
+df <- dplyr::bind_rows(df)
+```
+這裡先建立一個空的但長度等於 `r length(file_list)`
+的`list`，再將每個`get_post()`產生的 data frame 放進`list` 當中，最後才將`list`的各元素合併成一個 data frame。如此，可以加快 for loop 的速度[^loop]。
+
+
+```{r}
+library(dplyr)
+library(stringr)
+
+df <- df %>%
+  mutate(link = str_remove(link,
+                           paste0(base, "/")))
+```
+
+接著看看跑出來的資料：
+```{r}
+str(head(df, 3), vec.len = 2, nchar.max = 17, max.level = 2)
+```
+可以發現這個 data frame 的最後一個變項(`comment`)與其它的不同，**最後一行是一個 [list-column](https://jennybc.github.io/purrr-tutorial/ls13_list-columns.html)**。
+
+一般來說，data frame 的一個 cell 都是儲存一個值，因此一個 column 通常是一個`atomic vector`。list-column 則為一個 `list`，其下的每個 cell 也是一個`list` (`list[1]` 回傳的依然是`list`[^tutor])。在這裡，`df$comment`回傳一個長度為 `r nrow(df)` 的`list`。
+
+這是個有點複雜的資料結構，但在這裡卻非常合適：運用`list`的 recursive 特性，我們可以將一篇 PTT 文章中的所有留言整理成一個 data frame，將其 儲存在`list`的一個 element 中。因此要取得某篇文章的資訊，例如僅需用`[[`，`]]`脫開 list 結構，取得原來的 data frame：
+```{r}
+df$comment[[8]] %>%
+  knitr::kable()
+```
+
+
+
+<!-- Comments -->
+
+[^newest]: 這點和一般頁面不同，第一頁是最舊的，頁碼越大頁面越新，但頁碼的上限似乎是 4 萬頁。目前八卦板最新的頁面是
+``r stringr::str_extract(new[2], "Gos.+$")``)，
+最舊的頁面是`Gossiping/index1.html`。
+
+[^reproduce]: 或至少需將`get_post()`擷取出來的 data frame 儲存起來。但此方式仍無法避免頁面被刪除而無法取得原始資料的情況。
+
+[^rhtml2]: `get_post()`使用`read_html2()`下載網頁，而`read_html2()`內部已設定過，因此可直接下載不須額外設定。
+
+[^loop]: 比起在 for loop 當中用 `r length(file_list)` 個`rbind()`快上許多。
+
+[^tutor]: [R for Data Science](http://r4ds.had.co.nz/vectors.html) 當中有對 R 的 vector 概念作清楚的介紹，想了解者可以參考看看。
