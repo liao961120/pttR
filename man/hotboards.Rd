@@ -18,7 +18,7 @@ the package.}
 }
 \description{
 \code{hotboards} returns a data frame of
-popular boards (\emph{\enc{熱門看板}{re men kan ban}})
+popular boards (\emph{\href{https://liao961120.github.io/pttR/articles/translation}{re men kan ban}})
 on PTT.
 }
 \examples{
