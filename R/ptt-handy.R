@@ -54,7 +54,7 @@ as_url <- function(x, pre = "https://www.ptt.cc/bbs/") {
 #' Return a data frame with popular boards info
 #'
 #' \code{hotboards} returns a data frame of
-#' popular boards (\emph{\enc{熱門看板}{re men kan ban}})
+#' popular boards (\emph{\href{https://liao961120.github.io/pttR/articles/translation}{re men kan ban}})
 #' on PTT.
 #'
 #' @param get_new Logical. Defaults to \code{FALSE}.
