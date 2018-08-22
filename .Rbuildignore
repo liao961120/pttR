@@ -17,3 +17,5 @@
 ^vignettes/dev-functions-dep\.Rmd$
 ^inst/curl/$
 ^R/clean_rscript\.sh$
+^vignettes/translation\.csv$
+^man/back_to_zh\.sh$
