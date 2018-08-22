@@ -57,7 +57,10 @@ index_df <- index2df(board = "gossiping",
 - **idx_n**：該列資料所在的頁面頁碼
 
 ```{r include=FALSE}
-index_df <- readRDS("../data-raw/vig-data-retreive.rds")
+file <- system.file("gossiping",
+                    "vig-data-retreive.rds",
+                    package = "pttR")
+index_df <- readRDS(file)
 ```
 
 ```{r}
@@ -117,13 +120,13 @@ down_html <- function(url, board, curl) {
 ```{r eval=FALSE}
 for (i in seq(index_df$link)) {
   url <- as_url(index_df$link[i])
-  down_html(url, "gossiping", curl)
+  down_html(url, "gossiping/posts", curl)
 }
 ```
 `as_url()`是 pttR 裡面一個很簡單的函數，將部份 URL 轉換成完整的 URL，詳細請點`as_url()`。
 
 最後，如果使用 Mac 或是 Linux 作業系統，可以直接用一個`bash`指令壓縮檔案，大概壓縮成原來 1/4 的大小：
 ```bash
-gzip -r /gossiping
+gzip -r gossiping/posts
 ```
 
