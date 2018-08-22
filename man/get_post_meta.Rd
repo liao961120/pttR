@@ -22,8 +22,9 @@ A data frame with 1 row and 4 variables:
   \describe{
     \item{author}{Author of the post.}
     \item{category}{Category of the post, such as
-      \emph{\enc{新聞}{xin wen}},
-      \emph{\enc{問卦}{wen gua}}, \emph{Re:}.}
+      "\emph{\href{https://liao961120.github.io/pttR/articles/translation}{xin wen}}",
+      "\emph{\href{https://liao961120.github.io/pttR/articles/translation}{wen gua}}",
+      "\emph{Re:}".}
     \item{title}{Title of the post.}
     \item{date}{The date of the post.}
   }

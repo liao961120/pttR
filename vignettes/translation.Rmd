@@ -1,0 +1,27 @@
+---
+title: "Translation of Pingyin to Traditional Chinese in Manual"
+author: "Yongfu Liao"
+date: "`r format(Sys.Date(), '%B %e, %Y')`"
+output: rmarkdown::html_vignette
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Since `R CMD Rd2pdf` produces error when documentation contains CJK characters, all Chinese characters in pttR manual are translated to [Pingyin](https://en.wikipedia.org/wiki/Pinyin) (漢語拼音). 
+
+The original characters and corresponding Pingyin are listed below:
+
+| 繁體<br>(non-ASCII) | 漢語拼音 |
+|:----:|:-----------------------:|
+| 看板 |         kan ban         |
+| 魯蛇 |          lu she         |
+| 新聞 |         xin wen         |
+| 問卦 |         wen gua         |
+|  推  |           tui           |
+|  噓  |            xu           |
+|  →  | bu tui bu xu (不推不噓) |
