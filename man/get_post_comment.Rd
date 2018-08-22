@@ -15,9 +15,12 @@ See \code{\link[xml2]{read_html}} for details.}
 A data frame with n rows and 5 variables:
   \describe{
     \item{tag}{tag of the comment, can be one of the 3 values:
-      \code{Push} corresponds to \emph{\enc{推}{tui}},
-      \code{Boo} corresponds to \emph{\enc{噓}{xu}}, and
-      \code{Neu} corresponds to \emph{\enc{→}{bu tui bu xu}}
+      \code{Push} corresponds to
+      "\emph{\href{https://liao961120.github.io/pttR/articles/translation}{tui}}",
+      \code{Boo} corresponds to
+      "\emph{\href{https://liao961120.github.io/pttR/articles/translation}{xu}}", and
+      \code{Neu} corresponds to
+      "\emph{\href{https://liao961120.github.io/pttR/articles/translation}{bu tui bu xu}}"
       }
     \item{user}{ID of the user who left the comment.}
     \item{comment}{The content of the comment.}

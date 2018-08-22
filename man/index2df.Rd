@@ -9,8 +9,8 @@ index2df(board, newest = 1, pages = NA, search_term = NA,
 }
 \arguments{
 \item{board}{Character. Either a \strong{URL} or a
-\strong{board name}, such as \emph{"Gossiping"},
-\emph{"Baseball"}, \emph{"LoL"}.
+\strong{board name}, such as "\emph{Gossiping}",
+"\emph{Baseball}", "\emph{LoL}".
 \strong{board name} is case-insensitive. See
 \strong{Examples} for details.
 \code{board} has a different requirements when used
@@ -30,13 +30,11 @@ provide numbers exceeding the range of current index pages.
 Defaults to \code{NA}.}
 
 \item{search_term}{Character. A term to search in the index,
-such as "\emph{魯蛇}". There are also some advanced
+such as "\emph{\href{https://liao961120.github.io/pttR/articles/translation}{lu she}}". There are also some advanced
 search methods:
 \describe{
 \item{Post thread}{Prepend "\emph{thread:}" to the
-search term (post title), e.g.
-"\emph{thread:抱怨「垃圾不分藍綠」姚文智：害民進黨被}"
-.}
+search term (post title): "\emph{thread:<post-title>}".}
 \item{Posts of an author}{Prepend "\emph{author:}"
 to the author's ID, e.g., "\emph{author:Plumage}".}
 }}
@@ -52,7 +50,9 @@ A data frame with one post info per row.
 }
 \description{
 \code{index2df} scrapes the index pages of a board
-(\emph{\enc{看板}{kan ban}}) and extracts the
+("\emph{
+\href{https://liao961120.github.io/pttR/articles/translation}{kan ban}
+}") and extracts the
 information into a data frame.
 }
 \section{Warning}{

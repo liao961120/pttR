@@ -51,8 +51,9 @@ read_html2 <- function(url, ...) {
 #'   \describe{
 #'     \item{author}{Author of the post.}
 #'     \item{category}{Category of the post, such as
-#'       \emph{\enc{新聞}{xin wen}},
-#'       \emph{\enc{問卦}{wen gua}}, \emph{Re:}.}
+#'       "\emph{\href{https://liao961120.github.io/pttR/articles/translation}{xin wen}}",
+#'       "\emph{\href{https://liao961120.github.io/pttR/articles/translation}{wen gua}}",
+#'       "\emph{Re:}".}
 #'     \item{title}{Title of the post.}
 #'     \item{date}{The date of the post.}
 #'     \item{content}{The content of the post.}
@@ -117,7 +118,7 @@ get_post <- function(post_url, index = NULL,
                        link = post_url)
   post_df <- as.data.frame(post_df)
 
-  if (is.numeric(index)) { # Add index num
+  if (is.numeric(index)) {  # Add index num
     post_df$index <- index
   }
   post_df$comment[[1]] <- post_comment
@@ -148,8 +149,9 @@ get_post <- function(post_url, index = NULL,
 #'   \describe{
 #'     \item{author}{Author of the post.}
 #'     \item{category}{Category of the post, such as
-#'       \emph{\enc{新聞}{xin wen}},
-#'       \emph{\enc{問卦}{wen gua}}, \emph{Re:}.}
+#'       "\emph{\href{https://liao961120.github.io/pttR/articles/translation}{xin wen}}",
+#'       "\emph{\href{https://liao961120.github.io/pttR/articles/translation}{wen gua}}",
+#'       "\emph{Re:}".}
 #'     \item{title}{Title of the post.}
 #'     \item{date}{The date of the post.}
 #'   }
@@ -177,10 +179,10 @@ get_post_meta <- function(post_xml, board_col = FALSE) {
     html_text()
 
   post_author <- post_meta[1] %>%
-    str_remove("^\u4f5c\u8005") #"作者"
+    str_remove("^\u4f5c\u8005")  #"作者"
   post_cat <- extr_post_category(post_meta[2])
   post_title <- post_meta[2] %>%
-    str_remove("^\u6a19\u984c") # "標題"
+    str_remove("^\u6a19\u984c")  # "標題"
 
   post_date <- parse_post_date(post_xml)
 
@@ -258,9 +260,12 @@ get_post_content <- function(post_xml) {
 #' @return A data frame with n rows and 5 variables:
 #'   \describe{
 #'     \item{tag}{tag of the comment, can be one of the 3 values:
-#'       \code{Push} corresponds to \emph{\enc{推}{tui}},
-#'       \code{Boo} corresponds to \emph{\enc{噓}{xu}}, and
-#'       \code{Neu} corresponds to \emph{\enc{→}{bu tui bu xu}}
+#'       \code{Push} corresponds to
+#'       "\emph{\href{https://liao961120.github.io/pttR/articles/translation}{tui}}",
+#'       \code{Boo} corresponds to
+#'       "\emph{\href{https://liao961120.github.io/pttR/articles/translation}{xu}}", and
+#'       \code{Neu} corresponds to
+#'       "\emph{\href{https://liao961120.github.io/pttR/articles/translation}{bu tui bu xu}}"
 #'       }
 #'     \item{user}{ID of the user who left the comment.}
 #'     \item{comment}{The content of the comment.}
