@@ -1,11 +1,3 @@
-
-
-
-
-
-
-##### Internal Helper Functions #####
-
 #' Helper functions for scraping index pages
 #'
 #' These are helper functions for package development, not
