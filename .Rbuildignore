@@ -16,3 +16,4 @@
 ^R/old_script/$
 ^vignettes/dev-functions-dep\.Rmd$
 ^inst/curl/$
+^R/clean_rscript\.sh$
