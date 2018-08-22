@@ -63,6 +63,11 @@
 #'   functionality to deal with multiple pages extraction
 #'
 #' @importFrom stringr str_detect str_remove
+#' @importFrom utils URLencode head
+#' @importFrom magrittr %>%
+#' @importFrom rvest html_node html_nodes html_text
+#' @importFrom dplyr bind_rows
+#' @importFrom tibble data_frame
 #' @export
 index2df <- function(board, newest = 1, pages = NA,
                      search_term = NA, search_page = 1) {
@@ -97,7 +102,7 @@ index2df <- function(board, newest = 1, pages = NA,
     temp$idx_n <- idx_n[i]
     df[[i]] <- temp
   }
-  df <- dplyr::bind_rows(df)
+  df <- bind_rows(df)
 
   return(df)
 }
@@ -131,11 +136,11 @@ chk_idx_mode <- function(board, newest, pages,
 #' @importFrom stringr str_detect str_remove
 #' @keywords internal
 parse_board <- function(board) {
-  if (stringr::str_detect(board, "^http")) {
+  if (str_detect(board, "^http")) {
     board <- str_remove(board, "^https://www.ptt.cc/bbs/") %>%
       str_remove("/.+$")
   }
-  if (stringr::str_detect(board, ".html")) stop("Not a board URL")
+  if (str_detect(board, ".html")) stop("Not a board URL")
 
   return(board)
 }
@@ -148,7 +153,7 @@ board_search_error <- function(url) {
     html_node("head") %>%
     html_node("title") %>%
     html_text() %>%
-    stringr::str_detect("^404")
+    str_detect("^404")
   error_message <- c("Page Not Found\n",
                      "Invalid board name or\n",
                      "Search range exceeding limits\n")
@@ -166,7 +171,7 @@ custom_idx_url <- function(board, pages) {
                       "/index", max(idx_n), ".html")
   board_search_error(url_limit)
 
-  df <- tibble::data_frame(idx_n, url = urls)
+  df <- data_frame(idx_n, url = urls)
   return(df)
 }
 
