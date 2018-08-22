@@ -1,8 +1,23 @@
 #!/bin/bash
 
 if [ "${TRAVIS_OS_NAME}" == "linux" ]; then 
+
+# Workflow: clean man/ -> build web page -> revert man/ -> clean R/ -> deploy 
+ 
+  # PART 1: Build package website with chinese characters in man/
+  cd ./man
+  bash back_to_zh.sh  # Now *.Rd in man is in zh-tw
+  cd .. 
+
   # Build site in docs/ to deploy to gh-pages
-  Rscript -e 'source("build_site.R")'
+  Rscript -e 'source("build_site.R")'  # Build pkgdown site with man/ in zh
+  
+  cd ./man
+  cp -r pingyin_dir/*.Rd . && rm -r pingyin_dir # Copy backup(*.Rd in pingyin) files to man/
+  cd ..
+
+
+  # PART 2: Remove unicode chracters in R/ (For fixing win-build error)
 
   # Remove all comments in R/*.R to build ASCII-only R scripts
   # This mean removing all Roxygen documents in R/,
