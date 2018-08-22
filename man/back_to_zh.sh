@@ -4,7 +4,7 @@ mkdir pingyin_dir
 cp -r *.Rd pingyin_dir  # Backup file for win-build
 
 
-trans="../vignettes/translation.csv"
+trans="../data-raw/translation.csv"
 n_line=$(wc -l $trans | grep -o "[0-9]")
 
 for f in *.Rd; do
