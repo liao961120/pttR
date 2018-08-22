@@ -111,3 +111,8 @@ hotboards <- function(get_new = FALSE) {
 
   return(df)
 }
+
+
+#' Pingyin-Character translation
+#' @export
+ping2zh <- function() pingying2zh
