@@ -116,3 +116,7 @@ hotboards <- function(get_new = FALSE) {
 #' Pingyin-Character translation
 #' @export
 ping2zh <- function() pingying2zh
+
+#' Retreive example data set of posts data frame
+#' @export
+example_posts <- function() posts_df
