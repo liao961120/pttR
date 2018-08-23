@@ -14,7 +14,7 @@ test_that("dimension of get_post()",{
 })
 
 
-ls <- paste0(c("df0", "df1", "df2"), "$comment[[1]]")
+ls <- paste0(c("df0", "df1"), "$comment[[1]]")
 ls <- sample(ls, 1)
 cmt_df <- eval_str(ls)
 
