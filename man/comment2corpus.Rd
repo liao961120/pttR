@@ -29,5 +29,5 @@ These functions convert data frames stored in the list-column
  \code{\link[tm]{VCorpus}}, and \code{\link[tm]{PCorpus}}.
 }
 \seealso{
-\code{link{post2qcorp}}, \code{link{post2tmcorp}}
+\code{\link{post2qcorp}}, \code{\link{post2tmcorp}}
 }

@@ -16,7 +16,7 @@
 #'   \code{\link[quanteda]{corpus}}, \code{\link[tm]{VCorpus}},
 #'   or \code{\link[tm]{PCorpus}}.
 #'
-#' @seealso \code{link{comment2qcorp}}, \code{link{comment2tmcorp}}
+#' @seealso \code{\link{comment2qcorp}}, \code{\link{comment2tmcorp}}
 #' @name post2corpus
 NULL
 
@@ -90,7 +90,7 @@ post2tmcorp <- function(df, PCorpus = FALSE, ...) {
 #'   \code{\link[quanteda]{corpus}}, \code{\link[tm]{VCorpus}},
 #'   or \code{\link[tm]{PCorpus}}.
 #'
-#' @seealso \code{link{post2qcorp}}, \code{link{post2tmcorp}}
+#' @seealso \code{\link{post2qcorp}}, \code{\link{post2tmcorp}}
 #' @name comment2corpus
 NULL
 

@@ -46,5 +46,5 @@ meta(post_corp, "author")
 
 }
 \seealso{
-\code{link{comment2qcorp}}, \code{link{comment2tmcorp}}
+\code{\link{comment2qcorp}}, \code{\link{comment2tmcorp}}
 }
