@@ -4,10 +4,9 @@ Version: 0.0.0.9000
 Authors@R: c(
     person("Yongfu", "Liao", email = "liao961120@gmail.com", role = c("aut", "cre")),
     person("LOPE @ NTU", role = "cph"))
-Description: Provide functions to process raw data access through PTT Corpus, 
-    including Chinese word segmentation based on a PTT-specific dictionary, 
-    corpus object construction, conversion between such corpus objects required 
-    by different packages (such as tm and quanteda).
+Description: Provide functions to scrape and extract data from PTT Web,
+    perform Chinese word segmentation based on a PTT-specific dictionary, 
+    and construct corpus objects compatible with tm and quanteda.
 URL: https://liao961120.github.io/pttR/, https://github.com/liao961120/pttR
 BugReports: https://github.com/liao961120/pttR/issues
 Depends: R (>= 3.4.0)
@@ -15,19 +14,18 @@ License: GPL-3
 LazyData: true
 Imports: dplyr,
     magrittr,
-    quanteda,
-    tidytext,
     jiebaR,
     jiebaRD,
-    stringr,
     rvest,
+    stringr,
     stringi,
     tibble,
     tidyr,
     xml2,
     RCurl,
-    readr,
-    lubridate
+    lubridate,
+    tm,
+    quanteda
 Suggests:
     knitr,
     rmarkdown,

@@ -13,7 +13,6 @@ test_that("dimension of get_post()",{
   expect_true(nrow(df0) == nrow(df1))
 })
 
-
 ls <- paste0(c("df0", "df1"), "$comment[[1]]")
 ls <- sample(ls, 1)
 cmt_df <- eval_str(ls)
