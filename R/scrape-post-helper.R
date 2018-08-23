@@ -3,20 +3,9 @@
 #' \code{get_post} returns a data frame with 1 row and 9 cols,
 #' where the column \code{comment} is a list column.
 #'
-#' This is a function that combines the data gathered from
-#' three functions: \code{\link{get_post_meta}},
-#' \code{\link{get_post_content}}, and
-#' \code{\link{get_post_comment}}.
-#'
 #' @param post_url Character. An URL of a PTT post.
-#' @param index Integer. The number of the index page that has
-#'   \code{post_url}. If given, creates a new column,
-#'   \code{index}.
 #' @param board_col Logical. Whether to set board name as a
-#'   variable. Defaults to \code{FALSE}. Note you can get the
-#'   board name with \code{attributes(df)$board} or
-#'   \code{attr(df, "board")} regardless of the value of this
-#'   argument.
+#'   variable. Defaults to \code{FALSE}.
 #'
 #' @return A data frame with 1 row and 10 variables:
 #'   \describe{
@@ -28,9 +17,6 @@
 #'     \item{title}{Title of the post.}
 #'     \item{date}{The date of the post.}
 #'     \item{content}{The content of the post.}
-#'     \item{n_char}{The Number of characters in the post content.
-#'       Whitespaces and newline characters are removed before
-#'       counting.}
 #'     \item{comment}{A list column.
 #'       See \code{\link{get_post_comment}} for information
 #'       about entries in this list column.}
@@ -38,38 +24,20 @@
 #'     \item{n_push}{Number of "Push" comments.}
 #'     \item{n_boo}{Number of "Boo" comments.}
 #'     \item{link}{URL of the post with
-#'       \url{https://www.ptt.cc/bbs/}. Get this URL
-#'       with \code{attr(df, "base_url")}.}
+#'       \url{https://www.ptt.cc/bbs/} removed.}
 #'   }
-#'   Two additional variables are optional:
+#'   One additional variable is optional:
 #'   \describe{
 #'     \item{board}{The board the post belongs to. Exist only
-#'       if \code{board = TRUE}.}
-#'     \item{index}{The index page that has the link to the post.
-#'       Exist only if passed in the argument \code{index}.}
+#'       if \code{board_col = TRUE}.}
 #'   }
-#'
-#' @examples
-#' url <- "https://www.ptt.cc/bbs/Gossiping/M.1534415307.A.BE5.html"
-#'
-#' post_df <- get_post(url)
-#' head(post_df)
-#'
-#' # Access information in the list column: 'comment'
-#' head(post_df$comment[[1]])
-#'
-#' # Get Attributes
-#' attributes(post_df)
-#' attr(post_df, "base_url")
-#' attr(post_df, "board")
 #'
 #' @import rvest
 #' @importFrom dplyr bind_cols
 #' @importFrom stringr str_detect str_match str_remove str_remove_all
 #' @importFrom tibble data_frame as_data_frame
-#' @export
-get_post <- function(post_url, index = NULL,
-                     board_col = FALSE) {
+#' @keywords internal
+get_post <- function(post_url, board_col = FALSE) {
 
   post_xml <- read_html2(post_url)
 
@@ -84,8 +52,7 @@ get_post <- function(post_url, index = NULL,
     as.data.frame()
 
   if (str_detect(post_url, "^http")) {
-    post_url <- str_remove(post_url,
-                           "^https://www.ptt.cc/bbs/")
+    post_url <- str_remove(post_url, "^https://www.ptt.cc/bbs/")
   } else {
     post_url <- basename(post_url)
   }
@@ -95,19 +62,10 @@ get_post <- function(post_url, index = NULL,
                        link = post_url)
   post_df <- as.data.frame(post_df)
 
-  if (is.numeric(index)) {  # Add index num
-    post_df$index <- index
-  }
-
-  attr(post_comment, "post_id") <- post_url
   post_df$comment[[1]] <- post_comment
-
-  attr(post_df, "base_url") <- "https://www.ptt.cc/bbs/"
-  attr(post_df, "board") <- attr(post_meta, "board")
 
   return(post_df)
 }
-
 
 
 #' Retrieve mata data from an individual PTT post
@@ -179,8 +137,6 @@ get_post_meta <- function(post_xml, board_col = FALSE) {
                            post_meta)
   }
 
-  attr(post_meta, "board") <- post_board
-
   return(post_meta)
 }
 
@@ -216,11 +172,7 @@ get_post_content <- function(post_xml) {
     str_remove("^(\n|.)*([0-9]{2}:){2}[0-9]{2} 20[0-9]{2}(\n)+") %>%
     str_remove("(\n)+--\n\u203b(\n|.)*")
 
-  n_char <- post_content %>%
-    str_remove_all("( )") %>%
-    str_remove_all("(\n)+") %>% nchar()
-
-  post_content <- data_frame(content = post_content, n_char = n_char)
+  post_content <- data_frame(content = post_content)
   return(post_content)
 }
 
