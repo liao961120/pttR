@@ -20,7 +20,6 @@
 #'
 #' @importFrom magrittr %>%
 #' @importFrom  stringr str_detect str_match str_replace str_remove
-#' @export
 #' @keywords internal
 extr_post_category <- function(post_title) {
 
