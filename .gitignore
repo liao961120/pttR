@@ -2,8 +2,8 @@
 .Rhistory
 .RData
 devtools_fc.R
-inst/doc
 docs
+inst/doc
 data-raw/*.html
 local/
 /inst/**/*.sh
