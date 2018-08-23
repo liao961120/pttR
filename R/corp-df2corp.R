@@ -63,8 +63,6 @@ post2tmcorp <- function(df, PCorpus = FALSE, ...) {
 
   df <- rename(df, "doc_id" = "link") %>%
     rename("text" = "content") %>%
-  colnames()
-
     select("doc_id", "text", everything())
 
   ifelse(PCorpus == T,
