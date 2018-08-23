@@ -20,3 +20,4 @@
 ^vignettes/translation\.csv$
 ^man/back_to_zh\.sh$
 ^man/pingyin_dir$
+^_pkgdown\.yml$

@@ -1,0 +1,33 @@
+pandoc: 1.19.2.1
+pkgdown: 1.1.0
+pkgdown_sha: ~
+articles:
+- title: "Quick Start"
+  contents:
+  - data-retreive
+- title: "Developers"
+  contents:
+  - dev-functions-dep
+- title: "Others"
+  contents:
+  - translation
+reference:
+- title: Data Retrieval
+  desc: "Functions for extracting information from PTT Web."
+  contents:
+  - '`as_url`'
+  - '`read_html2`'
+  - '`index2df`'
+  - '`post2df`'
+- title: Corpus Construction
+  desc: "Functions for converting data frames to corpus objects."
+  contents:
+  - ends_with("corpus")
+- title: Handy Helpers
+  desc: "Functions for getting useful information about pttR or PTT."
+  contents:
+  - '`ptt`'
+  - '`example_posts`'
+  - '`get_ptt_dict`'
+  - '`hotboards`'
+  - '`ping2zh`'
