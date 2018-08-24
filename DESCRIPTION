@@ -31,7 +31,8 @@ Suggests:
     rmarkdown,
     testthat,
     covr,
-    devtools
+    devtools,
+    magick
 VignetteBuilder: knitr
 RoxygenNote: 6.1.0
 Encoding: UTF-8

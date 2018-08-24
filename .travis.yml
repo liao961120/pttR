@@ -19,6 +19,7 @@ matrix:
       before_install:
         - sudo timedatectl set-timezone Asia/Taipei
         - sudo apt-get install texlive-fonts-extra
+        - sudo apt install libmagick++-dev
 
 r_github_packages:
   - r-lib/covr
