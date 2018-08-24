@@ -9,12 +9,22 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
   bash back_to_zh.sh  # Now *.Rd in man is in zh-tw
   cd .. 
 
-  # Build site in docs/ to deploy to gh-pages
+  ## Build site in docs/ to deploy to gh-pages
   Rscript -e 'source("build_site.R")'  # Build pkgdown site with man/ in zh
-  touch ./docs/.nojekyll
+  ### Add favicon links to every html head
+  cd ./docs
+    file=$(find . -name '*.html')  
+    for i in $file; do
+      cat "${i}" | sed 's,<head>,<head><link rel="shortcut icon" type="image/x-icon" href="https://liao961120.github.io/pttR/favicon.ico">,g' > "temp"
+      cat "temp" > "${i}"
+    done
+    rm temp
+  cd ..
   
+ 
+  ## Copy backup(*.Rd in pingyin) files to man/
   cd ./man
-  cp -r pingyin_dir/*.Rd . && rm -r pingyin_dir # Copy backup(*.Rd in pingyin) files to man/
+  cp -r pingyin_dir/*.Rd . && rm -r pingyin_dir
   cd ..
 
 
