@@ -12,14 +12,17 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
   ## Build site in docs/ to deploy to gh-pages
   Rscript -e 'source("build_site.R")'  # Build pkgdown site with man/ in zh
   ### Add favicon links to every html head
+  head='<link rel="apple-touch-icon" sizes="57x57" href="https://liao961120.github.io/pttR/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="https://liao961120.github.io/pttR/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="https://liao961120.github.io/pttR/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="https://liao961120.github.io/pttR/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="https://liao961120.github.io/pttR/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="https://liao961120.github.io/pttR/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="https://liao961120.github.io/pttR/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="https://liao961120.github.io/pttR/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="https://liao961120.github.io/pttR/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192"  href="https://liao961120.github.io/pttR/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="https://liao961120.github.io/pttR/favicon/favicon-32x32.png"><linkrel="icon" type="image/png" sizes="96x96" href="https://liao961120.github.io/pttR/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="https://liao961120.github.io/pttR/favicon/favicon-16x16.png"><link rel="manifest"href="https://liao961120.github.io/pttR/favicon/manifest.json"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff">'
+  
   cd ./docs
     file=$(find . -name '*.html')  
     for i in $file; do
-      cat "${i}" | sed 's,<head>,<head><link rel="shortcut icon" type="image/x-icon" href="https://liao961120.github.io/pttR/favicon.ico">,g' > "temp"
+      cat "${i}" | sed "s,<head>,<head>${head},g" > "temp"
       cat "temp" > "${i}"
     done
     rm temp
   cd ..
+  mv ./favicon/ ./docs/
   
  
   ## Copy backup(*.Rd in pingyin) files to man/
