@@ -23,7 +23,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
      # head1, head2: Change image path to direcet URL (May be a bug in pkgdown), and rescale image
   head='<link rel="apple-touch-icon" sizes="180x180" href="https://liao961120.github.io/pttR/favicon/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="https://liao961120.github.io/pttR/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="https://liao961120.github.io/pttR/favicon/favicon-16x16.png"><link rel="manifest" href="https://liao961120.github.io/pttR/favicon/site.webmanifest"><link rel="mask-icon" href="https://liao961120.github.io/pttR/favicon/safari-pinned-tab.svg" color="#d57700"><link rel="shortcut icon" href="https://liao961120.github.io/pttR/favicon/favicon.ico"><meta name="apple-mobile-web-app-title" content="pttR"><meta name="application-name" content="pttR"><meta name="msapplication-TileColor" content="#00a300"><meta name="msapplication-TileImage" content="https://liao961120.github.io/pttR/favicon/mstile-144x144.png"><meta name="msapplication-config" content="https://liao961120.github.io/pttR/favicon/browserconfig.xml"><meta name="theme-color" content="#ffffff">'
   head1='<meta property="og:image" content="/logo.png">'
-  head2='<meta property="og:image" content="https://liao961120.github.io/pttR/logo.png"><meta property="og:image:width" content="202"><meta property="og:image:height" content="202">'
+  head2='<meta property="og:image" content="https://liao961120.github.io/pttR/logo.png"><meta property="og:image:width" content="205"><meta property="og:image:height" content="205">'
 
   cd ./docs
     file=$(find . -name '*.html')  
