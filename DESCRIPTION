@@ -1,5 +1,5 @@
 Package: pttR
-Title: Retrieve and Process Text Data from PTT
+Title: Retrieve and Process Textual Data from PTT
 Version: 0.0.0.9000
 Authors@R: c(
     person("Yongfu", "Liao", email = "liao961120@gmail.com", role = c("aut", "cre")),
