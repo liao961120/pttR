@@ -11,6 +11,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 
   # Build site in docs/ to deploy to gh-pages
   Rscript -e 'source("build_site.R")'  # Build pkgdown site with man/ in zh
+  touch ./docs/.nojekyll
   
   cd ./man
   cp -r pingyin_dir/*.Rd . && rm -r pingyin_dir # Copy backup(*.Rd in pingyin) files to man/
