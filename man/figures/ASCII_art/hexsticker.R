@@ -11,7 +11,7 @@ p <- sticker(img, package = "",
              #l_y=c(1.5, 0.48, 1.5, 0.48, 1.85, 0.1),
              l_width = 3.8,
              l_alpha = 0.4, spotlight = T,
-             filename = "../logo.png")
+             filename = "../logo_ori.png")
 plot(p)
 
-# bash: convert logo.png -resize 130x150 logo.png
+# bash: convert logo_ori.png -resize 130x150 logo.png
