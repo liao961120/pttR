@@ -24,7 +24,9 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
   head='<link rel="apple-touch-icon" sizes="180x180" href="https://liao961120.github.io/pttR/favicon/apple-touch-icon.png?v=alQmNKw6dL"><link rel="icon" type="image/png" sizes="32x32" href="https://liao961120.github.io/pttR/favicon/favicon-32x32.png?v=alQmNKw6dL"><link rel="icon" type="image/png" sizes="194x194" href="https://liao961120.github.io/pttR/favicon/favicon-194x194.png?v=alQmNKw6dL"><link rel="icon" type="image/png" sizes="192x192" href="https://liao961120.github.io/pttR/favicon/android-chrome-192x192.png?v=alQmNKw6dL"><link rel="icon" type="image/png" sizes="16x16" href="https://liao961120.github.io/pttR/favicon/favicon-16x16.png?v=alQmNKw6dL"><link rel="manifest" href="https://liao961120.github.io/pttR/favicon/site.webmanifest?v=alQmNKw6dL"><link rel="mask-icon" href="https://liao961120.github.io/pttR/favicon/safari-pinned-tab.svg?v=alQmNKw6dL" color="#d56000"><link rel="shortcut icon" href="https://liao961120.github.io/pttR/favicon/favicon.ico?v=alQmNKw6dL"><meta name="apple-mobile-web-app-title" content="pttR"><meta name="application-name" content="pttR"><meta name="msapplication-TileColor" content="#00a300"><meta name="msapplication-TileImage" content="https://liao961120.github.io/pttR/favicon/mstile-144x144.png?v=alQmNKw6dL"><meta name="msapplication-config" content="https://liao961120.github.io/pttR/favicon/browserconfig.xml?v=alQmNKw6dL"><meta name="theme-color" content="#ffffff">'
   head_og1='<meta property="og:image" content="/logo.png">'
   head_og2='<meta property="og:image" content="https://liao961120.github.io/pttR/favicon/og-image.jpg"><meta property="og:image:width" content="170"><meta property="og:image:height" content="170">'
-
+  title_desc=$(cat DESCRIPTION_ch | grep "Title: " | cut -f 2 -d : | xargs)
+  title_tag=${title_desc}" • pttR"
+  
   cd ./docs
     file=$(find . -name '*.html')  
     for i in $file; do
@@ -32,6 +34,9 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
       cat "temp" > "${i}"
       
       cat "${i}" | sed "s,${head_og1},${head_og2},g" > "temp"
+      cat "temp" > "${i}"
+      
+      cat "${i}" | sed "s,<title>${title_tag}</title>,<title>${title_desc}</title>,g" > "temp"
       cat "temp" > "${i}"
     done
     rm temp
