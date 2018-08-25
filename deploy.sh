@@ -25,7 +25,8 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
   head_og1='<meta property="og:image" content="/logo.png">'
   head_og2='<meta property="og:image" content="https://liao961120.github.io/pttR/favicon/og-image.jpg"><meta property="og:image:width" content="170"><meta property="og:image:height" content="170">'
   title_desc=$(cat DESCRIPTION | grep "Title: " | cut -f 2 -d : | xargs)
-  title_tag=${title_desc}" • pttR"
+  og_title='<meta property="og:title" content="'${title_desc}'">'
+  og_title2='<meta property="og:title" content="'${title_desc}' | pttR">'
   
   cd ./docs
     file=$(find . -name '*.html')  
@@ -36,7 +37,7 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
       cat "${i}" | sed "s,${head_og1},${head_og2},g" > "temp"
       cat "temp" > "${i}"
       
-      cat "${i}" | sed "s,<title>${title_tag}</title>,<title>${title_desc}</title>,g" > "temp"
+      cat "${i}" | sed "s,${og_title},${og_title2},g" > "temp"
       cat "temp" > "${i}"
     done
     rm temp
