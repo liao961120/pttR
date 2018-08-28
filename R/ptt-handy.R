@@ -36,10 +36,10 @@ ptt <- function() {
 #' @examples
 #' as_url("gossiping")
 #' as_url("Gossiping/M.1534490816.A.A3A.html")
-#'
+#' @importFrom stringr str_detect
 #' @export
 as_url <- function(x, pre = "https://www.ptt.cc/bbs/") {
-  if (stringr::str_detect(x, ".html$")) {
+  if (TRUE %in% str_detect(x, ".html$")) {
     x <- paste0(pre, x)
   } else {
     x <- paste0(pre, x, "/index.html")
