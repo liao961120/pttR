@@ -44,7 +44,8 @@ get_post <- function(post_url, board_col = FALSE) {
   post_meta <- get_post_meta(post_xml,
                              board_col = board_col)
   post_content <- get_post_content(post_xml) # df with 1 row
-  post_comment <- get_post_comment(post_xml) # df with many rows
+  post_comment <- get_post_comment(post_xml) %>% # df with many rows
+    mutate_cmt_reply(post_xml)
   n_comment <- nrow(post_comment)
   n_push <- sum(post_comment$tag == "Push")
   n_boo <- sum(post_comment$tag == "Boo")
@@ -221,6 +222,15 @@ get_post_content <- function(post_xml) {
 get_post_comment <- function(post_xml) {
 
   push <- post_xml %>% html_nodes("div.push")
+
+  if (length(push) == 0) {
+    push_df <- bind_cols(tag = NULL,
+                         user = NULL,
+                         comment = NULL,
+                         ip = NULL,
+                         time = NULL)
+    return(push_df)
+  }
 
   push_tag <- push %>%
     html_nodes("span.push-tag") %>%
