@@ -223,6 +223,15 @@ get_post_comment <- function(post_xml) {
 
   push <- post_xml %>% html_nodes("div.push")
 
+  if (length(push) == 0) {
+    push_df <- bind_cols(tag = NULL,
+                         user = NULL,
+                         comment = NULL,
+                         ip = NULL,
+                         time = NULL)
+    return(push_df)
+  }
+
   push_tag <- push %>%
     html_nodes("span.push-tag") %>%
     html_text() %>%
