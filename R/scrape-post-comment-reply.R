@@ -1,6 +1,3 @@
-#raw <- read_html("https://www.ptt.cc/bbs/Baseball/M.1535372407.A.902.html")
-#raw <- read_html("https://www.ptt.cc/bbs/car/M.1500309737.A.D47.html")
-
 #' @importFrom magrittr %>%
 #' @importFrom rvest html_node html_text
 #' @importFrom tibble data_frame as_data_frame
