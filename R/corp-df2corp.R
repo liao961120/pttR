@@ -108,9 +108,13 @@ comment2qcorp <- function(df) {
   comment_corp <- vector("list", length = nrow(df))
 
   for (i in seq_along(df$comment)) {
-    comment_corp[[i]] <- corpus(df$comment[[i]],
-                                text_field = "comment",
-                                docid_field = "time")
+    if (is.na(df$comment[[i]]$tag[1])) {
+      comment_corp[[i]] <- "Empty"
+    } else {
+      comment_corp[[i]] <- corpus(df$comment[[i]],
+                                  text_field = "comment",
+                                  docid_field = "time")
+    }
   }
   df <- data_frame(post_id = df$link,
                    comment = comment_corp)
@@ -146,7 +150,11 @@ comment2tmcorp <- function(df, PCorpus = FALSE, ...) {
 
   comment_corp <- vector("list", length = nrow(df))
   for (i in seq_along(df$comment)) {
-    comment_corp[[i]] <- corp(as_source(df$comment[[i]]), ...)
+    if (is.na(df$comment[[i]]$tag[1])) {
+      comment_corp[[i]] <- "Empty"
+    } else {
+      comment_corp[[i]] <- corp(as_source(df$comment[[i]]), ...)
+    }
   }
   df <- data_frame(post_id = df$link,
                    comment = comment_corp)
