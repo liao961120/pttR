@@ -20,5 +20,4 @@ or partial post URLs removed back to the original URLs.
 \examples{
 as_url("gossiping")
 as_url("Gossiping/M.1534490816.A.A3A.html")
-
 }
