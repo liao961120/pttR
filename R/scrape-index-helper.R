@@ -41,7 +41,7 @@ get_index_url <- function(board_url) {
     as.integer() + 1
 
   index_url <- paste0("https://www.ptt.cc/", board_name,
-                      "/", index_num, ".html")
+                      "/index", index_num, ".html")
 
   return(c(index_num, index_url))
 }
