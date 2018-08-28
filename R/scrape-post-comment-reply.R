@@ -5,6 +5,7 @@
 #' @importFrom rvest html_node html_text
 #' @importFrom tibble data_frame as_data_frame
 #' @importFrom Hmisc escapeRegex
+#' @importFrom stats na.omit
 #' @importFrom stringr str_remove str_remove_all str_replace str_extract_all str_extract
 #' @keywords internal
 mutate_cmt_reply <- function(comment_df, post_xml) {
