@@ -25,7 +25,8 @@ Imports: dplyr,
     RCurl,
     lubridate,
     tm,
-    quanteda
+    quanteda,
+    Hmisc
 Suggests:
     knitr,
     rmarkdown,
