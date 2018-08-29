@@ -6,7 +6,7 @@
 #' @importFrom stringr str_remove str_remove_all str_replace str_extract_all str_extract
 #' @keywords internal
 mutate_cmt_reply <- function(comment_df, post_xml) {
-  if (is.na(comment_df[1, 1])) return(comment_df)
+  if (is.null(comment_df)) return(comment_df)
 
   raw <- html_node(post_xml, "div#main-content") %>%
     html_text()
@@ -58,6 +58,3 @@ mutate_cmt_reply <- function(comment_df, post_xml) {
 
   return(as_data_frame(comment_df))
 }
-
-# str_detect("中文", "\\p{Ideographic}")
-

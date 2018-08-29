@@ -108,8 +108,8 @@ comment2qcorp <- function(df) {
   comment_corp <- vector("list", length = nrow(df))
 
   for (i in seq_along(df$comment)) {
-    if (is.na(df$comment[[i]]$tag[1])) {
-      comment_corp[[i]] <- "Empty"
+    if (is.null(df$comment[[i]])) {
+      comment_corp[[i]] <- df$comment[[i]]
     } else {
       comment_corp[[i]] <- corpus(df$comment[[i]],
                                   text_field = "comment",
@@ -150,8 +150,8 @@ comment2tmcorp <- function(df, PCorpus = FALSE, ...) {
 
   comment_corp <- vector("list", length = nrow(df))
   for (i in seq_along(df$comment)) {
-    if (is.na(df$comment[[i]]$tag[1])) {
-      comment_corp[[i]] <- "Empty"
+    if (is.null(df$comment[[i]])) {
+      comment_corp[[i]] <- df$comment[[i]]
     } else {
       comment_corp[[i]] <- corp(as_source(df$comment[[i]]), ...)
     }

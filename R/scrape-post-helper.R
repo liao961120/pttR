@@ -44,9 +44,10 @@ get_post <- function(post_url, board_col = FALSE) {
   post_meta <- get_post_meta(post_xml,
                              board_col = board_col)
   post_content <- get_post_content(post_xml) # df with 1 row
-  post_comment <- get_post_comment(post_xml) %>%
-    mutate_cmt_reply(post_xml)  # df with many rows
-  if (is.na(post_comment[1, 1])) {
+  post_comment <- mutate_cmt_reply(   # df with many rows
+    get_post_comment(post_xml), post_xml
+    )
+  if (is.null(post_comment)) {
     n_comment <- 0
     n_push <- 0
     n_boo <- 0
@@ -229,14 +230,7 @@ get_post_comment <- function(post_xml) {
 
   push <- post_xml %>% html_nodes("div.push")
 
-  if (length(push) == 0) {
-    push_df <- bind_cols(tag = NA,
-                         user = NA,
-                         comment = NA,
-                         ip = NA,
-                         time = NA)
-    return(push_df)
-  }
+  if (length(push) == 0) return(NULL)
 
   push_tag <- push %>%
     html_nodes("span.push-tag") %>%
