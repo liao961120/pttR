@@ -11,12 +11,13 @@ articles:
 - title: "Others"
   contents:
   - translation
-reference:
+reference:          # Function Reference
 - title: Data Retrieval
   desc: "Functions for extracting information from PTT Web."
   contents:
   - '`as_url`'
   - '`read_html2`'
+  - '`down_html`'
   - '`index2df`'
   - '`post2df`'
 - title: Corpus Construction
