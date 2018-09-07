@@ -17,9 +17,10 @@ matrix:
       env: PANDOC='mac-cran'
     - os: linux
       before_install:
-        - sudo timedatectl set-timezone Asia/Taipei
+        - sudo timedatectl set-timezone Asia/Taipei  # Set timezone to Taiwan
         - sudo apt-get install texlive-fonts-extra
         - sudo apt install libmagick++-dev
+        - bash update-data-raw.sh                    # Renew internal data
 
 r_github_packages:
   - r-lib/covr
@@ -35,8 +36,8 @@ before_deploy:
 
 # deploy docs/ and master branch to branch 'gh-pages' & 'win-build'
 deploy:
-  - provider: pages    # Deploy master to branch win-build
-    target-branch: win-build  
+  - provider: pages    # Deploy master to branch build
+    target-branch: build  
     skip-cleanup: true
     github-token: $GH_TOKEN_win  # Set in travis-ci.org dashboard
     keep-history: false
