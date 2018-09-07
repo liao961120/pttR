@@ -72,3 +72,5 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 
   echo "## Branch for Dowloading" >> README.md
   echo "**This Branch is automatically built for dowloading pttR. See [master branch](https://github.com/liao961120/pttR) instead.**" >> README.md
+
+fi
