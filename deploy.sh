@@ -71,6 +71,6 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
   cd ..
 
   echo "## Build for Windows" >> README.md
-  echo "**This Branch is only for building and testing pttR for Windows. See [master branch](https://github.com/liao961120/pttR) instead.**" >> README.md
+  echo "**This Branch is automatically built for dowloading. See [master branch](https://github.com/liao961120/pttR) instead.**" >> README.md
 fi
 
