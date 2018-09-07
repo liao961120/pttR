@@ -100,13 +100,13 @@ hotboards <- function(get_new = FALSE) {
   board_popularity <- hotboards %>%
     html_nodes("div.board-nuser > span") %>%
     html_text()
-  df <- cbind(board = board_name_en,
-              name_ch = board_name_ch,
-              popularity = board_popularity,
-              link = board_link)
+  df <- tibble::data_frame(board = board_name_en,
+                           name_ch = board_name_ch,
+                           popularity = board_popularity,
+                           link = board_link)
   df$name_ch <- ifelse(is.na(df$name_ch),
-                                df$board,
-                                df$name_ch)
+                       df$board,
+                       df$name_ch)
   attr(df, "date") <- Sys.time()
 
   return(df)
