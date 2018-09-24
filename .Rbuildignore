@@ -25,3 +25,4 @@
 ^favicon/$
 ^man/notes/$
 ^update-data-raw\.sh$
+^favicon$
