@@ -4,14 +4,14 @@
 \alias{post2df}
 \title{Extract information from PTT posts}
 \usage{
-post2df(post_url, board_col = FALSE)
+post2df(path, board_col = FALSE)
 }
 \arguments{
-\item{board_col}{Logical. Whether to set board name as a new
-variable. Defaults to \code{FALSE}.}
-
 \item{path}{Character Vector. A vector of URLs or local paths
 to PTT posts.}
+
+\item{board_col}{Logical. Whether to set board name as a new
+variable. Defaults to \code{FALSE}.}
 }
 \value{
 A data frame with n rows and 12 variables:

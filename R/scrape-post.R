@@ -66,12 +66,12 @@
 #' @importFrom dplyr bind_rows
 #' @importFrom magrittr %>%
 #' @export
-post2df <- function(post_url, board_col = FALSE) {
+post2df <- function(path, board_col = FALSE) {
 
-  # Generate df with nrow = length(post_url)
-  posts_df <- vector("list", length = length(post_url))
-  for (i in seq_along(post_url)) {
-    posts_df[[i]] <- get_post(post_url[i])
+  # Generate df with nrow = length(path)
+  posts_df <- vector("list", length = length(path))
+  for (i in seq_along(path)) {
+    posts_df[[i]] <- get_post(path[i])
   }
   posts_df <- bind_rows(posts_df)
 
