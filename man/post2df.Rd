@@ -7,11 +7,11 @@
 post2df(post_url, board_col = FALSE)
 }
 \arguments{
-\item{post_url}{Character Vector. A vector of URLs of PTT posts
-to extract information.}
-
 \item{board_col}{Logical. Whether to set board name as a new
 variable. Defaults to \code{FALSE}.}
+
+\item{path}{Character Vector. A vector of URLs or local paths
+to PTT posts.}
 }
 \value{
 A data frame with n rows and 12 variables:
@@ -68,5 +68,10 @@ head(post_df)
 
 # Access information in the list column: 'comment'
 head(post_df$comment[[1]])
+
+\dontrun{
+# Read from local files
+post_df <- post2df(list.files('local/gossiping', full.names = T))
+}
 
 }
