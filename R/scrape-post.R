@@ -9,8 +9,8 @@
 #' \code{\link{get_post}}, and add some meta data about the
 #' 'content' of the post.
 #'
-#' @param post_url Character Vector. A vector of URLs of PTT posts
-#'   to extract information.
+#' @param path Character Vector. A vector of URLs or local paths
+#'   to PTT posts.
 #' @param board_col Logical. Whether to set board name as a new
 #'   variable. Defaults to \code{FALSE}.
 #'
@@ -57,6 +57,11 @@
 #'
 #' # Access information in the list column: 'comment'
 #' head(post_df$comment[[1]])
+#'
+#' \dontrun{
+#' # Read from local files
+#' post_df <- post2df(list.files('local/gossiping', full.names = T))
+#' }
 #'
 #' @importFrom dplyr bind_rows
 #' @importFrom magrittr %>%
