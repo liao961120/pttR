@@ -16,8 +16,7 @@ You can install pttR from github with:
 
 ``` r
 # install.packages("devtools")
-# Not Yet. Please DON'T INSTALL
-# devtools::install_github("liao961120/pttR")
+devtools::install_github("liao961120/pttR", ref = "build")
 ```
 
 Example
