@@ -20,8 +20,8 @@
 #'   the newest and the second-newest page, and so
 #'   forth.
 #' @param pages Integer vector. A vector of index page number(s).
-#'   This parameter lets you scrape the index pages
-#'   you want, provided that the page exist. Becareful not to
+#'   This parameter lets you scrape index pages by providing
+#'   index page numbers. Becareful not to
 #'   provide numbers exceeding the range of current index pages.
 #'   Defaults to \code{NA}.
 #' @param search_term Character. A term to search in the index,
@@ -34,8 +34,8 @@
 #'   to the author's ID, e.g., "\emph{author:Plumage}".}
 #'   }
 #' @param search_page Integer vector. A vector of index page
-#'   number(s). With argument \code{search_term}) set,
-#'   \code{search_page} lets you to scrape index pages related
+#'   number(s). With argument \code{search_term} set,
+#'   \code{search_page} lets you scrape index pages related
 #'   to a specific term. Defaults to \code{1}, which scrapes only
 #'   the newest page.
 #'
