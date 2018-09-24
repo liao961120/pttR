@@ -10,4 +10,5 @@ ptt_dict <- raw %>%
 
 attr(ptt_dict, "date") <- Sys.Date()
 
+readr::write_csv(ptt_dict[, 1], "inst/pttdict/pttdict.csv")
 saveRDS(ptt_dict, "data-raw/ptt_dict.rds")
