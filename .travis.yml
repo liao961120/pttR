@@ -31,6 +31,8 @@ after_success:
 
 
 before_deploy:
+  - Rscript data-raw/internal-ptt-dict-construct.R
+  - Rscript data-raw/write-data2internal.R
   - bash deploy.sh
 
 
