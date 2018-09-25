@@ -28,11 +28,9 @@ r_github_packages:
 
 after_success:
   - Rscript -e 'covr::codecov()'
-
+  - bash update-data-raw.sh
 
 before_deploy:
-  - Rscript data-raw/internal-ptt-dict-construct.R
-  - Rscript data-raw/write-data2internal.R
   - bash deploy.sh
 
 
