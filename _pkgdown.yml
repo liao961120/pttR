@@ -12,7 +12,7 @@ articles:
   contents:
   - translation
 reference:          # Function Reference
-- title: Data Retrieval
+- title: Data Retrieval and Processing
   desc: "Functions for extracting information from PTT Web."
   contents:
   - '`as_url`'
@@ -20,6 +20,7 @@ reference:          # Function Reference
   - '`down_html`'
   - '`index2df`'
   - '`post2df`'
+  - '`seg_ptt`'
 - title: Corpus Construction
   desc: "Functions for converting data frames to corpus objects."
   contents:
