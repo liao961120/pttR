@@ -75,8 +75,9 @@ get_index_info <- function(board_url) {
     stringr::str_remove("^(\\n|\\t)+") %>%
     stringr::str_remove("(\\n|\\t)+$")
 
-  # Find deleted post (empty entry)
-  del_idx <- which(str_detect(title, "^\\(.*已被.*刪除\\)"))
+  # Find deleted post (empty entry) # pattern: "已被 刪除"
+  del_idx <- which(str_detect(title,
+                              "^\\(.*\u5df2\u88ab.*\u522a\u9664\\)"))
   # Remove deleted post from xml
   if (length(del_idx) > 0) {
     title <- title[-del_idx]
