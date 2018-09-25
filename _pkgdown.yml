@@ -12,7 +12,7 @@ articles:
   contents:
   - translation
 reference:          # Function Reference
-- title: Data Retrieval and Processing
+- title: Data Retrieval
   desc: "Functions for extracting information from PTT Web."
   contents:
   - '`as_url`'
@@ -20,7 +20,11 @@ reference:          # Function Reference
   - '`down_html`'
   - '`index2df`'
   - '`post2df`'
-  - '`seg_ptt`'
+- title: Word Segmentation
+  desc: "Functions for performing word segmenting on post content."
+  contents:
+  - '`seg_content`'
+  - '`seg_comment`'
 - title: Corpus Construction
   desc: "Functions for converting data frames to corpus objects."
   contents:
