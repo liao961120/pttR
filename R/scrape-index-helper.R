@@ -40,7 +40,7 @@ get_index_url <- function(board_url) {
     str_extract("[0-9]+") %>%
     as.integer() + 1
 
-  index_url <- paste0("https://www.ptt.cc/", board_name,
+  index_url <- paste0("https://www.ptt.cc/bbs/", board_name,
                       "/index", index_num, ".html")
 
   return(c(index_num, index_url))
@@ -62,20 +62,30 @@ get_index_url <- function(board_url) {
 #' @rdname scrape-index
 #'
 #' @import rvest
+#' @importFrom stringr str_detect
 #' @export
 #' @keywords internal
 #' @export
 get_index_info <- function(board_url) {
+  # All data
   raw2 <- read_html2(board_url) %>% html_nodes("div.r-ent")
-
-  pop <- raw2 %>% html_nodes("div.nrec") %>%
-    html_text()
-  pop[pop == ""] <- "0"
 
   title <- raw2 %>% html_nodes("div.title") %>%
     html_text() %>%
     stringr::str_remove("^(\\n|\\t)+") %>%
     stringr::str_remove("(\\n|\\t)+$")
+
+  # Find deleted post (empty entry)
+  del_idx <- which(str_detect(title, "^\\(.*已被.*刪除\\)"))
+  # Remove deleted post from xml
+  if (length(del_idx) > 0) {
+    title <- title[-del_idx]
+    raw2 <- raw2[-del_idx]
+  }
+
+  pop <- raw2 %>% html_nodes("div.nrec") %>%
+    html_text()
+  pop[pop == ""] <- "0"
 
   category <- vapply(title, extr_post_category, "str")
 
