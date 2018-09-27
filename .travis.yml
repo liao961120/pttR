@@ -32,6 +32,7 @@ after_success:
 
 before_deploy:
   - bash deploy.sh
+  - rm pttR*.tar.gz
 
 
 # deploy docs/ and master branch to branch 'gh-pages' & 'win-build'
