@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 - `post2df()`：將多篇 PTT 文章轉換成 data frame 。
 
 
-## 關鍵字搜尋看板{#search}
+## 關鍵字搜尋看板 {#search}
 
 `index2df()`是用來抓取 PTT 網頁版的看板文章資料，`index`即對應到`https://www.ptt.cc/bbs/<看板名稱>/index.html`這個頁面。
 
@@ -67,23 +67,24 @@ str(index_df, nchar.max = 20)
 ```
 
 
-## 網頁下載
+## 網頁下載 {#download-page}
 
 由於頁面的頁碼會不斷改變 (**關鍵字搜尋**最新頁面永遠是 第一頁[^newest])，文章也常常會被刪除，因此將文章頁面下載至電腦再擷取頁面資訊會是比較建議的方式。
 
 ```{r eval=FALSE}
 urls <- sample(index_df$link, 5)
-down_html(as_url(urls), dir = "~/Desktop/loser")
+if (!dir.exists("./loser")) dir.create("./loser")
+down_html(as_url(urls), dir = "./loser")
 ```
 
 `as_url()`是一個方便的函數，將部份 URL 轉換成完整的 URL。
 
 
-## 爬取文章資料
+## 爬取文章資料 {#crawl}
 
 在下載完網頁之後，需要將檔案讀進 R，因此需要取得這些檔案在電腦裡的位置：
 ```{r eval=FALSE}
-fpath <- list.files("~/Desktop/loser", full.names = TRUE)
+fpath <- list.files("./loser", full.names = TRUE)
 ```
 
 ```{r include=FALSE}
