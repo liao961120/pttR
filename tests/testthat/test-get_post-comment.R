@@ -3,7 +3,7 @@ context("get_post() list column test")
 ## Helper Function: eval string as object
 eval_str <- function(str) eval(parse(text = str))
 
-url <- "https://www.ptt.cc/bbs/Gossiping/M.1514735254.A.8ED.html"
+url <- "https://www.ptt.cc/bbs/Gossiping/M.1545099143.A.15D.html"
 df0 <- get_post(url)
 df1 <- get_post(url, board_col = T)
 
