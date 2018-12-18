@@ -22,8 +22,6 @@ matrix:
 #        - sudo hdiutil detach /Volumes/pandoc
 #      env: PANDOC='mac-cran'
 
-script:
-  - echo "skip"
 
 r_github_packages:
   - r-lib/covr
