@@ -5,9 +5,7 @@
 pttR <img src="man/figures/logo.png" align="right" />
 =====================================================
 
-**Under Development**
-
-The goal of pttR is to ...
+pttR handles most of the dirty works to retrieve data from [**PTT web**](https://www.ptt.cc/bbs/index.html). It convert posts from **PTT web** to dataframes in R. See the [package website](https://liao961120.github.io/pttR/) for details.
 
 Installation
 ------------
@@ -15,8 +13,8 @@ Installation
 You can install pttR from github with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("liao961120/pttR", ref = "build")
+# install.packages("remotes")
+remotes::install_github("liao961120/pttR", ref = "build")
 ```
 
 Example
