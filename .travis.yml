@@ -12,7 +12,6 @@ matrix:
         - sudo apt-get install texlive-fonts-extra
         - sudo apt install libmagick++-dev
         - bash update-data-raw.sh                    # Renew internal data
-        - echo '<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c20c4e45d543d1a"></script>' >> README.md
 #    - os: osx
 #      osx_image: xcode7.3
 #      pandoc: false
@@ -31,6 +30,7 @@ r_github_packages:
 after_success:
   - Rscript -e 'covr::codecov()'
   - bash update-data-raw.sh
+  - echo '<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c20c4e45d543d1a"></script>' >> README.md
 
 before_deploy:
   - bash deploy.sh
