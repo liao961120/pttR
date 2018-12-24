@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 # pttR <img src="man/figures/logo.png" align="right" />
 
-pttR handles most of the dirty works to retrieve data from [**PTT web**](https://www.ptt.cc/bbs/index.html). It convert posts from **PTT web** to dataframes in R. See the [package website](https://liao961120.github.io/pttR/) for details.
+pttR handles most of the dirty works to retrieve data from [**PTT web**](https://www.ptt.cc/bbs/index.html). It convert posts from **PTT web** to a dataframe in R. See the [package website](https://liao961120.github.io/pttR/) for details.
 
 
 ## Installation
