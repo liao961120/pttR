@@ -20,10 +20,4 @@ remotes::install_github("liao961120/pttR", ref = "build")
 Example
 -------
 
-This is a basic example which shows you how to solve a common problem:
-
-``` r
-## basic example code
-```
-
 See [vignettes](https://liao961120.github.io/pttR/articles/) for more detail.

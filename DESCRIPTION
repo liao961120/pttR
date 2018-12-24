@@ -34,7 +34,8 @@ Suggests:
     testthat,
     covr,
     devtools,
-    magick
+    magick,
+    readr
 VignetteBuilder: knitr
 RoxygenNote: 6.1.0
 Encoding: UTF-8
