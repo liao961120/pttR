@@ -18,13 +18,13 @@
 #' @importFrom xml2 read_html
 #' @export
 read_html2 <- function(url, ...) {
-  if (!grepl("^http", url)) return(read_html(url, ...))
+  if (!grepl("^http", url)) return(read_html(url, encoding = "utf-8"...))
   curl_1 <- getCurlHandle()
   curlSetOpt(cookie = "over18=1",
              followlocation = TRUE,
              curl = curl_1)
  url <- getURL(url, curl = curl_1)
- read_html(url, ...)
+ read_html(url, encoding = "utf-8", ...)
 }
 
 #' Dowload HTML files to local directory
