@@ -1,0 +1,13 @@
+.Rproj.user
+.Rhistory
+.RData
+devtools_fc.R
+docs
+inst/doc
+data-raw/*.html
+local/
+/inst/**/*.sh
+/inst/**/*.txt
+/R/R_pars_dir
+/R/old_script
+/man/notes

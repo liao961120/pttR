@@ -1,0 +1,41 @@
+Package: pttR
+Title: Retrieve and Process Textual Data from PTT
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Yongfu", "Liao", email = "liao961120@gmail.com", role = c("aut", "cre")),
+    person("LOPE @ NTU", role = "cph"))
+Description: Provide functions to scrape and extract data from PTT Web,
+    perform Chinese word segmentation based on a PTT-specific dictionary, 
+    and construct corpus objects compatible with tm and quanteda.
+URL: https://liao961120.github.io/pttR/, https://github.com/liao961120/pttR
+BugReports: https://github.com/liao961120/pttR/issues
+Depends: R (>= 3.4.0)
+License: GPL-3
+LazyData: true
+Imports: dplyr,
+    magrittr,
+    jiebaR,
+    jiebaRD,
+    rvest,
+    stringr,
+    stringi,
+    tibble,
+    tidyr,
+    xml2,
+    RCurl,
+    lubridate,
+    tm,
+    quanteda,
+    Hmisc,
+    R.utils
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat,
+    covr,
+    devtools,
+    magick,
+    readr
+VignetteBuilder: knitr
+RoxygenNote: 6.1.0
+Encoding: UTF-8

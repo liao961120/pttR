@@ -1,0 +1,57 @@
+---
+title: "Internal Structure of Functions in pttR"
+author: "Yongfu Liao"
+date: "`r format(Sys.Date(), '%B %e, %Y')`"
+output: rmarkdown::html_vignette
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE,
+	collapse = TRUE,
+	comment = "#>"
+)
+library(DependenciesGraphs)
+devtools::load_all("..")
+library(pttR)
+```
+
+```{r list-pkg-fun}
+lsp <- function(package, all.names = FALSE, pattern) 
+{
+  package <- deparse(substitute(package))
+  ls(
+      pos = paste("package", package, sep = ":"), 
+      all.names = all.names, 
+      pattern = pattern
+  )
+}
+
+pkg_list <- lsp(pttR)
+
+post_fc <- stringr::str_detect(pkg_list, "post")
+idx_fc <- stringr::str_detect(pkg_list, "index|idx")
+
+post_fc <- pkg_list[post_fc]
+idx_fc <- pkg_list[idx_fc]
+```
+
+
+
+
+## index2df()
+```{r}
+dep <- funDependencies("package:pttR",
+                       name.function = idx_fc)
+plot(dep)
+```
+
+
+## get_post()
+```{r}
+dep <- funDependencies("package:pttR",
+                       name.function = post_fc)
+plot(dep)
+```

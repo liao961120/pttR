@@ -1,0 +1,31 @@
+---
+title: "Translation of Pingyin to Traditional Chinese in Manual"
+author: "Yongfu Liao"
+date: "`r format(Sys.Date(), '%B %e, %Y')`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+`R CMD Rd2pdf` produces error when documentation contains CJK characters. Hence, all Chinese characters in pttR manual are translated to [Pingyin](https://en.wikipedia.org/wiki/Pinyin) (漢語拼音). 
+Function references on the pttR website are translated back in Chinese, however.
+
+
+The original characters and their corresponding Pingyin translations are listed below:
+
+```{r echo=FALSE}
+trans <- pttR:::pingying2zh
+
+knitr::kable(trans, align = "c",
+             col.names = c("繁體<br>(non-ASCII)",
+                           "漢語拼音"))
+```
